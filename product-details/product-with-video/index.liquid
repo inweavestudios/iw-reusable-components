@@ -1,0 +1,116 @@
+{% comment %} live link : https://goodintentsco.com/products/rainbow-connection-omega-tent {% endcomment %}
+
+<section id="video-section">
+  <video
+    src="{{ section.settings.video }}"
+    poster="{{ section.settings.poster_url }}"
+    webkit-playsinline
+    playsinline
+    muted
+    preload="auto"
+  ></video>
+
+  <button class="pause-play-btn">
+    <img src="{{ section.settings.play_button }}">
+  </button>
+</section>
+
+<style>
+  #video-section {
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #video-section video {
+    width: 1100px;
+    border-radius: 10px;
+    margin: 4rem;
+  }
+  #video-section .pause-play-btn {
+    position: absolute;
+    width: 50px;
+  }
+
+  @media (max-width: 1260px) {
+    #video-section video {
+      width: 80%;
+    }
+  }
+  @media (max-width: 768px) {
+    #video-section video {
+      width: 75%;
+      margin-top: 0;
+    }
+    #video-section .pause-play-btn {
+      position: absolute;
+      transform: translateY(-30%);
+    }
+  }
+  @media (max-width: 520px) {
+    #video-section video {
+      width: 85%;
+    }
+  }
+  @media (max-width: 420px) {
+    #video-section video {
+      width: 353px;
+    }
+  }
+  @media (max-width: 380px) {
+    #video-section video {
+      width: 92%;
+    }
+  }
+</style>
+
+<script>
+  const video = document.querySelector('#video-section video');
+  const pausePlayBtn = document.querySelector('#video-section .pause-play-btn');
+
+  pausePlayBtn.addEventListener('click', () => {
+    console.log('clicked');
+    if (video.paused) {
+      console.log('play');
+      video.muted = false;
+      video.play();
+      pausePlayBtn.firstElementChild.src =
+        'https://cdn.shopify.com/s/files/1/0673/6681/3924/files/material-play.png?v=1740395442';
+    } else {
+      console.log('paused');
+
+      video.pause();
+      // video.muted = false;
+      pausePlayBtn.firstElementChild.src =
+        'https://cdn.shopify.com/s/files/1/0673/6681/3924/files/material-symbols_play-circle.png?v=1740395083';
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Video",
+  "settings": [
+    {
+      "type": "text",
+      "id": "video",
+      "label": "Video URL"
+    },
+    {
+      "type": "text",
+      "id": "poster_url",
+      "label": "Poster URL"
+    },
+    {
+      "type": "text",
+      "id": "play_button",
+      "label": "Pay Button Url"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video"
+    }
+  ]
+}
+{% endschema %}
