@@ -1,0 +1,228 @@
+{% comment %}
+  live link: https://norseorganics.co/products/kill-acne-redness-ritual?variant=47373610877270
+{% endcomment %}
+
+<section class="ingredients-section">
+  <h2>{{ section.settings.heading }}</h2>
+  <p>{{ section.settings.description }}</p>
+  <img
+    style="display:none;"
+    src="https://2it5kc683amh3cxv-48577872027.shopifypreview.com/cdn/shop/files/ready_2_1b5dd729-768c-4fdf-800d-7de9806c5fcd.webp?v=1737032410&width=1200"
+    class="acne-mobile-img"
+  >
+  <img
+    style="display:none;"
+    src="//x66loqi0vd5pqfnr-48577872027.shopifypreview.com/cdn/shop/files/DSC06411_1.png"
+    class="ing-mobile"
+  >
+  <div class="ingredients-icons">
+    {% for block in section.blocks %}
+      <div class="icon-box">
+        {% if block.settings.icon %}
+          <img src="{{ block.settings.icon | img_url: '40x' }}" alt="Icon">
+        {% endif %}
+        <p>{{ block.settings.text }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+  .ingredients-section {
+    text-align: center;
+    background-image: url(https://cdn.shopify.com/s/files/1/0485/7787/2027/files/2D.png?v=1744891932);
+    background-size: cover;
+    padding: 8px 20px 50px;
+  }
+  .ingredients-section h2 {
+    font-size: 50px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 20px;
+    font-family: 'Migra';
+  }
+  .ingredients-section p {
+    font-family: 'PP Mori';
+    line-height: 150%;
+    font-size: 30px;
+    max-width: 1090px;
+    margin: 0 auto 30px;
+  }
+  .ingredients-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  .ingredients-icons p {
+    font-size: 14px;
+    font-family: 'Apercu Mono Pro';
+  }
+  .icon-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 150px;
+    text-align: center;
+  }
+  .icon-box img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+  }
+
+  div#shopify-section-template--25062866059606__ingredient_section_x89M6F img.ing-mobile {
+    display: none !important;
+  }
+
+  @media (min-width: 1024px) {
+    .ingredients-icons {
+      display: flex;
+      justify-content: center;
+      max-width: 1100px;
+      margin: 0px auto;
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .ingredients-icons {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px 0px;
+      width: 100%;
+      max-width: 100%;
+    }
+    .ingredients-section h2 {
+      font-size: 40px;
+    }
+    .ingredients-section p {
+      font-size: 24px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ingredients-section {
+      background-image: url(https://cdn.shopify.com/s/files/1/0485/7787/2027/files/2P.png?v=1744893592);
+      background-size: cover;
+      padding: 0px 20px 0px;
+    }
+    .ingredients-section h2 {
+      font-size: 32px;
+      text-align: left;
+    }
+    .ingredients-section p {
+      font-size: 20px;
+    }
+    .ingredients-icons p {
+      font-size: 12px;
+    }
+    img.ing-mobile {
+      display: block !important;
+      margin-bottom: 30px;
+      max-width: 100%;
+    }
+    .icon-box {
+      max-width: 110px;
+    }
+    div#shopify-section-template--25062866059606__ingredient_section_x89M6F img.acne-mobile-img {
+      display: block !important;
+      margin-bottom: 30px;
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ingredients-section h2 {
+      font-size: 28px;
+    }
+    .ingredients-section p {
+      font-size: 18px;
+      text-align: left;
+    }
+    .ingredients-icons p {
+      font-size: 10px;
+      text-align: center;
+    }
+    .icon-box {
+      width: 90px;
+    }
+    .icon-box img {
+      width: 27px;
+      height: 27px;
+    }
+  }
+
+  @media (max-width: 398px) {
+    .icon-box {
+      width: 80px;
+    }
+    .ingredients-icons p {
+      font-size: 9px;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 362px) {
+    .icon-box {
+      width: 75px;
+    }
+    .ingredients-icons p {
+      font-size: 8px;
+      text-align: center;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Ingredients Section IW",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Ingredients come first"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Every single ingredient in the jar is added with one purpose: To stop joint pain as fast as possible and leave the inflammation low long-term. All ingredients are added in the most bioavailable and nutrient-rich form: Unlike all other brands that add the cheapest version in too low doses."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon_text",
+      "name": "Icon with Text",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ingredients Section IW",
+      "category": "Custom Sections",
+      "blocks": [
+        { "type": "icon_text", "settings": { "text": "ONLY COLD-PRESSED OILS" } },
+        { "type": "icon_text", "settings": { "text": "NO WATER, FILLERS OR BS" } },
+        { "type": "icon_text", "settings": { "text": "NO HEATING OF OILS" } },
+        { "type": "icon_text", "settings": { "text": "NO HORMONE DISRUPTORS" } },
+        { "type": "icon_text", "settings": { "text": "NO PARABENS/ PARAFFINE" } },
+        { "type": "icon_text", "settings": { "text": "100% NATURAL/ NO CHEMICALS" } },
+        { "type": "icon_text", "settings": { "text": "NON GMO" } },
+        { "type": "icon_text", "settings": { "text": "NO PESTICIDES/ HERBICIDES" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
