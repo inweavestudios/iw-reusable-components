@@ -1,0 +1,134 @@
+{% comment %} live link : https://goodintentsco.com/products/rainbow-connection-omega-tent {% endcomment %}
+
+<section class="marquee-container">
+  <div class="marquee-content">
+    
+    {% for i in (1..2) %} 
+      <div class="marquee-track">
+        {% for block in section.blocks %}
+          {% if block.type == 'image_title' %}
+            <div class="marquee-item">
+              {% if block.settings.image %}
+                <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title }}">
+              {% endif %}
+              <span>{{ block.settings.title }}</span>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endfor %}
+
+  </div>
+</section>
+
+
+<style>
+  .marquee-container {
+    overflow: hidden;
+    background: #020030;
+    padding: 20px 0;
+    white-space: nowrap;
+  }
+.marquee-track .marquee-item:nth-child(3) img {
+    max-width: 55px;
+}
+  .marquee-track .marquee-item:nth-child(2) img {
+    max-width: 50px;
+}
+  .marquee-track .marquee-item:nth-child(1) img {
+    max-width: 48px;
+}
+  .marquee-content {
+    display: flex;
+    width: max-content;
+    animation: scroll 20s linear infinite;
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 50px;
+  }
+
+  .marquee-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 30px;
+    font-size: 1.2rem;
+    color: #fff;
+  }
+  .marquee-item span{
+    font-size: 18px;
+  }
+
+  .marquee-item img {
+    width: 64px;
+  }
+
+  @media (max-width:768px){
+    .marquee-item {
+      padding: 5px 30px;
+    }
+    .marquee-container {
+      padding: 6px 0;
+    }
+    .marquee-item span {
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+    .marquee-item img {
+      width: 48px;
+    }
+  }
+
+  @media (max-width:520px){
+    .marquee-item img {
+        width: 36px;
+    }
+  }
+  @keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+</style>
+
+
+{% schema %}
+  {
+    "name": "Marquee",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "image_title",
+        "name": "Image title",
+        "settings": [
+          {
+            "type": "text",
+            "id": "image_url",
+            "label": "Image Url"
+          },{
+            "type": "text",
+              "id": "title",
+            "label": "Image Title"
+          }
+        ]
+      }
+     
+    ],
+    "presets": [{
+      "name": "Marquee",
+       "blocks": [
+        {
+          "type": "image_title"
+        },
+        {
+          "type": "image_title"
+        }
+      ]
+    }]
+  }
+{% endschema %}
