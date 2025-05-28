@@ -1,0 +1,127 @@
+
+<section id="specs">
+  <h3 class="title">{{ section.settings.title }}</h3>
+  <img src="{{ section.settings.img1 }}" class="specs-image-desktop" />
+  <img src="{{ section.settings.img2 }}" class="specs-image-mobile" />
+  <a href="#product-page-main"><button class="btn link-pointer btn-height">{{ section.settings.button_text }}</button></a>
+</section>
+
+
+<style>
+  #specs{
+    background: white;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 50px;
+  }
+  #specs .title{
+    color: black;
+    font-size: 40px;
+    margin-top:0;
+    margin: 0 0 4rem 0;
+  }
+  .specs-image-desktop {
+    width: 95%;
+    margin-bottom: 5rem;
+  }
+  .specs-image-mobile{
+    display:none;
+  }
+  #specs .btn{
+    background: #020030;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 1px;
+    width: 392px;
+  }
+
+  @media (max-width:1132px){
+    #specs .title{
+      font-size: 28px;
+    }
+    #specs .btn {
+      width: 335px;
+    }
+  }
+  @media (max-width:890px){
+    #specs .title{
+      font-size: 24px;
+    }
+    #specs .btn {
+      font-size: 16px;
+      width: 289px;
+    }
+  }
+  @media (max-width:768px){
+    #specs .title{
+      font-size: 26px;
+      margin: 0 0 0rem 0;
+    }
+    #specs .btn {
+      width: 353px;
+    }
+    .specs-image-desktop {
+      display:none;
+      margin-bottom: 0;
+    }
+    .specs-image-mobile{
+      display:block;
+      padding: 5rem;
+    }
+    #specs {
+      padding: 4rem 25px;
+    }
+  }
+  @media (max-width:598px){
+    #specs .title{
+      font-size: 26px;
+    }
+    .specs-image-mobile{
+      display:block;
+      padding: 5rem 0rem 3rem 0;
+    }
+  }
+  @media (max-width:410px){
+    #specs .title{
+      font-size: 25px;
+    }
+  }
+  @media (max-width:384px){
+   #specs .btn {
+      width: 290px;
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Specs",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "img1",
+        "label": "Image One"
+      },
+       {
+        "type": "text",
+        "id": "img2",
+        "label": "Image Two"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button Text"
+      }
+    ],
+    "presets": [{
+      "name": "Specs"
+    }]
+  }
+{% endschema %}
