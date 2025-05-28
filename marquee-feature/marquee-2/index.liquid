@@ -1,0 +1,111 @@
+<div class="smooth-ticker-container">
+  <div class="smooth-ticker-content">
+    <span>{{ section.settings.ticker_text }}</span>
+    <span>{{ section.settings.ticker_text }}</span>
+     <span>{{ section.settings.ticker_text }}</span>
+     <span>{{ section.settings.ticker_text }}</span>
+  </div>
+</div>
+
+<style>
+  .smooth-ticker-container {
+   background: linear-gradient(90deg, rgba(244, 179, 1, 0.7) 0%, rgba(225, 98, 3, 0.7) 38%, rgba(244, 179, 1, 0.7) 80%, rgba(225, 98, 3, 0.7) 98%);
+    overflow: hidden;
+    height: 83px;
+    display: flex;
+    align-items: center;
+  }
+
+  .smooth-ticker-content {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker-scroll {{ section.settings.speed }}s linear infinite;
+  }
+
+  .smooth-ticker-content span {
+    font-size: {{ section.settings.font_size }}px;
+    color: {{ section.settings.text_color }};
+     font-family: Apercu Mono;
+    line-height: 28px;
+    letter-spacing: 2px !important;
+    text-align: center;
+    vertical-align: middle;
+    text-transform: uppercase;
+    margin-right: 100px;
+  }
+
+  @media (max-width: 768px){
+    .smooth-ticker-content span {
+    font-size: {{ section.settings.font_size_mobile }}px;
+    }
+    .smooth-ticker-container {
+       height: 61px;
+    }
+  }
+
+
+
+  @keyframes ticker-scroll {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Smooth Ticker IW",
+  "settings": [
+    {
+      "type": "text",
+      "id": "ticker_text",
+      "label": "Ticker Text",
+      "default": "OUR RETURN POLICY IS SIMPLE, JOINT PAIN WILL NEVER RETURN"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 5,
+      "max": 60,
+      "step": 1,
+      "label": "Scroll Speed (seconds)",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 24
+    },
+        {
+      "type": "range",
+      "id": "font_size_mobile",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size Mobile",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smooth Ticker IW",
+      "category": "Text"
+    }
+  ]
+}
+{% endschema %}
