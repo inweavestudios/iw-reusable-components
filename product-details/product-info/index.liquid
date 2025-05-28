@@ -1,0 +1,155 @@
+
+{% comment %} 
+ live link: https://norseorganics.co/products/6-in-1-daily-glow-moisturize
+ {% endcomment %}
+  
+<section class="pain-points">
+  <div class="pain-point-container">
+    <h2 class="section-title">{{ section.settings.title }}</h2>
+    <div class="pain-points-grid">
+      {% for block in section.blocks %}
+        <div class="pain-point">
+          {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | img_url: 'medium' }}" alt="{{ block.settings.text }}">
+          {% endif %}
+          <p class="pain-text">{{ block.settings.text }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pain-point-container h2 {
+    font-size:52px;
+    font-family: 'Migra';
+    
+}
+  .pain-points {
+    background: linear-gradient(180.32deg, rgba(255, 255, 255, 0.8) 33.59%, rgba(239, 171, 120, 0.22) 68.9%, rgba(225, 98, 3, 0.2) 99.72%);
+    padding: 71px 40px 80px ;
+    text-align: center;
+  }
+
+  .pain-point-container {
+    max-width: 1308px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    color: black;
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+
+  .pain-points-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .pain-point {
+    text-align: center;
+  }
+
+  .pain-point img {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .pain-text {
+    color: #666666;
+    font-size: 23px;
+    margin-top: 10px;
+  }
+   @media (min-width: 1024px) {
+     .pain-points-grid {
+       row-gap:50px;
+     }
+   }
+
+  @media (max-width: 1024px) {
+    
+    .pain-text {
+    font-size: 20px;
+  }
+    .pain-point-container h2 {
+    font-size:40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .pain-points-grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+    .pain-text {
+    font-size: 16px;
+  }
+    .pain-point-container h2 {
+    font-size:30px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .pain-point img{
+      max-width:50px;
+    }
+    .pain-points {
+    padding: 22px 16px;
+}
+    .pain-points-grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+    .pain-text {
+    font-size: 7px;
+  }
+    .pain-point-container h2 {
+    font-size:22px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Product Info IW",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Common Pain Areas"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pain_point",
+      "name": "Pain Point",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Pain Point Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Pain Point Text",
+          "default": "Example Pain Point"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Info IW",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
