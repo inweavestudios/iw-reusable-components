@@ -1,0 +1,1901 @@
+<section class="sticky-main">
+  {% assign product = all_products['original-stickygrippy'] %}
+  <div class="sticky-container" data-product="{{ product.title }}">
+    <div class="left-sec">
+      <div class="main-image-wrapper">
+        <button class="nav-btn prev-btn" id="main-prev" aria-label="Previous">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12.001 3.99756L13.411 5.40756L7.83096 10.9976H20.001V12.9976H7.83096L13.411 18.5876L12.001 19.9976L4.00096 11.9976L12.001 3.99756Z"
+              fill="white" />
+          </svg>
+        </button>
+        <button class="nav-btn next-btn" id="main-next" aria-label="Next">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.999 3.99756L10.589 5.40756L16.169 10.9976H3.99902V12.9976H16.169L10.589 18.5876L11.999 19.9976L19.999 11.9976L11.999 3.99756Z"
+              fill="white" />
+          </svg>
+        </button>
+
+        {% if product.images.size > 0 %}
+          <div class="main-image">
+            <div class="slide-container" id="slide-container">
+              <img
+                id="main-product-image"
+                src="{{ product.images.first | image_url: width: 400 }}"
+                alt="{{ product.title }}"
+              >
+            </div>
+            <!-- to show the color variants -->
+            <img id="temp-overlay-image" class="temp-overlay-image" src="" alt="Temporary Overlay">
+          </div>
+        {% endif %}
+      </div>
+      <div class="thumbnail-scroll-wrapper">
+        <div class="product-images">
+          {% if product.images.size > 1 %}
+            {% for image in product.images %}
+              <img
+                class="sub-image"
+                src="{{ image | image_url: width: 100 }}"
+                alt="{{ product.title }}"
+                data-index="{{ forloop.index }}"
+              >
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="right-sec">
+      <div class="sg-tagline">
+        {% render 'icon-star' %}
+        {{ section.settings.tagline }}
+      </div>
+      {% if product.title %}
+        <h2 class="sg-title">{{ product.title }}</h2>
+      {% endif %}
+      {% if product.description %}
+        <p class="sg-description">{{ product.description }}</p>
+      {% endif %}
+
+      <div class="feature-icons">
+        <div class="feature-icons__grid">
+          {% assign icon_titles = 'Hands-Free Content Creation||Premium Adhesive Strength||Universal
+          Compatibility||Vibrant Colors||Convenient and Easy to Use||Strong,Grippy Suction Cups'
+            | split: '||'
+          %}
+          {% assign icon_imgs = 'https://cdn.shopify.com/s/files/1/0730/7257/4776/files/Frame_1.svg?v=1746784071,https://cdn.shopify.com/s/files/1/0730/7257/4776/files/Frame_2.svg?v=1746784071,https://cdn.shopify.com/s/files/1/0730/7257/4776/files/Frame_3.svg?v=1746784071,https://cdn.shopify.com/s/files/1/0730/7257/4776/files/Frame_4.svg?v=1746784071,https://cdn.shopify.com/s/files/1/0730/7257/4776/files/Frame_5.svg?v=1746784071,https://cdn.shopify.com/s/files/1/0730/7257/4776/files/Frame_48099303.svg?v=1746784070'
+            | split: ','
+          %}
+
+          {% assign max_index = icon_titles.size | minus: 1 %}
+
+          {% for i in (0..max_index) %}
+            <div class="feature-icons__item">
+              {% assign icon_img = icon_imgs[i] | strip %}
+              {% assign icon_title = icon_titles[i] | strip %}
+
+              {% if icon_img %}
+                <img class="feature-icons__icon" src="{{ icon_img }}" alt="">
+              {% else %}
+                <div class="feature-icons__icon feature-icons__icon--placeholder"></div>
+              {% endif %}
+
+              <p class="feature-icons__text">{{ icon_title }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!--
+        <div class="prodt-info-custom-v1">
+        </div>
+      -->
+
+      <div class="select-sec">
+        <div class="box box1 bundle-selector" data-count="1" data-bundle-key="1_pack">
+          <h6>Buy 1 StickyGrippy</h6>
+          <p class="price-v1" id="price-1-pack">{{ product.metafields.custom.bundle_prices.value.1_pack }}</p>
+          <img
+            src="https://cdn.shopify.com/s/files/1/0730/7257/4776/files/image_311.png?v=1746613106"
+            alt="Buy 1"
+            class="box-img-bundle"
+          >
+          <div class="shipping-tag">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0.416687 11.1043L0.833354 9.43766H5.41669L5.00002 11.1043H0.416687ZM5.83335 16.6668C5.13891 16.6668 4.54863 16.4238 4.06252 15.9377C3.57641 15.4516 3.33335 14.8613 3.33335 14.1668H1.25002L1.66669 12.3543H5.97919L6.72919 9.31266H8.47919L9.52085 5.146H3.75002L3.87502 4.646C3.95835 4.25711 4.14946 3.94127 4.44835 3.6985C4.74724 3.45572 5.0978 3.33405 5.50002 3.3335H15L14.2292 6.66683H16.6667L19.1667 10.0002L18.3334 14.1668H16.6667C16.6667 14.8613 16.4236 15.4516 15.9375 15.9377C15.4514 16.4238 14.8611 16.6668 14.1667 16.6668C13.4722 16.6668 12.882 16.4238 12.3959 15.9377C11.9097 15.4516 11.6667 14.8613 11.6667 14.1668H8.33335C8.33335 14.8613 8.0903 15.4516 7.60419 15.9377C7.11808 16.4238 6.5278 16.6668 5.83335 16.6668ZM2.08335 8.06266L2.50002 6.396H7.91669L7.50002 8.06266H2.08335ZM5.83335 15.0002C6.06946 15.0002 6.26752 14.9202 6.42752 14.7602C6.58752 14.6002 6.66724 14.4024 6.66669 14.1668C6.66613 13.9313 6.58613 13.7335 6.42669 13.5735C6.26724 13.4135 6.06946 13.3335 5.83335 13.3335C5.59724 13.3335 5.39946 13.4135 5.24002 13.5735C5.08058 13.7335 5.00058 13.9313 5.00002 14.1668C4.99946 14.4024 5.07946 14.6004 5.24002 14.761C5.40058 14.9216 5.59835 15.0013 5.83335 15.0002ZM14.1667 15.0002C14.4028 15.0002 14.6009 14.9202 14.7609 14.7602C14.9209 14.6002 15.0006 14.4024 15 14.1668C14.9995 13.9313 14.9195 13.7335 14.76 13.5735C14.6006 13.4135 14.4028 13.3335 14.1667 13.3335C13.9306 13.3335 13.7328 13.4135 13.5734 13.5735C13.4139 13.7335 13.3339 13.9313 13.3334 14.1668C13.3328 14.4024 13.4128 14.6004 13.5734 14.761C13.7339 14.9216 13.9317 15.0013 14.1667 15.0002ZM13.2709 10.8335H17.2917L17.375 10.396L15.8334 8.3335H13.8542L13.2709 10.8335Z"
+                fill="white" />
+            </svg>
+            Shipping
+          </div>
+        </div>
+        <div class="box box2 active bundle-selector" data-count="3" data-bundle-key="3_pack">
+          <h6>Buy 3 StickyGrippy</h6>
+          <div class="tag-label popular">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.0001 13.9587C9.66681 13.9587 9.33348 13.9337 9.01681 13.8753C7.25014 13.617 5.64181 12.6003 4.62514 11.092C3.91681 10.0253 3.54181 8.78366 3.54181 7.50033C3.54181 3.94199 6.44181 1.04199 10.0001 1.04199C13.5585 1.04199 16.4585 3.94199 16.4585 7.50033C16.4585 8.78366 16.0835 10.0253 15.3751 11.092C14.3501 12.6087 12.7418 13.617 10.9585 13.8837C10.6668 13.9337 10.3335 13.9587 10.0001 13.9587ZM10.0001 2.29199C7.12514 2.29199 4.79181 4.62533 4.79181 7.50033C4.79181 8.542 5.09181 9.542 5.65848 10.392C6.48348 11.6087 7.77514 12.4253 9.20848 12.6337C9.74181 12.7253 10.2668 12.7253 10.7585 12.6337C12.2168 12.4253 13.5085 11.6003 14.3335 10.3837C14.9001 9.53366 15.2001 8.53365 15.2001 7.49199C15.2085 4.62532 12.8751 2.29199 10.0001 2.29199Z"
+                fill="white" />
+              <path
+                d="M5.3916 18.8246C5.27493 18.8246 5.1666 18.808 5.04993 18.783C4.50826 18.658 4.0916 18.2413 3.9666 17.6996L3.67493 16.4746C3.65826 16.3996 3.59993 16.3413 3.5166 16.3163L2.1416 15.9913C1.62493 15.8663 1.2166 15.483 1.07493 14.9746C0.933263 14.4663 1.07493 13.9163 1.44993 13.5413L4.69993 10.2913C4.83326 10.158 5.0166 10.0913 5.19993 10.108C5.38326 10.1247 5.54993 10.2246 5.65826 10.383C6.48326 11.5996 7.77493 12.4247 9.2166 12.633C9.74993 12.7247 10.2749 12.7247 10.7666 12.633C12.2249 12.4247 13.5166 11.5996 14.3416 10.383C14.4416 10.2246 14.6166 10.1247 14.7999 10.108C14.9833 10.0913 15.1666 10.158 15.2999 10.2913L18.5499 13.5413C18.9249 13.9163 19.0666 14.4663 18.9249 14.9746C18.7833 15.483 18.3666 15.8747 17.8583 15.9913L16.4833 16.3163C16.4083 16.333 16.3499 16.3913 16.3249 16.4746L16.0333 17.6996C15.9083 18.2413 15.4916 18.658 14.9499 18.783C14.4083 18.9163 13.8499 18.7246 13.4999 18.2996L9.99993 14.2747L6.49993 18.308C6.2166 18.6413 5.8166 18.8246 5.3916 18.8246ZM5.07493 11.6913L2.33326 14.433C2.25826 14.508 2.2666 14.5913 2.28326 14.6413C2.2916 14.683 2.33326 14.7663 2.43326 14.783L3.80826 15.108C4.34993 15.233 4.7666 15.6496 4.8916 16.1913L5.18326 17.4163C5.20826 17.5246 5.2916 17.558 5.3416 17.5746C5.3916 17.583 5.47493 17.5913 5.54993 17.508L8.74159 13.833C7.32493 13.558 6.02493 12.7996 5.07493 11.6913ZM11.2583 13.8246L14.4499 17.4913C14.5249 17.583 14.6166 17.583 14.6666 17.5663C14.7166 17.558 14.7916 17.5163 14.8249 17.408L15.1166 16.183C15.2416 15.6413 15.6583 15.2246 16.1999 15.0996L17.5749 14.7747C17.6749 14.7497 17.7166 14.6746 17.7249 14.633C17.7416 14.5913 17.7499 14.4996 17.6749 14.4246L14.9333 11.683C13.9749 12.7913 12.6833 13.5496 11.2583 13.8246Z"
+                fill="white" />
+              <path
+                d="M11.5751 10.7414C11.3584 10.7414 11.1001 10.6831 10.7918 10.4997L10.0001 10.0247L9.20843 10.4914C8.48343 10.9247 8.00843 10.6747 7.83343 10.5497C7.65843 10.4247 7.28343 10.0497 7.4751 9.22472L7.6751 8.36639L7.00843 7.7497C6.64176 7.38304 6.50843 6.94139 6.63343 6.54139C6.75843 6.14139 7.1251 5.85804 7.64176 5.77471L8.53343 5.62472L8.95843 4.69139C9.2001 4.21639 9.5751 3.94971 10.0001 3.94971C10.4251 3.94971 10.8084 4.22473 11.0418 4.69973L11.5334 5.68305L12.3584 5.78305C12.8668 5.86638 13.2334 6.1497 13.3668 6.5497C13.4918 6.9497 13.3584 7.39138 12.9918 7.75805L12.3001 8.44973L12.5168 9.22472C12.7084 10.0497 12.3334 10.4247 12.1584 10.5497C12.0668 10.6247 11.8668 10.7414 11.5751 10.7414ZM8.00843 6.99139L8.58343 7.56637C8.8501 7.83304 8.98343 8.28305 8.9001 8.64972L8.74176 9.31638L9.40843 8.92471C9.76676 8.71637 10.2501 8.71637 10.6001 8.92471L11.2668 9.31638L11.1168 8.64972C11.0334 8.27472 11.1584 7.83304 11.4251 7.56637L12.0001 6.99139L11.2751 6.86637C10.9251 6.80804 10.5751 6.54972 10.4168 6.23306L10.0001 5.41638L9.58343 6.24972C9.43343 6.55805 9.08343 6.82472 8.73343 6.88306L8.00843 6.99139Z"
+                fill="white" />
+            </svg>
+            Most Popular
+          </div>
+          {% assign per_3_var_value = product.metafields.custom.bundle_prices.value.3_pack | divided_by: 3 | round: 2 %}
+          {% assign per_3_pack_value = product.metafields.custom.bundle_prices.value.1_pack | times: 3 | round: 2 %}
+          {% assign per_3_save_value = per_3_pack_value
+            | minus: product.metafields.custom.bundle_prices.value.3_pack
+            | round: 2
+          %}
+          <p class="price-v1" id="price-3-pack" data-per="{{ per_3_var_value }}" data-save="{{ per_3_save_value }}">
+            {{ product.metafields.custom.bundle_prices.value.3_pack }}
+          </p>
+          <img
+            src="https://cdn.shopify.com/s/files/1/0730/7257/4776/files/Frame_48098102.png?v=1746613114"
+            alt="Buy 3"
+            class="box-img-bundle"
+          >
+          <div class="shipping-tag free">{% render 'freeshipping' %} FREE Shipping</div>
+        </div>
+        <div class="box box3 bundle-selector" data-count="5" data-bundle-key="5_pack">
+          <div class="tag-label bestseller">
+            <svg
+              width="21"
+              height="20"
+              viewBox="0 0 21 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.49163 12.6416C9.32497 12.6416 9.16663 12.5749 9.04997 12.4582L7.0333 10.4416C6.79163 10.1999 6.79163 9.7999 7.0333 9.55824C7.27497 9.31657 7.67497 9.31657 7.91663 9.55824L9.49163 11.1332L13.075 7.5499C13.3166 7.30824 13.7166 7.30824 13.9583 7.5499C14.2 7.79157 14.2 8.19157 13.9583 8.43324L9.9333 12.4582C9.81663 12.5749 9.6583 12.6416 9.49163 12.6416Z"
+                fill="white" />
+              <path
+                d="M10.4999 18.9582C9.97494 18.9582 9.44994 18.7832 9.04161 18.4332L7.72494 17.2998C7.59161 17.1832 7.25828 17.0665 7.08328 17.0665H5.64994C4.41661 17.0665 3.41661 16.0665 3.41661 14.8332V13.4082C3.41661 13.2332 3.29994 12.9082 3.18328 12.7748L2.05828 11.4498C1.37494 10.6415 1.37494 9.3665 2.05828 8.55817L3.18328 7.23317C3.29994 7.09984 3.41661 6.77484 3.41661 6.59984V5.1665C3.41661 3.93317 4.41661 2.93317 5.64994 2.93317H7.09161C7.26661 2.93317 7.59994 2.80817 7.73328 2.69984L9.04994 1.5665C9.86661 0.866504 11.1416 0.866504 11.9583 1.5665L13.2749 2.69984C13.4083 2.8165 13.7416 2.93317 13.9166 2.93317H15.3333C16.5666 2.93317 17.5666 3.93317 17.5666 5.1665V6.58317C17.5666 6.75817 17.6916 7.0915 17.8083 7.22484L18.9416 8.5415C19.6416 9.35817 19.6416 10.6332 18.9416 11.4498L17.8083 12.7665C17.6916 12.8998 17.5666 13.2332 17.5666 13.4082V14.8248C17.5666 16.0582 16.5666 17.0582 15.3333 17.0582H13.9166C13.7416 17.0582 13.4083 17.1832 13.2749 17.2915L11.9583 18.4248C11.5499 18.7832 11.0249 18.9582 10.4999 18.9582ZM5.64994 4.18317C5.10828 4.18317 4.66661 4.62484 4.66661 5.1665V6.5915C4.66661 7.0665 4.44161 7.67484 4.13328 8.03317L3.00828 9.35817C2.71661 9.69984 2.71661 10.2915 3.00828 10.6332L4.13328 11.9582C4.44161 12.3248 4.66661 12.9248 4.66661 13.3998V14.8248C4.66661 15.3665 5.10828 15.8082 5.64994 15.8082H7.09161C7.57494 15.8082 8.18328 16.0332 8.54994 16.3498L9.86661 17.4832C10.2083 17.7748 10.8083 17.7748 11.1499 17.4832L12.4666 16.3498C12.8333 16.0415 13.4416 15.8082 13.9249 15.8082H15.3416C15.8833 15.8082 16.3249 15.3665 16.3249 14.8248V13.4082C16.3249 12.9248 16.5499 12.3165 16.8666 11.9498L17.9999 10.6332C18.2916 10.2915 18.2916 9.6915 17.9999 9.34984L16.8666 8.03317C16.5499 7.6665 16.3249 7.05817 16.3249 6.57484V5.1665C16.3249 4.62484 15.8833 4.18317 15.3416 4.18317H13.9249C13.4416 4.18317 12.8333 3.95817 12.4666 3.6415L11.1499 2.50817C10.8083 2.2165 10.2083 2.2165 9.86661 2.50817L8.54994 3.64984C8.18328 3.95817 7.56661 4.18317 7.09161 4.18317H5.64994Z"
+                fill="white" />
+            </svg>
+            Best Value
+          </div>
+          <h6 class="side-title">Buy 5 StickyGrippy</h6>
+          {% assign per_5_var_value = product.metafields.custom.bundle_prices.value.5_pack | divided_by: 5 | round: 2 %}
+          {% assign per_5_pack_value = product.metafields.custom.bundle_prices.value.1_pack | times: 5 | round: 2 %}
+          {% assign per_5_save_value = per_5_pack_value
+            | minus: product.metafields.custom.bundle_prices.value.5_pack
+            | round: 2
+          %}
+          <p class="price-v1" id="price-5-pack" data-per="{{ per_5_var_value }}" data-save="{{ per_5_save_value }}">
+            {{ product.metafields.custom.bundle_prices.value.5_pack }}
+          </p>
+          <img
+            src="https://cdn.shopify.com/s/files/1/0730/7257/4776/files/Group_181.png?v=1746613122"
+            alt="Buy 5"
+            class="box-img-bundle"
+          >
+          <div class="shipping-tag free">{% render 'freeshipping' %}FREE Shipping</div>
+        </div>
+      </div>
+
+      <div class="options-custom-v1">
+        <p class="choose-your-color">Choose your color</p>
+
+        <div class="per-price-and-save">
+          {% assign per_default_var_value = product.metafields.custom.bundle_prices.value.3_pack
+            | divided_by: 3
+            | round: 2
+          %}
+          {% assign per_default_pack_value = product.metafields.custom.bundle_prices.value.1_pack
+            | times: 3
+            | round: 2
+          %}
+          {% assign per_default_save_value = per_default_pack_value
+            | minus: product.metafields.custom.bundle_prices.value.3_pack
+            | round: 2
+          %}
+          <p class="per-sticky-v1" id="perItemPriceText">${{ per_default_var_value }}/Per StickyGrippy</p>
+          <p id="saveText" class="sticky-save-v1">SAVE ${{ per_default_save_value }}</p>
+        </div>
+      </div>
+
+      <div class="choose-options">
+        <div class="variant-option">
+          {% for variant in product.variants %}
+            <div
+              class="image-block"
+              data-var-id="{{ variant.id }}"
+              data-index="{{ forloop.index }}"
+              data-color="{{ variant.title }}"
+              data-quantity="0"
+              data-order=""
+            >
+              <p class="pop-up-msg" style="display: none"></p>
+              <img src="{{ variant.featured_image | image_url }}">
+            </div>
+          {% endfor %}
+        </div>
+        <div class="selected-colrs">
+          <p class="sel-option-v1">Selected Colors:</p>
+          <ul id="selected-colors-list"></ul>
+        </div>
+
+        <div>
+          <button class="add-to-cart-custom-v1" disabled>
+            Add To Cart - {{ product.metafields.custom.bundle_prices.value.3_pack | round: 2 }}
+          </button>
+          <div class="low-stock-message" style="color: red; margin-top: 8px;"></div>
+        </div>
+
+        <div class="promo-highlights">
+          <div class="promo-highlights__grid">
+            <div class="promo-highlights__item">
+              <img
+                class="promo-highlights__icon"
+                src="https://cdn.shopify.com/s/files/1/0730/7257/4776/files/material-symbols_delivery-truck-speed.svg?v=1746784071"
+                alt=""
+              >
+              <h3 class="promo-highlights__title">FREE Shipping</h3>
+              <p class="promo-highlights__text">
+                On all orders over $25 — no hidden fees, no fuss. Just stick, grip, and create.
+              </p>
+            </div>
+
+            <div class="promo-highlights__item">
+              <img
+                class="promo-highlights__icon"
+                src="https://cdn.shopify.com/s/files/1/0730/7257/4776/files/fluent-mdl2_return-to-session.svg?v=1746784070"
+                alt=""
+              >
+              <h3 class="promo-highlights__title">Free 30-Day Returns</h3>
+              <p class="promo-highlights__text">
+                Not satisfied? We’ve got your back. Risk-free returns within 30 days.
+              </p>
+            </div>
+
+            <div class="promo-highlights__item">
+              <img
+                class="promo-highlights__icon"
+                src="https://cdn.shopify.com/s/files/1/0730/7257/4776/files/mdi_sale.svg?v=1746784071"
+                alt=""
+              >
+              <h3 class="promo-highlights__title">Best Deal Yet – Up to 65% OFF!</h3>
+              <p class="promo-highlights__text">Get StickyGrippy for just $5.99 each when you buy 5!</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-section">
+          <div class="accordion">
+            <!-- Accordion Item 1 -->
+            <div class="accordion__item" data-index="0">
+              <button class="accordion__header" aria-expanded="false">
+                <span>Product Description</span>
+                <span class="accordion__icon">
+                  <svg
+                    class="icon-plus"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21.375 12C21.375 12.2984 21.2565 12.5845 21.0455 12.7955C20.8345 13.0065 20.5484 13.125 20.25 13.125H13.125V20.25C13.125 20.5484 13.0065 20.8345 12.7955 21.0455C12.5845 21.2565 12.2984 21.375 12 21.375C11.7016 21.375 11.4155 21.2565 11.2045 21.0455C10.9935 20.8345 10.875 20.5484 10.875 20.25V13.125H3.75C3.45163 13.125 3.16548 13.0065 2.9545 12.7955C2.74353 12.5845 2.625 12.2984 2.625 12C2.625 11.7016 2.74353 11.4155 2.9545 11.2045C3.16548 10.9935 3.45163 10.875 3.75 10.875H10.875V3.75C10.875 3.45163 10.9935 3.16548 11.2045 2.9545C11.4155 2.74353 11.7016 2.625 12 2.625C12.2984 2.625 12.5845 2.74353 12.7955 2.9545C13.0065 3.16548 13.125 3.45163 13.125 3.75V10.875H20.25C20.5484 10.875 20.8345 10.9935 21.0455 11.2045C21.2565 11.4155 21.375 11.7016 21.375 12Z"
+                      fill="black" />
+                  </svg>
+
+                  <svg
+                    class="icon-minus hidden"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21.375 12C21.375 12.2984 21.2565 12.5845 21.0455 12.7955C20.8345 13.0065 20.5484 13.125 20.25 13.125H3.75C3.45163 13.125 3.16548 13.0065 2.9545 12.7955C2.74353 12.5845 2.625 12.2984 2.625 12C2.625 11.7016 2.74353 11.4155 2.9545 11.2045C3.16548 10.9935 3.45163 10.875 3.75 10.875H20.25C20.5484 10.875 20.8345 10.9935 21.0455 11.2045C21.2565 11.4155 21.375 11.7016 21.375 12Z"
+                      fill="black" />
+                  </svg>
+                </span>
+              </button>
+              <div class="accordion__content">
+                <p>
+                  Capture picture-perfect moments effortlessly with StickyGrippy, the innovative phone holder designed
+                  for hands-free convenience. Whether you’re snapping selfies, filming TikToks, or following a makeup
+                  tutorial, this must-have accessory ensures your phone stays securely in place.
+                </p>
+                <p>
+                  ✔ Cute & Convenient – Easily attaches to mirrors, windows, and other smooth surfaces, making it
+                  perfect for on-the-go content creation.
+                </p>
+                <p>
+                  ✔ Strong & Sturdy – Features 24 powerful suction cups for a secure grip, preventing slips and drops.
+                </p>
+                <p>
+                  ✔ Ideal for Creators – A game-changer for influencers, vloggers, and anyone who loves capturing and
+                  sharing moments.
+                </p>
+              </div>
+            </div>
+
+            <!-- Accordion Item 2 -->
+            <div class="accordion__item" data-index="1">
+              <button class="accordion__header" aria-expanded="false">
+                <span>How To Use</span>
+                <span class="accordion__icon">
+                  <svg
+                    class="icon-plus"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21.375 12C21.375 12.2984 21.2565 12.5845 21.0455 12.7955C20.8345 13.0065 20.5484 13.125 20.25 13.125H13.125V20.25C13.125 20.5484 13.0065 20.8345 12.7955 21.0455C12.5845 21.2565 12.2984 21.375 12 21.375C11.7016 21.375 11.4155 21.2565 11.2045 21.0455C10.9935 20.8345 10.875 20.5484 10.875 20.25V13.125H3.75C3.45163 13.125 3.16548 13.0065 2.9545 12.7955C2.74353 12.5845 2.625 12.2984 2.625 12C2.625 11.7016 2.74353 11.4155 2.9545 11.2045C3.16548 10.9935 3.45163 10.875 3.75 10.875H10.875V3.75C10.875 3.45163 10.9935 3.16548 11.2045 2.9545C11.4155 2.74353 11.7016 2.625 12 2.625C12.2984 2.625 12.5845 2.74353 12.7955 2.9545C13.0065 3.16548 13.125 3.45163 13.125 3.75V10.875H20.25C20.5484 10.875 20.8345 10.9935 21.0455 11.2045C21.2565 11.4155 21.375 11.7016 21.375 12Z"
+                      fill="black" />
+                  </svg>
+                  <svg
+                    class="icon-minus hidden"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21.375 12C21.375 12.2984 21.2565 12.5845 21.0455 12.7955C20.8345 13.0065 20.5484 13.125 20.25 13.125H3.75C3.45163 13.125 3.16548 13.0065 2.9545 12.7955C2.74353 12.5845 2.625 12.2984 2.625 12C2.625 11.7016 2.74353 11.4155 2.9545 11.2045C3.16548 10.9935 3.45163 10.875 3.75 10.875H20.25C20.5484 10.875 20.8345 10.9935 21.0455 11.2045C21.2565 11.4155 21.375 11.7016 21.375 12Z"
+                      fill="black" />
+                  </svg>
+                </span>
+              </button>
+              <div class="accordion__content">
+                <p>1. Peel – Remove the film.</p>
+                <p>2. Stick – Press onto your phone or case.</p>
+                <p>3. Grip & Go – Hold, mount, or stand it anywhere.</p>
+                <p>4. Rinse to Refresh – Wash with water to reuse.</p>
+              </div>
+            </div>
+
+            <!-- Accordion Item 3 -->
+            <div class="accordion__item" data-index="2">
+              <button class="accordion__header" aria-expanded="false">
+                <span>Shipping</span>
+                <span class="accordion__icon">
+                  <svg
+                    class="icon-plus"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21.375 12C21.375 12.2984 21.2565 12.5845 21.0455 12.7955C20.8345 13.0065 20.5484 13.125 20.25 13.125H13.125V20.25C13.125 20.5484 13.0065 20.8345 12.7955 21.0455C12.5845 21.2565 12.2984 21.375 12 21.375C11.7016 21.375 11.4155 21.2565 11.2045 21.0455C10.9935 20.8345 10.875 20.5484 10.875 20.25V13.125H3.75C3.45163 13.125 3.16548 13.0065 2.9545 12.7955C2.74353 12.5845 2.625 12.2984 2.625 12C2.625 11.7016 2.74353 11.4155 2.9545 11.2045C3.16548 10.9935 3.45163 10.875 3.75 10.875H10.875V3.75C10.875 3.45163 10.9935 3.16548 11.2045 2.9545C11.4155 2.74353 11.7016 2.625 12 2.625C12.2984 2.625 12.5845 2.74353 12.7955 2.9545C13.0065 3.16548 13.125 3.45163 13.125 3.75V10.875H20.25C20.5484 10.875 20.8345 10.9935 21.0455 11.2045C21.2565 11.4155 21.375 11.7016 21.375 12Z"
+                      fill="black" />
+                  </svg>
+                  <svg
+                    class="icon-minus hidden"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21.375 12C21.375 12.2984 21.2565 12.5845 21.0455 12.7955C20.8345 13.0065 20.5484 13.125 20.25 13.125H3.75C3.45163 13.125 3.16548 13.0065 2.9545 12.7955C2.74353 12.5845 2.625 12.2984 2.625 12C2.625 11.7016 2.74353 11.4155 2.9545 11.2045C3.16548 10.9935 3.45163 10.875 3.75 10.875H20.25C20.5484 10.875 20.8345 10.9935 21.0455 11.2045C21.2565 11.4155 21.375 11.7016 21.375 12Z"
+                      fill="black" />
+                  </svg>
+                </span>
+              </button>
+              <div class="accordion__content">
+                <p>
+                  Please allow 3-4 business days. If you have any questions, feel free to email us at<a
+                    href="shopstickygrippy@gmail.com"
+                    >shopstickygrippy@gmail.com</a
+                  >or DM us on instagram @stickygrippy
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% if product.metafields.custom.bundle_prices %}
+        <script type="application/json" id="bundle-prices-json">
+          {{ product.metafields.custom.bundle_prices.value | json }}
+        </script>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pop-up-msg {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #008631;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 18px !important;
+    white-space: nowrap;
+    z-index: 1;
+  }
+
+  button.add-to-cart-custom-v1.out-of-stock {
+    background: white;
+    border: 2px solid black;
+    color: black;
+    font-size: 16px;
+    font-family: 'Inter';
+    font-weight: 600;
+  }
+
+  .add-to-cart-custom-v1:disabled,
+  .add-to-cart-custom-v1.disabledAddToCart {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  .sub-highlight-custom {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .image-block.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .add-to-cart-custom-v1.loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+  }
+
+  .add-to-cart-custom-v1.loading::after {
+    content: '';
+    border: 2px solid #fff;
+    border-top: 2px solid #000;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    animation: spin 0.6s linear infinite;
+    position: absolute;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .options-custom-v1 {
+    opacity: 1;
+    transition: opacity 0.8s ease;
+  }
+
+  .options-custom-v1.fade-out {
+    opacity: 0;
+  }
+
+  button.accordion__header {
+    font-size: 18px;
+    font-family: 'Inter';
+    font-weight: 600;
+    color: black;
+  }
+
+  .accordion__item:nth-child(1) .accordion__content p {
+    margin-bottom: 20px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .accordion__content a {
+    color: black;
+  }
+
+  .accordion__content strong {
+    color: black;
+  }
+
+  .add-to-cart-custom-v1 {
+    width: 100%;
+    background: #7744d6;
+    padding: 20px 18px;
+    color: white;
+    font-weight: 600;
+    font-family: 'Inter';
+    font-size: 20px;
+    border: 1.5px solid #7744d6;
+    border-radius: 31px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+  }
+
+  button.add-to-cart-custom-v1:hover {
+    background: black;
+    border: 1.5px solid black;
+  }
+
+  p.feature-icons__text {
+    font-size: 15px !important;
+  }
+
+  .low-stock-message {
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    font-family: 'Inter';
+    font-weight: 500;
+    line-height: 24px;
+    font-style: italic;
+  }
+
+  p.choose-your-color {
+    font-size: 18px;
+  }
+
+  .per-price-and-save {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+
+  p.per-sticky-v1 {
+    font-family: 'Inter' !important;
+    font-size: 12px !important;
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  p.sticky-save-v1 {
+    font-family: 'Inter' !important;
+    font-weight: 500 !important;
+    color: #065f46;
+    background: #d1fae5;
+    padding: 4px 8px;
+    border-radius: 4px;
+    line-height: 20px !important;
+    font-size: 13px !important;
+  }
+
+  .options-custom-v1 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+
+  .box {
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    width: 200px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    background: #fff;
+  }
+
+  /* Replaced .top-badge with .tag-label */
+  .tag-label {
+    display: flex;
+    gap: 4px;
+    position: absolute;
+    top: -34px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px 4px 0px 0px;
+    padding: 4px 12px;
+    color: white;
+    white-space: nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .tag-label.popular {
+    background-color: #4caf50;
+    font-weight: 500;
+  }
+
+  .tag-label.bestseller {
+    background-color: #ffc107;
+  }
+
+  /* Replaced .shipping-label with .shipping-tag */
+  .shipping-tag {
+    display: flex;
+    gap: 4px;
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    letter-spacing: 0;
+    transform: translateX(-50%);
+    font-size: 14px;
+    padding: 3px 12px;
+    border-radius: 36px;
+    font-weight: 500;
+    background-color: #a6a6a6;
+    color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .shipping-tag.free {
+    background-color: #d1fae5;
+    color: #065f46;
+  }
+
+  .accordion-section .accordion {
+    margin-top: 0px;
+    border: none;
+  }
+
+  .right-sec p {
+    font-family: 'Plus Jakarta Sans';
+    font-size: 16px;
+    line-height: 28px;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  p.feature-icons__text {
+    font-weight: 500;
+  }
+
+  p#perItemPriceText {
+    font-weight: 500;
+  }
+
+  .select-sec h6 {
+    font-family: 'Inter';
+    color: black;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    margin: 0;
+  }
+
+  .select-sec p {
+    font-family: 'Inter';
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .choose-options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .selected-colrs {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .temp-overlay-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 1;
+    pointer-events: none;
+    background: #f2f2f2;
+    border-radius: 20px;
+  }
+
+  .left-sec {
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .main-image-wrapper {
+    position: relative;
+    width: 596px;
+    height: 596px;
+  }
+
+  .main-image {
+    width: 100%;
+    height: 100%;
+    background: #f5f5f5;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .slide-container {
+    width: 200%;
+    height: 100%;
+    display: flex;
+    transition: transform 0.4s ease;
+  }
+
+  .slide-container img {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .thumbnail-scroll-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  .product-images {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 24px;
+    padding-bottom: 8px;
+    scroll-behavior: smooth;
+  }
+
+  .product-images img {
+    background: #f5f5f5;
+    border-radius: 2px;
+    cursor: pointer;
+    height: 80px;
+    width: 80px;
+    object-fit: contain;
+    flex: 0 0 auto;
+  }
+
+  .sub-image.selected {
+    border: 2px solid black;
+    border-radius: 6px;
+  }
+
+  .nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: black;
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 50%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+
+  .nav-btn:disabled {
+    opacity: 0.4;
+  }
+
+  .prev-btn {
+    left: 0;
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  .next-btn {
+    right: 0;
+    transform: translateX(50%) translateY(-50%);
+  }
+
+  .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: flex-start;
+  }
+
+  .box img {
+    max-width: 100%;
+    max-height: 86px;
+  }
+
+  .box.active {
+    border: 2.5px solid #54b952;
+  }
+
+  .right-sec {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .image-block.selected::after {
+    content: attr(data-order);
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #54b952;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .image-block {
+    border: 1px solid #cecece;
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    padding: 3px;
+    padding-left: 8px;
+    position: relative;
+  }
+
+  .variant-option {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    cursor: pointer;
+  }
+
+  .image-block img {
+    /* width: 100%; */
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 0;
+  }
+
+  .sticky-main {
+    width: 100%;
+    background: #ffffff;
+    padding: 100px 80px 100px 80px;
+    color: black;
+  }
+
+  .sticky-container {
+    display: flex;
+    gap: 80px;
+    justify-content: center;
+    max-width: 1440px;
+    margin: 0px auto;
+  }
+
+  .box1,
+  .box2,
+  .box3 {
+    width: 100%;
+    height: 200px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 18px 16px 26px 16px;
+  }
+
+  .select-sec {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 40px;
+    margin-top: 16px;
+    font-family: 'Inter';
+  }
+
+  .prodt-title-custom-v1 {
+    font-size: 48px !important;
+    line-height: 60px;
+    color: black;
+  }
+
+  h6 {
+    text-align: center;
+  }
+
+  .prodt-title-custom-v1 {
+    color: black;
+    font-family: 'Inter';
+    font-size: 38.6px;
+    line-height: 60px;
+    letter-spacing: 0;
+  }
+
+  .prdt-des-v1 {
+    color: black;
+    font-family: 'Plus Jakarta Sans';
+    font-size: 16px;
+    line-height: 28px;
+    font-weight: 500;
+    margin-top: -20px;
+  }
+
+  #selected-colors-list {
+    display: flex;
+    gap: 5px;
+    list-style-type: none;
+    padding-inline-start: 7px;
+    font-style: italic;
+    font-family: 'Plus Jakarta Sans';
+    font-size: 16px;
+    line-height: 26.6px;
+    font-weight: 400;
+  }
+
+  .sel-option-v1 {
+    font-family: 'Inter';
+    font-size: 16px;
+    line-height: 26.6px;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  .sg-tagline {
+    display: flex;
+    align-items: center;
+    font-family: 'Plus Jakarta Sans';
+    font-weight: 500;
+    line-height: 24px;
+    font-size: 16px;
+    max-width: 410px;
+    gap: 10px;
+    border-radius: 32px;
+    padding: 9px 24px;
+    background: #fff8e7;
+  }
+
+  .sg-title {
+    font-size: 48px;
+    color: black;
+    line-height: 60px;
+    font-weight: bolder;
+    margin: 20px 0;
+  }
+
+  .sg-description {
+    max-width: 600px;
+    font-family: 'Plus Jakarta Sans';
+    font-size: 16px;
+    line-height: 28px;
+    margin-bottom: 40px;
+    margin-top: 0px;
+  }
+
+  .sg-box {
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .sg-product-description {
+    border-top: 1px solid #e2e2e2;
+    padding-top: 30px;
+  }
+
+  .sg-product-description h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .sg-product-description p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .feature-icons {
+    background: #f2f2f2;
+    padding: 16px 24px;
+    border-radius: 8px;
+    margin: 40px 0px;
+  }
+
+  .feature-icons__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .feature-icons__item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .feature-icons__icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+
+  .feature-icons__icon--placeholder {
+    background: #ccc;
+    border-radius: 4px;
+  }
+
+  .feature-icons__text {
+    margin: 0;
+    font-size: 16px;
+    letter-spacing: 0;
+    font-family: 'Plus Jakarta Sans';
+    font-weight: 600;
+  }
+
+  .promo-highlights {
+    padding: 40px 0px;
+    background: #fff;
+  }
+
+  .promo-highlights__grid {
+    display: flex;
+    text-align: center;
+    gap: 2rem;
+    justify-content: space-around;
+  }
+
+  .promo-highlights__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .promo-highlights__icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+
+  .promo-highlights__title {
+    font-size: 16px;
+    padding-top: 20px;
+    color: black;
+    letter-spacing: 0px;
+    font-weight: 700;
+    margin: 0;
+    font-family: 'Inter';
+  }
+
+  .promo-highlights__text {
+    font-size: 14px !important;
+    color: black;
+    margin: 0 !important;
+    letter-spacing: 0px;
+    line-height: 22px !important;
+    max-width: 280px;
+    font-weight: 500;
+  }
+
+  .accordion-section {
+    background: #f5f5f5;
+    padding: 0px 24px;
+    border-radius: 8px;
+  }
+
+  .accordion__item.open {
+    padding-bottom: 20px;
+  }
+
+  .accordion__item + .accordion__item {
+    border-top: 1px solid #ccc;
+  }
+
+  .accordion__item.open button.accordion__header {
+    padding-bottom: 12px;
+  }
+
+  .accordion__item.open .accordion__content {
+    padding-left: 0;
+  }
+
+  .accordion__header {
+    width: 100%;
+    padding: 32px 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Inter';
+    font-size: 18px;
+    font-weight: 700;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .accordion__icon {
+    font-size: 1.25rem;
+    transition: transform 0.3s ease;
+  }
+
+  .accordion__content {
+    display: none;
+    padding-bottom: 1.2rem;
+    font-size: 1rem;
+    color: #111;
+  }
+
+  .accordion__content p {
+    font-weight: 400;
+    font-size: 16px;
+  }
+
+  .accordion__content p {
+    font-weight: 400;
+    font-size: 16px;
+    font-family: 'Plus Jakarta Sans';
+  }
+
+  .accordion__item.open .accordion__content {
+    display: block;
+  }
+
+  @media (max-width: 850px) {
+    .feature-icons__icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .select-sec {
+      gap: 12px;
+    }
+
+    .promo-highlights__icon {
+      width: 25px;
+      height: 25px;
+    }
+
+    .sticky-main {
+      padding: 40px 20px;
+    }
+
+    .sticky-container {
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .left-sec {
+      position: relative;
+      top: 0;
+      max-width: 100%;
+      margin: 0px auto;
+    }
+
+    .main-image-wrapper {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .sg-tagline {
+      font-size: 14px;
+      max-width: 450px;
+    }
+
+    .sticky-container {
+      gap: 32px;
+    }
+
+    .sg-title {
+      font-size: 28px;
+      color: #000001;
+      line-height: 38px;
+      font-weight: 800;
+      margin: 12px 0;
+    }
+
+    .right-sec p {
+      font-size: 14px;
+      font-weight: lighter;
+    }
+
+    .feature-icons {
+      padding: 24px 20px;
+      margin: 32px 0px;
+    }
+
+    p.feature-icons__text {
+      font-weight: bold !important;
+    }
+
+    .feature-icons__item {
+      gap: 12px;
+    }
+
+    .box1,
+    .box2,
+    .box3 {
+      width: 100%;
+      height: 160px !important;
+      padding: 5px 16px !important;
+    }
+
+    .select-sec h6 {
+      font-size: 12px !important;
+    }
+
+    .select-sec p {
+      font-size: 14px !important;
+      font-weight: bold;
+      line-height: 17px;
+      margin-bottom: 10px;
+      margin-top: 3px;
+    }
+
+    img.box-img-bundle {
+      height: 64px !important;
+    }
+
+    .promo-highlights {
+      padding: 32px 0px;
+    }
+
+    .promo-highlights__grid {
+      gap: 16px;
+      flex-direction: column;
+    }
+
+    .slide-container img {
+      max-height: 500px;
+    }
+
+    .next-btn {
+      right: 10px;
+    }
+
+    .prev-btn {
+      left: 10px;
+    }
+
+    .tag-label.bestseller svg {
+      width: 16px;
+    }
+
+    .tag-label {
+      top: -25px;
+      font-size: 10px;
+      padding: 2px 8px;
+    }
+
+    .tag-label.popular svg {
+      width: 12px;
+    }
+
+    .shipping-tag.free svg {
+      width: 16px;
+    }
+
+    .shipping-tag {
+      font-size: 8px;
+      padding: 2px 5px;
+    }
+
+    .select-sec {
+      justify-content: center;
+    }
+
+    p.choose-your-color {
+      font-size: 16px !important;
+    }
+
+    p.per-sticky-v1 {
+      font-size: 11px !important;
+    }
+
+    p.sticky-save-v1 {
+      font-size: 10px !important;
+      padding: 2px 4px;
+    }
+
+    .variant-option {
+      justify-content: center;
+    }
+
+    .slide-container {
+      width: 100% !important;
+    }
+
+    .accordion-section {
+      padding: 0px 16px;
+    }
+
+    button.add-to-cart-custom-v1 {
+      font-size: 16px;
+    }
+
+    p.sel-option-v1 {
+      color: black;
+      font-weight: 600;
+      font-family: 'Inter';
+      font-size: 14px;
+    }
+
+    #selected-colors-list {
+      padding-inline-start: 4px;
+      font-size: 14px;
+    }
+
+    .product-images img {
+      height: 60px;
+      width: 60px;
+    }
+
+    svg.icon-plus {
+      width: 20px;
+    }
+
+    svg.icon-minus {
+      width: 20px;
+    }
+
+    .accordion__content {
+      padding: 0;
+    }
+
+    p.feature-icons__text {
+      font-size: 14px !important;
+      letter-spacing: 0.5px;
+    }
+
+    span.stock-warning-icon {
+      font-size: 14px !important;
+    }
+  }
+
+  @media (min-width: 320px) and (max-width: 399px) {
+    .select-sec {
+      gap: 12px;
+    }
+
+    .sub-highlight-custom {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .select-sec {
+      /* gap:12px; */
+      gap: 7px;
+    }
+
+    .sg-tagline {
+      font-size: 12px !important;
+      max-width: 99% !important;
+    }
+
+    .sg-tagline svg {
+      width: 70px;
+    }
+
+    p.sticky-save-v1 {
+      font-size: 9px !important;
+      padding: 2px 4px;
+    }
+  }
+
+  @media (min-width: 320px) and (max-width: 500px) {
+    .sg-tagline {
+      font-size: 13px;
+      max-width: 99%;
+    }
+
+    .image-block {
+      padding: 4px;
+      width: 40px !important;
+      height: 40px !important;
+    }
+
+    .image-block img {
+      width: 30px !important;
+      height: 30px !important;
+      object-fit: contain;
+    }
+
+    p.choose-your-color {
+      font-size: 12px !important;
+    }
+
+    .per-price-and-save {
+      gap: 6px;
+    }
+
+    p.per-sticky-v1 {
+      font-size: 8px !important;
+      line-height: 20px;
+    }
+
+    #selected-colors-list {
+      font-size: 13px;
+    }
+
+    p.sel-option-v1 {
+      font-size: 13px;
+    }
+  }
+
+  @media (min-width: 851px) and (max-width: 1023px) {
+    .right-sec {
+      max-width: 50%;
+    }
+
+    .sticky-container {
+      display: flex;
+      gap: 30px;
+    }
+
+    .select-sec {
+      gap: 16px;
+    }
+
+    p.sticky-save-v1 {
+      padding: 3px 6px;
+      font-size: 11px !important;
+    }
+
+    p.choose-your-color {
+      font-size: 14px !important;
+    }
+
+    img.box-img-bundle {
+      height: 60px;
+    }
+
+    .slide-container img {
+      flex-shrink: 0;
+      width: 100%;
+      height: 100%;
+      max-height: 350px;
+      object-fit: contain;
+    }
+
+    .box1,
+    .box2,
+    .box3 {
+      padding: 18px 12px 26px 12px;
+    }
+
+    .sticky-main {
+      padding: 50px 30px 50px 30px !important;
+    }
+
+    .left-sec {
+      position: sticky;
+      top: 0;
+      width: 50%;
+    }
+
+    .main-image-wrapper {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .tag-label {
+      top: -29px;
+      font-size: 10px;
+    }
+
+    .shipping-tag {
+      font-size: 9px;
+      padding: 3px 10px;
+    }
+  }
+
+  @media (min-width: 1023px) and (max-width: 1200px) {
+    .right-sec {
+      max-width: 50%;
+    }
+
+    .sticky-container {
+      display: flex;
+    }
+
+    .select-sec {
+      gap: 16px;
+    }
+
+    p.sticky-save-v1 {
+      padding: 3px 6px;
+      font-size: 11px !important;
+    }
+
+    p.choose-your-color {
+      font-size: 14px !important;
+    }
+
+    img.box-img-bundle {
+      height: 60px;
+    }
+
+    .slide-container img {
+      flex-shrink: 0;
+      width: 100%;
+      height: 100%;
+      max-height: 400px;
+      object-fit: contain;
+    }
+
+    .sticky-main {
+      padding: 50px 30px 50px 30px !important;
+    }
+
+    .left-sec {
+      position: sticky;
+      top: 0;
+      width: 400px;
+    }
+
+    .main-image-wrapper {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .tag-label {
+      top: -29px;
+      font-size: 10px;
+    }
+
+    .shipping-tag {
+      font-size: 9px;
+      padding: 3px 10px;
+    }
+  }
+
+  @media screen and(min-width: 1600) {
+    .sticky-main {
+      max-width: 1155px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const variants = document.querySelectorAll('.variant-option .image-block');
+    const quantitySelectors = document.querySelectorAll('.select-sec .bundle-selector');
+    const SelectedList = document.querySelector('#selected-colors-list');
+    const perVarCost = document.querySelector('#perItemPriceText');
+    const perBunSave = document.querySelector('#saveText');
+    const ATC = document.querySelector('.add-to-cart-custom-v1');
+
+    class ResizableLimitedArray {
+      constructor(limit) {
+        this.setLimit(limit);
+      }
+
+      setLimit(newLimit) {
+        if (!Number.isInteger(newLimit) || newLimit <= 0) {
+          throw new Error('Limit must be a positive integer');
+        }
+        this.limit = newLimit;
+        this.items = [];
+      }
+
+      push(item) {
+        if (this.items.length >= this.limit) {
+          const diffIndex = this.items.findIndex((el) => el !== item);
+          if (diffIndex !== -1) {
+            this.items.splice(diffIndex, 1);
+          } else {
+            this.items.shift();
+          }
+        }
+        this.items.push(item);
+      }
+
+      getAll() {
+        return [...this.items];
+      }
+
+      size() {
+        return this.items.length;
+      }
+
+      maxSize() {
+        return this.limit;
+      }
+
+      clear() {
+        this.items = [];
+      }
+
+      count(item) {
+        return this.items.filter((el) => el === item).length;
+      }
+    }
+
+    let queue = new ResizableLimitedArray(3);
+
+    quantitySelectors.forEach((quanSelect) => {
+      quanSelect.addEventListener('click', (e) => {
+        quantitySelectors.forEach((deselect) => deselect.classList.remove('active'));
+        e.currentTarget.classList.add('active');
+        quantityLimit = parseInt(e.currentTarget.getAttribute('data-count'));
+        queue = new ResizableLimitedArray(quantityLimit);
+        SelectedList.textContent = '';
+        queue.clear();
+        variants.forEach((variant) => {
+          variant.classList.remove('selected');
+        });
+        let perAmount =
+          e.currentTarget.querySelector('.price-v1').getAttribute('data-save') > 0
+            ? e.currentTarget.querySelector('.price-v1').getAttribute('data-save')
+            : null;
+        let saveAmount =
+          e.currentTarget.querySelector('.price-v1').getAttribute('data-per') > 0
+            ? e.currentTarget.querySelector('.price-v1').getAttribute('data-per')
+            : null;
+        if (saveAmount && perAmount) {
+          perVarCost.textContent = `$${saveAmount}/Per StickyGrippy`;
+          perBunSave.textContent = `SAVE $${perAmount}`;
+        } else {
+          perVarCost.textContent = '';
+          perBunSave.textContent = '';
+        }
+        ATC.textContent = `Add To Cart - ${e.currentTarget.querySelector('.price-v1').textContent}`;
+        ATCRefresh();
+      });
+    });
+
+    variants.forEach((variant) => {
+      variant.addEventListener('click', (e) => {
+        const variantIndex = parseInt(e.currentTarget.getAttribute('data-index'));
+        queue.push(variantIndex);
+
+        refreshUI();
+      });
+    });
+
+    const refreshUI = () => {
+      let colors = [];
+      variants.forEach((variant) => {
+        variant.classList.remove('selected');
+        variant.removeAttribute('data-order');
+      });
+      queue.getAll().forEach((el) => {
+        const variant = document.querySelector(`.image-block[data-index="${el}"]`);
+        variant.setAttribute('data-order', queue.count(el));
+        variant.classList.add('selected');
+        const color = variant.getAttribute('data-color');
+        colors.push(color);
+      });
+
+      // SelectedList.textContent = colors.join()
+      SelectedList.textContent = squashAndJoin(colors);
+
+      ATCRefresh();
+    };
+
+    const ATCRefresh = () => {
+      if (queue.size() == queue.maxSize()) {
+        ATC.disabled = false;
+      } else {
+        ATC.disabled = true;
+      }
+    };
+    const squashAndJoin = (arr) => {
+      const counts = {};
+
+      arr.forEach((item) => {
+        counts[item] = (counts[item] || 0) + 1;
+      });
+
+      return Object.entries(counts)
+        .map(([key, count]) => `${key}(${count})`)
+        .join(', ');
+    };
+
+    ATC.addEventListener('click', () => {
+      const toCartData = [];
+
+      queue.getAll().forEach((el) => {
+        const id = document.querySelector(`.image-block[data-index="${el}"]`).getAttribute('data-var-id');
+
+        const existing = toCartData.find((item) => item.id === id);
+
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          toCartData.push({ id: id, quantity: 1 });
+        }
+      });
+
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({ items: toCartData }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log('Cart updated!', data);
+          (document.querySelector('cart-items') || document.querySelector('cart-drawer-items')).updateQuantity(
+            1,
+            toCartData[toCartData.length - 1].quantity
+          );
+          document.querySelector('cart-drawer').classList.add('active');
+        })
+        .catch((error) => {
+          console.error('Error adding to cart:', error);
+        });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Sticky grippy custom new",
+  "class": "sticky-custom-v1",
+
+  "settings": [
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Top Tagline",
+      "default": "2000+ Verified 5-star reviews*"
+    },
+    {
+      "type": "image_picker",
+      "id": "image1",
+      "label": "Image for Box 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image3",
+      "label": "Image for Box 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "image5",
+      "label": "Image for Box 5"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature-text",
+          "label": "Feature Text",
+          "default": "Feature description"
+        },
+        {
+          "type": "image_picker",
+          "id": "feature-icon",
+          "label": "Icon Image"
+        }
+      ]
+    },
+    {
+      "type": "highlight",
+      "name": "Highlight",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "highlight-icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Highlight title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Short supporting text goes here."
+        }
+      ]
+    },
+    {
+      "type": "accordion_item",
+      "name": "Accordion Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "accordin-title",
+          "label": "Heading",
+          "default": "Accordion Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Your accordion content goes here.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sticky grippy custom new",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "feature-text": "Premium Quality",
+            "feature-icon": ""
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "feature-text": "Easy to Use",
+            "feature-icon": ""
+          }
+        },
+        {
+          "type": "highlight",
+          "settings": {
+            "title": "Fast Shipping",
+            "text": "Get your order quickly"
+          }
+        },
+        {
+          "type": "accordion_item",
+          "settings": {
+            "accordin-title": "Description",
+            "content": "<p>Product details go here</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
