@@ -1,0 +1,191 @@
+<section id="accordian">
+  <h3 class="title">{{ section.settings.faq-title }}</h3> 
+  <div class="info-accordion">
+    {% for block in section.blocks %}
+      <div class="accordion-item {% if forloop.last %} no-last-border{% endif %}">
+        <button class="accordion-title">
+          {{ block.settings.question }}
+          <svg class="minus" width="13" height="2" viewBox="0 0 13 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M0.5 1C0.5 0.447715 1.03726 0 1.7 0H11.3C11.9627 0 12.5 0.447715 12.5 1C12.5 1.55228 11.9627 2 11.3 2H1.7C1.03726 2 0.5 1.55228 0.5 1Z"
+              fill="black"></path>
+          </svg>
+          <svg
+            class="svg-visible plus"
+            width="15"
+            height="14"
+            viewBox="0 0 15 14"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.49996 0.142822C7.97335 0.142822 8.35711 0.526578 8.35711 0.999965V6.14282H13.5C13.9734 6.14282 14.3571 6.52658 14.3571 6.99996C14.3571 7.47335 13.9734 7.85711 13.5 7.85711H8.35711V13C8.35711 13.4734 7.97335 13.8571 7.49996 13.8571C7.02658 13.8571 6.64282 13.4734 6.64282 13V7.85711H1.49997C1.02658 7.85711 0.642822 7.47335 0.642822 6.99996C0.642822 6.52658 1.02658 6.14282 1.49997 6.14282H6.64282V0.999965C6.64282 0.526578 7.02658 0.142822 7.49996 0.142822Z"
+              fill="black"></path>
+          </svg>
+        </button>
+        <div class="accordion-content" style="{% if forloop.first %}display:block;{% endif %}">
+          <p>{{ block.settings.answer }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  </section>
+
+<style>
+  #accordian{
+    padding: 2rem 8rem;
+    background: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+  }
+  #accordian .title{
+    font-size: 40px;
+    margin-bottom: 4.8rem;
+    margin-top: 4rem;
+    text-align: center;
+    letter-spacing: 0;
+  }
+    .accordion-title svg {
+      margin: auto 0;
+    }
+  #accordian .accordion-title{
+    padding: 15px 0;
+    width: 100%;
+    text-align: left;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+  }
+  #accordian .accordion-content {
+    padding: 0 0 13px 0;
+    font-size: 16px;
+  }
+  #accordian .accordion-content p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    letter-spacing: 0px;
+  }
+  #accordian .info-accordion {
+    margin-bottom: 4rem;
+    max-width: 850px;
+    width: 100%;
+    border-top: none;
+  }
+  #accordian .no-last-border {
+    border-bottom:none;
+  }
+  @media (max-width:999px){
+    #accordian .title {
+      font-size: 26px;
+      margin-bottom: 3rem;
+    }
+    #accordian{
+     padding: 2rem 50px;    
+    }
+  }
+  @media (max-width:768px){
+    #accordian .title {
+      margin-top: 1rem;
+      margin-bottom: 0rem;
+    }
+    #accordian{
+      padding: 2rem 25px 0; 
+    }
+    #accordian .info-accordion {
+      margin-bottom: 2rem;
+    }
+  }
+  @media (max-width:500px){
+    #accordian .title{
+      font-size: 24px !important;
+    }
+    #accordian .accordion-content p {
+      font-size: 14px;
+    }
+
+  }
+  @media (max-width:420px){
+
+  }
+</style>
+
+<script>
+    const items_ = document.querySelectorAll('#accordian .info-accordion .accordion-title');
+  items_.forEach(item => {
+    item.addEventListener('click', function () {
+
+      const itemSvgs = item.querySelectorAll("svg")
+
+      document.querySelectorAll("#accordian .info-accordion .accordion-title svg").forEach(svg => {
+        if (itemSvgs[0] == svg || itemSvgs[1] == svg) {
+          svg.classList.toggle("svg-visible")
+        } else {
+          if (svg.classList.contains("minus")) svg.classList.remove("svg-visible")
+          if (svg.classList.contains("plus")) svg.classList.add("svg-visible")
+        }
+      })
+      const content = this.nextElementSibling;
+      const allContent = document.querySelectorAll('#accordian .info-accordion .accordion-content');
+      allContent.forEach(c => {
+        if (c !== content) c.style.display = 'none';
+      });
+      content.style.display = content.style.display === 'block' ? 'none' : 'block';
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Accordion",
+  "settings": [
+       {
+      "type": "text",
+      "id": "faq-title",
+      "label": "Title"
+    },
+    
+    {
+      "type": "richtext",
+      "id": "accordian_des",
+      "label": "Set Accordion Description"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "Accordion Item",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Accordion",
+      "blocks": [
+        {
+          "type": "faq_item"
+        },
+        {
+          "type": "faq_item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

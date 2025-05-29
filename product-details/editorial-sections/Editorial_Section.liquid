@@ -1,0 +1,1431 @@
+  <div class="scrollable-section">
+  
+    <div class="left-content">
+      {% for block in section.blocks %}
+        {% if block.settings.enable %}
+          {% case block.type %}
+            {% when 'heading' %}<h1>{{ block.settings.heading_text }}</h1>
+            {% when 'subheading' %}<h2>{{ block.settings.subheading_text }}</h2>
+            {% when 'Subheading RichText' %}<h2>{{ block.settings.subheading_richtext }}</h2>
+            {% when 'author-details' %} <div class="author-icon-text-block">{% if block.settings.icon %} <img src="{{ block.settings.icon | image_url }}" alt="Icon">{% endif %}
+              <div class="author-icon-text-content">
+                <div class="text">{{ block.settings.text }}</div>
+                <div class="subtext">{{ block.settings.subtext }}</div>
+              </div>
+            </div>
+            {% when 'image' %}{% if block.settings.image %}<img src="{{ block.settings.image | img_url: 'large' }}" alt="">{% endif %}
+            {% when 'paragraph' %}<p>{{ block.settings.paragraph_text }}</p>
+            {% when 'icon_text' %} <div class="icon-text-block">{% if block.settings.icon %} <img src="{{ block.settings.icon | image_url }}" alt="Icon">{% endif %}
+              <div class="icon-text-content">
+                <div class="text">{{ block.settings.text }}</div>
+                <div class="subtext">{{ block.settings.subtext }}</div>
+              </div>
+            </div>
+            {% when 'icon_text_number' %} <div class="icon-text-block">{% if block.settings.icon %} <img src="{{ block.settings.icon | image_url }}" alt="Icon" class="icon-text-number">{% endif %}
+              <div class="icon-text-content">
+                <div class="text">{{ block.settings.text }}</div>
+                <div class="subtext">{{ block.settings.subtext }}</div>
+              </div>
+            </div>
+            {% when 'hr' %} <hr style="border: none; height: {{ block.settings.thickness }}px; background-color: {{ block.settings.color }}; width: {{ block.settings.width }}%; margin: 16px 0; opacity:1">
+            {% when 'pros_cons' %}
+            <div class="pros-cons-section">
+              <div class="pros">
+                <h4>Pros</h4>
+                <ul>
+                  {% assign pros_list = block.settings.pros | split: ',' %}
+                  {% for line in pros_list %}
+                    <li><img src="{{ 'green-tick.svg' | asset_url }}" alt="Tick"class="pro-cons-icon" >{{ line | strip }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+              <div class="cons">
+                <h4>Cons</h4>
+                <ul>
+                  {% assign cons_list = block.settings.cons | split: ',' %}
+                  {% for line in cons_list %}
+                    <li><img src="{{ 'cross-mark.svg' | asset_url }}" alt="Tick"class="pro-cons-icon" > {{ line | strip }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+              {% when 'review' %}<h2 class="review-heading">Real Campers, Real Experiences</h2>
+                        <section id="editorial-review">
+                        
+                  {% for i in(1..5) %}
+                <div class="review-card">
+                  <hr style="{% if forloop.first %}  display:none;{% endif %}">
+                    {% assign dated_var = 'dated' | append: i %}
+                    {% assign title_var = 'title' | append: i %}
+                    {% assign description_var = 'description' | append: i %}
+                    {% assign name_var = 'name' | append: i %}
+                  <div class="review-header">
+                    <div class="star-rating">
+                      <span class="star"><img src="{{ 'star.svg' | asset_url }}" alt="Tick" class="star" ></span>
+                      <span class="star"><img src="{{ 'star.svg' | asset_url }}" alt="Tick" class="star" ></span>
+                      <span class="star"><img src="{{ 'star.svg' | asset_url }}" alt="Tick" class="star" ></span>
+                      <span class="star"><img src="{{ 'star.svg' | asset_url }}" alt="Tick" class="star" ></span>
+                      <span class="star"><img src="{{ 'star.svg' | asset_url }}" alt="Tick" class="star" ></span>
+                    </div>
+                    <div class="review-date">{{ block.settings[dated_var] }}</div>
+                  </div>
+                  <div class="review-title">{{ block.settings[title_var] }}</div>
+                  <div class="review-content">
+                  {{ block.settings[description_var] }}
+                  </div>
+                  <div class="reviewer-name">{{ block.settings[name_var] }}</div>
+                  <div class="reviewer-info">
+                    <div class="verified-badge">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M10 20C4.47708 20 0 15.5229 0 10C0 4.47708 4.47708 0 10 0C15.5229 0 20 4.47708 20 10C20 15.5229 15.5229 20 10 20ZM14.495 6.6375C14.4287 6.57112 14.3499 6.51846 14.2632 6.48253C14.1765 6.4466 14.0836 6.42811 13.9898 6.42811C13.896 6.42811 13.803 6.4466 13.7164 6.48253C13.6297 6.51846 13.5509 6.57112 13.4846 6.6375L8.92917 11.1946C8.79511 11.3284 8.61341 11.4036 8.42396 11.4036C8.23451 11.4036 8.05281 11.3284 7.91875 11.1946L6.57708 9.8525C6.44315 9.71851 6.26147 9.64321 6.07202 9.64317C5.88257 9.64314 5.70086 9.71836 5.56687 9.85229C5.43289 9.98623 5.35759 10.1679 5.35755 10.3574C5.35751 10.5468 5.43273 10.7285 5.56667 10.8625L7.91875 13.2146C8.19792 13.4937 8.65 13.4937 8.92917 13.2146L14.4954 7.64833C14.7746 7.36917 14.7746 6.91708 14.4954 6.63833" fill="#1AC517"/>
+                      </svg>
+                    </div>
+                    <div class="verified-text">Verified Customer</div>
+                  </div>
+                </div>
+                {% endfor %}
+              </section>
+              <hr style="border: none; height: 1px; background-color:black; width: 100%; margin: 16px 0; opacity:1">
+            {% when 'Promo_Container' %}<div class="promo-container">
+      <h1 class="promo-title">{{ block.settings.heading_exp }}</h1>
+      
+      <p class="promo-subtitle">
+        {{ block.settings.description_exp }}
+      </p>
+      
+      <div class="image-container">
+        <img src="{{ block.settings.tent_image_exp | image_url}}" alt="Colorful camping tent in nature with autumn trees" class="tent-image">
+      </div>
+
+      <a href="https://goodintentsco.com/products/all-green-omega-tent">
+      <button class="cta-button">
+        {{ block.settings.button_text_exp }}
+      </button>
+      </a>
+      
+      <div class="benefits-container">
+        <div class="benefit-item benefit-item-1">
+          <div class="benefit-icon">
+            <img src="https://cdn.shopify.com/s/files/1/0673/6681/3924/files/Vector_3.svg?v=1742553165" />
+          </div>
+          <div class="benefit-text">Five-Year Warranty</div>
+        </div>
+        
+        <div class="benefit-item benefit-item-2">
+          <div class="benefit-icon">
+            <img src="https://cdn.shopify.com/s/files/1/0673/6681/3924/files/Vector_2.svg?v=1742553165" />
+          </div>
+          <div class="benefit-text">60-Day Guarantee</div>
+        </div>
+        
+        <div class="benefit-item benefit-item-3">
+          <div class="benefit-icon">
+            <img src="https://cdn.shopify.com/s/files/1/0673/6681/3924/files/Vector_1.svg?v=1742553165" />
+          </div>
+          <div class="benefit-text">Fast & Secure Shipping</div>
+        </div>
+      </div>
+    </div>
+            {% when 'feature' %}
+  <section class="feature-container">
+    <div class="feature-grid">
+      {% assign icons = block.settings.feature_icons | split: "," %}
+      {% assign texts = block.settings.feature_texts | split: "|" %}
+
+      {% for i in (0..icons.size) %}
+        {% if icons[i] != blank and texts[i] != blank %}
+          <div class="feature-item">
+            <img src="{{ icons[i] | strip }}" alt="{{ texts[i] | strip }}">
+            <p>{{ texts[i] | strip }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+
+    {% when 'video_block' %}
+              <div class="two-videos-container">
+        {% assign video_1 = block.settings.video_1 %}
+        {% assign video_2 = block.settings.video_2 %}
+
+        <div class="video-wrapper">
+            <video class="video-1" src="{{ video_1 }}" poster="https://cdn.shopify.com/s/files/1/0673/6681/3924/files/image_2_d7c8ab2d-42e2-4c47-b9ab-171056b2dc01.png?v=1743601181" playsinline muted preload="auto" ></video>
+          <button class="pause-play-btn pause-play-btn-1">
+      <img src="https://cdn.shopify.com/s/files/1/0673/6681/3924/files/material-symbols_play-circle.png?v=1740395083"/> 
+    </button>
+        </div>
+        <div class="video-wrapper">
+            <video class="video-2" src="{{ video_2 }}" poster="https://cdn.shopify.com/s/files/1/0673/6681/3924/files/image_3_d0371bf8-0ec4-4d30-a709-c51a2065e853.png?v=1743601181" playsinline muted preload="auto"></video>
+            <button class="pause-play-btn pause-play-btn-2">
+      <img src="https://cdn.shopify.com/s/files/1/0673/6681/3924/files/material-symbols_play-circle.png?v=1740395083"/> 
+    </button>
+        </div>
+    </div>
+
+            {% when 'video_textarea' %}
+              <div class="editorial-container">
+      <div class="editorial-inner-con">
+        <div class="editorial-custom-carousel">
+          <div id="editorial-custom-slides" class="editorial-custom-slides">
+            {% assign links = block.settings.editorial_links | split: '
+  ' %}
+            {% assign posters = block.settings.poster_links | split: '
+  ' %}
+            
+            {% for link in links %}
+              <div class="editorial-custom-slide">
+                <div class="editorial-video-parent">
+                  {% capture unique_id %}editorial_{{ forloop.index }}{% endcapture %}
+                  {% render 'video-element', unique_class: unique_id , video_poster: posters[forloop.index0] , video_link: link | strip %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        
+          <button id="editorial-custom-prev" style="cursor: pointer;">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="20" fill="#001F5C"/>
+              <path d="M25.3337 19.3337H17.2203L20.947 15.607L20.0003 14.667L14.667 20.0003L20.0003 25.3337L20.9403 24.3937L17.2203 20.667H25.3337V19.3337Z" fill="white"/>
+            </svg>
+          </button>
+          <button id="editorial-custom-next" style="cursor: pointer;">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="20" fill="#001F5C"/>
+              <path d="M19.9997 13.3311L18.8247 14.5061L23.4747 19.1644H13.333V20.8311H23.4747L18.8247 25.4894L19.9997 26.6644L26.6663 19.9977L19.9997 13.3311Z" fill="white"/>
+            </svg>
+          </button>
+      
+      </div>
+    </div>
+            <hr style="border: none; height: 1px; background-color:black; width: 100%; margin: 16px 0; opacity:1">
+            
+
+            {% when 'button' %}<a href="{{ block.settings.button_link }}" class="btn">{{ block.settings.button_text }}</a>
+          {% endcase %}
+        {% endif %}
+      {% endfor %}
+      
+    </div>
+
+
+    <div class="right-sticky">
+      <p><img src="https://cdn.shopify.com/s/files/1/0673/6681/3924/files/Vector_4.svg?v=1742557042"> Rated</p>
+      <h2>Pack Light, Camp Right—Order Yours Today!</h2>
+      <img src="https://cdn.shopify.com/s/files/1/0673/6681/3924/files/image_1.png?v=1742392862" alt="Camping Tent" class="Sticky-Camping-Tent-img">
+      <div class="badge-container">
+        <span class="badge badge-1"> <img src="{{ 'tick.svg' | asset_url }}" alt="Tick" class="tick-icon"> Sustainabuilt</span>
+        <span class="badge badge-2"> <img src="{{ 'tick.svg' | asset_url }}" alt="Tick" class="tick-icon"> Dual Use</span>
+        <span class="badge badge-3"> <img src="{{ 'tick.svg' | asset_url }}" alt="Tick" class="tick-icon"> BE YOU-nique</span>
+        <span class="badge badge-4"> <img src="{{ 'tick.svg' | asset_url }}" alt="Tick" class="tick-icon"> Fast. Easy.</span>
+      </div>
+      <a href="https://goodintentsco.com/products/all-green-omega-tent" class="right-cta-button">GET YOUR TENT NOW</a>
+    </div>
+
+    
+  
+  </div>
+                
+  <!-- <button class="sticky-button" id="myDiv"><a href="https://goodintentsco.com/products/all-green-omega-tent">Get Your Tents Now</a></button> -->
+
+  <script>
+    window.addEventListener("scroll", function() {
+      var target = document.getElementById("myDiv");
+      var scrollPosition = window.scrollY || document.documentElement.scrollTop;
+
+      if (scrollPosition > 200) { // Show button when user scrolls 200px down
+          target.classList.add("active");
+      } else {
+          target.classList.remove("active");
+      }
+    });
+  </script>
+
+  <style>
+    .sticky-button {
+      display: none; /* Initially hidden */
+    }
+
+    @media (max-width: 768px) {
+  .sticky-button.active {
+      display: block;
+      color: white;
+      padding: 16px;
+      font-family: unset !important;
+      font-weight: 600;
+      font-size: 16px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      position: sticky;
+      bottom: 12px;
+      background: #ccc;
+      width: 92%;
+      background-color: #020030;
+      max-width: 100%;
+      margin: 20px 4%;
+      border-radius: 5px;
+      text-align: center;
+  }
+    }
+  </style>
+
+                
+  <style>
+  body.woolman.template-page-editorial.page-editorial .section-in-view {
+      transform: none !important;
+  }
+    
+  body.woolman.template-page-editorial.page-editorial .needsclick {
+      display: none;
+  }
+    
+  .scrollable-section {
+    display: flex;
+    gap: 20px;
+    padding: 64px 40px;
+    max-width: 1440px;
+    justify-content: space-between;
+    margin: auto;
+  }
+    
+    h2.review-heading {
+      font-size: 32px !important;
+      line-height: 42px;
+      margin-bottom: 16px;
+      text-align: center;
+      font-family: unset;
+      letter-spacing: 0;
+      text-transform: capitalize;
+      max-width: 666px;
+  }
+    .left-content {
+      display: flex;
+      gap: 16px;
+      color: black;
+      max-width: 50%;
+      flex-direction: column;
+  }
+    .right-sticky {
+      position: sticky;
+      top: 20px;
+      padding: 40px 24px !important;
+      display: flex;
+      gap: 32px;
+      color: black;
+      background-color: #020030;
+      text-align: center;
+      border-radius: 12px;
+    height: 100%;
+      max-width: 50%;
+      flex-direction: column;
+      align-items: center;
+  }
+    .two-videos-container {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: -32px;
+  }
+  .video-wrapper {
+      position: relative;
+      width: 50%;
+  }
+    .video-wrapper video {
+      width: 100%;
+      border-radius: 10px;
+      height: auto;
+  }
+    .video-wrapper img {
+      position: absolute;
+      top: 45%;
+      left: 45%;
+      width: 40px;
+  }
+  .feature-container {
+      padding: 20px;
+      background: #F3F3F3;
+      border-radius: 10px;
+    margin-bottom: 16px;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    text-align: center;
+  }
+    .feature-item img {
+      width: 24px;
+  }
+    .feature-item p {
+      font-weight: 400 !important;
+  }
+
+  .feature-item {
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+      align-items: center;
+  }
+  .left-content h2 a {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+  }
+  img.icon-text-number {
+      margin-top: 7px !important;
+  }
+    .icon-text-content a {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+  }
+
+  .feature-item p {
+    font-size: 17px !important;
+    font-weight: bold;
+    color: black; 
+    text-transform: capitalize;
+  }
+    .author-icon-text-block img {
+      width: 40px;
+  }
+    .author-icon-text-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: flex-start;
+  }
+    .author-icon-text-content {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+  }
+    .author-icon-text-content .text {
+      font-weight: 600;
+  }
+    .pros-cons-section {
+    display: flex;
+    justify-content: space-between;
+    background: #f8f8f8;
+    border-radius: 10px;
+  gap: 40px;
+
+  }
+  .pros, .cons {
+      flex: 1;
+      padding: 32px;
+      background: #F3F3F3;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .pros-cons-section h4 {
+      font-size: 24px !important;
+      line-height: 33px;
+      text-align: left;
+      margin-bottom: 24px;
+      font-family: unset;
+      letter-spacing: 0;
+      text-transform: capitalize;
+  }
+  .pros ul, .cons ul {
+    list-style: none;
+    padding: 0;
+  }
+  .pros li, .cons li {
+      display: flex;
+      gap: 10px !important;
+      font-size: 18px !important;
+      line-height: 24px;
+      margin-bottom: 12px;
+      align-items: flex-start;
+  }
+  .icon-text-block {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+  }
+    img.pro-cons-icon {
+      margin-top: 2px;
+  }
+  .icon-text-block img {
+      margin-top: 5px;
+  }
+  .icon-text-content {
+    display: flex;
+    flex-direction: column;
+  }
+  .icon-text-content .text {
+      font-size: 18px;
+      line-height: 28px;
+      font-family: unset;
+      font-weight: 800;
+  }
+  .icon-text-content .subtext {
+      font-size: 18px;
+      color: black;
+      line-height: 28px;
+      letter-spacing: 0;
+      font-family: unset;
+  }
+
+
+    .left-content h1 {
+      font-size: 46px !important;
+      line-height: 56px;
+      font-family: unset;
+      letter-spacing: 2px;
+      text-transform: capitalize;
+  }
+  .left-content h2 {
+      font-size: 32px !important;
+      line-height: 42px;
+    margin-bottom: 16px;
+    margin-top: -16px;
+      text-align: center;
+      font-family: unset;
+      letter-spacing: 0;
+      text-transform: capitalize;
+      max-width: 666px;
+
+    }
+  .left-content h3 {
+      font-size: 32px !important;
+      line-height: 42px;
+    margin-bottom: 16px;
+      text-align: center;
+      font-family: unset;
+      letter-spacing: 0;
+      text-transform: capitalize;
+      max-width: 666px;
+  }
+  .right-sticky h2 {
+      font-size: 32px !important;
+      line-height: 42px;
+      text-align: center;
+      color: white !important;
+      letter-spacing: 0;
+      text-transform: capitalize;
+      font-family: unset;
+      max-width: 400px;
+  }
+    .right-sticky h3 {
+      font-size: 18px !important;
+      line-height: 28px;
+      color: white !important;
+      letter-spacing: 1px;
+      text-transform: capitalize;
+      font-family: unset;
+  }
+    .right-sticky p {
+      display: flex;
+      gap: 10px;
+      font-size: 18px;
+  }
+    .left-content p {
+      font-size: 18px;
+      line-height: 28px;
+      font-family: unset;
+      letter-spacing: 0;
+  }
+    a.btn {
+      background-color: #020030;
+      color: white;
+      padding: 20px;
+      font-family: unset !important;
+      font-weight: 600;
+      font-size: 18px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 16px;
+  }
+
+  .right-sticky h3 {
+    color: white;
+    font-size: 24px;
+  }
+  .right-sticky p {
+    color: white;
+    font-size: 18px;
+  }
+  .right-sticky img {
+    width: 100%;
+    max-width:460px;
+    border-radius: 10px;
+  }
+  .badge-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .badge {
+      background: white;
+      color: black;
+      padding: 8px;
+      border-radius: 20px;
+      font-size: 14px;
+      letter-spacing: 0;
+      text-transform: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+  }
+  .right-cta-button {
+      background: #00B192;
+      color: white;
+      width: 100%;
+      padding: 21px 0px;
+      border-radius: 4px;
+      font-size: 16px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: unset;
+      font-weight: 600;
+      display: block;
+  }
+    img.tick-icon {
+      width: 16px;
+      height: 16px;
+  }
+
+    #editorial-review {
+      background-color: #020030 !important;
+      font-family: unset !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 32px;
+      flex-flow: column;
+      border-radius: 10px;
+    }
+    
+    .review-card {
+      max-width: 1000px;
+      width: 100%;
+      border-radius: 8px;
+      /* padding: 30px; */
+      color: white;
+      position: relative;
+    }
+    
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    
+    .star-rating {
+      display: flex;
+      gap: 5px;
+    }
+    
+    .star {
+      color: #ffd700;
+      font-size: 20px;
+    }
+    
+    .review-date {
+      font-size: 16px;
+    }
+    
+    .review-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    
+    .review-content {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    
+    .reviewer-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .verified-badge {
+      display: flex;
+    }
+    
+    .reviewer-name {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    
+    .verified-text {
+      font-size: 16px;
+    }
+  #editorial-review hr {
+      border: 0;
+      height: 1px;
+      background-color: white;
+      opacity: 1;
+      margin: 30px 0;
+    }
+    body{
+      background-color:white;
+    }
+
+  .promo-container {
+      max-width: 800px;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      padding: 40px 70px;
+      text-align: center;
+      background-image: url(https://cdn.shopify.com/s/files/1/0673/6681/3924/files/bg_section.png?v=1742555581);
+      background-size: contain;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+      
+      .promo-title {
+        color: white;
+        font-size: 40px;
+        line-height:50px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+      
+      .promo-subtitle {
+        color: white;
+        font-size: 16px;
+        line-height: 24px;
+        margin-bottom: 20px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      }
+    .promo-container p {
+      color: white;
+  }
+      
+      .image-container {
+        width: 100%;
+        border-radius: 6px;
+        overflow: hidden;
+        margin-bottom: 38px;
+        margin-top: 20px;
+      }
+      
+      .tent-image {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      
+      .cta-button {
+        background-color: #0a0a2a;
+        color: white;
+        border: none;
+        padding: 20px;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 6px;
+        cursor: pointer;
+        width: 100%;
+        margin: 0 auto 40px;
+        transition: background-color 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 0px;
+      }
+      
+      .cta-button:hover {
+        background-color: #161650;
+      }
+      
+      .benefits-container {
+        display: flex;
+        justify-content: space-around;
+        
+        margin-top: 10px;
+      }
+      
+      .benefit-item {
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      }
+      
+    .benefit-icon img {
+      margin-bottom: 12px;
+      height: 33px;
+  }
+      
+    .benefit-text {
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+  }
+      
+      @media (max-width: 600px) {
+        .promo-title {
+          font-size: 2rem;
+        }
+        
+        .benefits-container {
+          gap: 15px;
+        }
+      }
+    @media (max-width: 1200px) {
+      .right-sticky h2 {
+      font-size: 24px;
+      line-height: 32px;
+  }
+      .right-sticky {
+      padding: 30px 24px ;
+      gap: 12px;
+  }
+      .right-cta-button { 
+      padding: 14px 0px;
+  }
+    }
+  @media (max-width: 768px) {
+    .scrollable-section {
+      flex-direction: column;
+      padding: 50px 18px;
+    }
+    .left-content {
+      max-width: 100%;
+    }
+    .pros-cons-section {
+      display: flex;
+      flex-direction: column;
+  }
+    .right-sticky {
+      max-width: 100%;
+      position: relative;
+    }
+    .feature-grid {
+      display: flex;
+      gap: 20px;
+      text-align: center;
+      flex-direction: column;
+  }
+    .icon-text-content .subtext {
+      font-size: 16px;
+  }
+    a.btn {
+      font-size: 17px;
+      line-height: 28px;   
+  }
+  }
+  @media (max-width: 620px) {
+    .left-content h1 {
+      font-size: 24px !important;
+      line-height: 34px;
+      text-align: center;
+  }
+    .left-content p {
+      font-size: 16px;
+      line-height: 26px;
+  }
+    .left-content h2, review-heading {
+      font-size: 24px !important;
+      line-height: 32px;
+  }
+    .feature-item p {
+      font-size: 14px !important;
+  }
+    .video-wrapper img {
+      
+      top: 40%;
+      left: 40%;
+  }
+    .review-title {
+      font-size: 16px !important;
+    }
+    .review-content {
+      font-size: 14px !important;
+    
+  }
+    .cta-button {
+      height: 100% !important;
+      font-size: 14px !important;
+  }
+    .promo-container {
+      background-size: cover;
+    
+      padding: 40px 10px;
+  }
+    .right-sticky h2 {
+      font-size: 24px !important;
+      line-height: 32px;
+  }
+    .author-icon-text-content {
+      display: flex;
+      flex-direction: column;
+  }
+    .feature-container {
+      background: #E7E7E7;
+  }
+    span.badge.badge-1 {
+      width: 110px;
+  }
+    .badge {  
+      font-size: 12px;
+  }
+    .right-cta-button{
+      font-size:14px !important;
+    }
+  }
+
+      .editorial-container {
+        margin: 0 auto;
+        border-radius: 10px;
+        position: relative;
+      }
+      
+      /* Custom carousel styles from the provided code */
+      .editorial-custom-carousel {
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+      }
+      
+      .editorial-custom-slides {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+      }
+      
+      .editorial-custom-slide {
+        box-sizing: border-box;
+        padding: 10px;
+        flex-shrink: 0;
+      }
+      
+  .editorial-custom-buttons {
+      display: flex;
+      justify-content: space-between;
+      position: absolute;
+      color: white;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      left: 0;
+  }
+      
+  button#editorial-custom-next {
+      position: absolute;
+      right: -2%;
+      top: 45%;
+  }
+    button#editorial-custom-prev {
+      position: absolute;
+      top: 45%;
+  }
+      
+      .custom-carousel .video-parent {
+        height: 450px;
+        width:100%;
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #3498db;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+      }
+
+      /* Responsive styles */
+      .editorial-custom-slide {
+        /* Mobile default - 1 slide */
+        width: 100%;
+      }
+      .ieditorial-nner-con{
+        padding: 0 10px;
+        position: relative;
+      }
+    #video video {
+      border-radius: 10px;
+  }
+
+
+      @media (max-width: 2400px) {
+        /* Desktop - 3 slides */
+        .editorial-custom-slide {
+          width: 45%;
+        }
+      }
+      @media (max-width: 1024px) {
+        /* Tablet - 2 slides */
+        .editorial-custom-slide {
+          width: 50%;
+        }
+      }
+      @media (max-width: 768px) {
+        /* Tablet - 2 slides */
+        .editorial-custom-slide {
+          width: 100%;
+        }
+        .editorial-custom-slides {
+          width: 461px;
+        }
+      }
+
+      @media (max-width: 574px) {
+        .editorial-custom-slides {
+          width: 400px;
+        }
+      }
+      @media (max-width: 445px) {
+        .editorial-custom-slides {
+          width: 360px;
+        }
+      }
+      @media (max-width: 389px) {
+        .editorial-custom-slides {
+          width: 350px;
+        }
+      }
+
+
+    /* .needsclick{
+      position: fixed !important;
+      bottom: 164px !important;
+      left: -88px !important;
+  }
+  .needsclick span.needsclick{
+      padding: 8px !important;
+      transform: rotate(90deg) !important;
+      bottom: 20px !important;
+  } */
+      
+  </style>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const video1 = document.querySelector(".video-1");
+      const video2 = document.querySelector(".video-2");
+      const button1 = document.querySelector(".pause-play-btn-1");
+      const button2 = document.querySelector(".pause-play-btn-2");
+
+      if (video1 && button1) {
+          button1.addEventListener("click", () => {
+              if (video1.paused) {
+                  video1.play();
+                  button1.firstElementChild.src = "https://cdn.shopify.com/s/files/1/0673/6681/3924/files/material-play.png?v=1740395442";
+              } else {
+                  video1.pause();
+                  button1.firstElementChild.src = "https://cdn.shopify.com/s/files/1/0673/6681/3924/files/material-symbols_play-circle.png?v=1740395083";
+              }
+          });
+      }
+
+      if (video2 && button2) {
+          button2.addEventListener("click", () => {
+              if (video2.paused) {
+                  video2.play();
+                  button2.firstElementChild.src = "https://cdn.shopify.com/s/files/1/0673/6681/3924/files/material-play.png?v=1740395442";
+              } else {
+                  video2.pause();
+                  button2.firstElementChild.src = "https://cdn.shopify.com/s/files/1/0673/6681/3924/files/material-symbols_play-circle.png?v=1740395083";
+              }
+          });
+      }
+  });
+  </script>
+
+
+      <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const customSlides = document.getElementById('editorial-custom-slides');
+        const customSlideItems = document.querySelectorAll('.editorial-custom-slide');
+        let customIndex = 0;
+        let slidesToShow = 1; // Default for mobile
+        let maxIndex = 0;
+
+        // Function to determine how many slides to show based on viewport
+        function updateSlidesToShow() {
+          const windowWidth = window.innerWidth;
+          
+          if (windowWidth >= 1024) {
+            slidesToShow = 2; // Desktop
+          } else if (windowWidth >= 768) {
+            slidesToShow = 2; // Tablet
+          } else {
+            slidesToShow = 1; // Mobile
+          }
+          
+          // Calculate max index (last slide that should be visible)
+          maxIndex = customSlideItems.length - slidesToShow;
+          
+          // Ensure current index is valid
+          if (customIndex > maxIndex) {
+            customIndex = maxIndex;
+          }
+          
+          // Update carousel position
+          updateCustomSlide(false);
+        }
+
+        // Function to update carousel position
+        function updateCustomSlide(animate = true) {
+          // Calculate single slide width
+          const slideWidth = customSlideItems[0].offsetWidth;
+          const containerWidth = customSlides.parentElement.offsetWidth;
+          const slideWidthPercentage = (slideWidth / containerWidth) * 100;
+          
+          // Apply transition
+          customSlides.style.transition = animate ? 'transform 0.5s ease-in-out' : 'none';
+          customSlides.style.transform = `translateX(-${customIndex * slideWidthPercentage}%)`;
+        }
+
+        // Next button handler
+        document.getElementById('editorial-custom-next').addEventListener('click', () => {
+          if (customIndex >= maxIndex) {
+            // If at the last valid position, loop back to beginning
+            customIndex = 0;
+          } else {
+            // Otherwise, move to next slide
+            customIndex++;
+          }
+          updateCustomSlide();
+        });
+
+        // Previous button handler
+        document.getElementById('editorial-custom-prev').addEventListener('click', () => {
+          if (customIndex <= 0) {
+            // If at the first slide, loop to the last valid position
+            customIndex = maxIndex;
+          } else {
+            // Otherwise, move to previous slide
+            customIndex--;
+          }
+          updateCustomSlide();
+        });
+
+        // Update on window resize
+        window.addEventListener('resize', updateSlidesToShow);
+
+        // Initialize
+        updateSlidesToShow();
+      });
+    </script>
+
+
+  {% schema %}
+  {
+    "name": "Editorial Section",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "heading",
+        "name": "Heading",
+        "settings": [
+          { "type": "checkbox", "id": "enable", "label": "Enable", "default": true },
+          { "type": "text", "id": "heading_text", "label": "Heading Text", "default": "Your Heading Here" }
+        ]
+      },
+      {
+        "type": "author-details",
+        "name": "Author",
+        "settings": [
+          { "type": "checkbox", "id": "enable", "label": "Enable", "default": true },
+          { "type": "image_picker", "id": "icon", "label": "Select Icon" },
+          { "type": "text", "id": "text", "label": "Text", "default": "Main Text Here" },
+          { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Subtext description goes here." }
+        ]
+      },
+      {
+        "type": "subheading",
+        "name": "Subheading",
+        "settings": [
+          { "type": "checkbox", "id": "enable", "label": "Enable", "default": true },
+          { "type": "text", "id": "subheading_text", "label": "Subheading Text", "default": "Your Subheading Here" }
+        ]
+      },
+      {
+        "type": "subheading_text",
+        "name": "Subheading RichText",
+        "settings": [
+          { "type": "checkbox", "id": "enable", "label": "Enable", "default": true },
+          { "type": "richtext", "id": "subheading_richtext", "label": "Subheading Text", "default": "<h2>Your Subheading area Here</h2>" }
+        ]
+      },
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          { "type": "checkbox", "id": "enable", "label": "Enable", "default": true },
+          { "type": "image_picker", "id": "image", "label": "Select Image" }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "name": "Paragraph",
+        "settings": [
+          { "type": "checkbox", "id": "enable", "label": "Enable", "default": true },
+          { "type": "richtext", "id": "paragraph_text", "label": "Paragraph Text" }
+        ]
+      },
+      {
+        "type": "button",
+        "name": "Button",
+        "settings": [
+          { "type": "checkbox", "id": "enable", "label": "Enable", "default": true },
+          { "type": "text", "id": "button_text", "label": "Button Text", "default": "Click Me" },
+          { "type": "url", "id": "button_link", "label": "Button Link" }
+        ]
+      },
+      {
+        "type": "icon_text",
+        "name": "Icon Text",
+        "settings": [
+          { "type": "checkbox", "id": "enable", "label": "Enable", "default": true },
+          { "type": "image_picker", "id": "icon", "label": "Select Icon" },
+          { "type": "text", "id": "text", "label": "Text", "default": "Main Text Here" },
+          { "type": "richtext", "id": "subtext", "label": "Subtext", "default": "<p>Subtext description goes here.</p>" }
+        ]
+      },
+          {
+        "type": "icon_text_number",
+        "name": "Icon Text Number",
+        "settings": [
+          { "type": "checkbox", "id": "enable", "label": "Enable", "default": true },
+          { "type": "image_picker", "id": "icon", "label": "Select Icon" },
+          { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Main Text Here</p>" },
+          { "type": "richtext", "id": "subtext", "label": "Subtext", "default": "<p>Subtext description goes here.</p>" }
+        ]
+      },
+      {
+    "type": "hr",
+    "name": "Divider",
+    "settings": [
+      { "type": "checkbox", "id": "enable", "label": "Enable", "default": true },
+      { "type": "color", "id": "color", "label": "Divider Color", "default": "#000000" },
+      { "type": "range", "id": "thickness", "label": "Thickness", "min": 1, "max": 10, "step": 1, "default": 1 },
+      { "type": "range", "id": "width", "label": "Width (%)", "min": 10, "max": 100, "step": 5, "default": 100 }
+    ]
+  },
+      {
+        "type": "pros_cons",
+        "name": "Pros & Cons",
+        "settings": [
+          { "type": "checkbox", "id": "enable", "label": "Enable", "default": true },
+          { "type": "textarea", "id": "pros", "label": "Pros (one per line)" },
+          { "type": "textarea", "id": "cons", "label": "Cons (one per line)" }
+        ]
+      },
+
+      {
+        "type": "review",
+        "name": "Review",
+        "settings": [
+          { "type": "checkbox", "id": "enable", "label": "Enable", "default": true },
+                  {
+            "type": "text",
+            "id": "dated1",
+            "label": "Review 1 Date"
+          },
+          {
+            "type": "text",
+            "id": "title1",
+            "label": "Review 1 Title"
+          },
+          {
+            "type": "textarea",
+            "id": "description1",
+            "label": "Review 1 Description"
+          },
+          {
+            "type": "text",
+            "id": "name1",
+            "label": "Review 1 Name"
+          },
+                  {
+            "type": "text",
+            "id": "dated2",
+            "label": "Review 2 Date"
+          },
+          {
+            "type": "text",
+            "id": "title2",
+            "label": "Review 2  Title"
+          },
+          {
+            "type": "textarea",
+            "id": "description2",
+            "label": "Review 2 Description"
+          },
+          {
+            "type": "text",
+            "id": "name2",
+            "label": "Review 2 Name"
+          },
+                  {
+            "type": "text",
+            "id": "dated3",
+            "label": "Review 3 Date"
+          },
+          {
+            "type": "text",
+            "id": "title3",
+            "label": "Review 3 Title"
+          },
+          {
+            "type": "textarea",
+            "id": "description3",
+            "label": "Review 3 Description"
+          },
+          {
+            "type": "text",
+            "id": "name3",
+            "label": "Review 3 Name"
+          },
+                  {
+            "type": "text",
+            "id": "dated4",
+            "label": "Review 4 Date"
+          },
+          {
+            "type": "text",
+            "id": "title4",
+            "label": "Review 4 Title"
+          },
+          {
+            "type": "textarea",
+            "id": "description4",
+            "label": "Review 4 Description"
+          },
+          {
+            "type": "text",
+            "id": "name4",
+            "label": "Review 4 Name"
+          },
+                  {
+            "type": "text",
+            "id": "dated5",
+            "label": "Review 5 Date"
+          },
+          {
+            "type": "text",
+            "id": "title5",
+            "label": "Review 5 Title"
+          },
+          {
+            "type": "textarea",
+            "id": "description5",
+            "label": "Review 5 Description"
+          },
+          {
+            "type": "text",
+            "id": "name5",
+            "label": "Review 5 Name"
+          },
+          
+        ]
+      },
+      
+      {
+        "type": "Promo_Container",
+        "name": "Promo",
+    "settings": [
+      { "type": "checkbox", "id": "enable", "label": "Enable", "default": true },
+        {
+        "type": "text",
+        "id": "heading_exp",
+        "label": "Heading",
+        "default": "Ready To Experience The Ultimate Tent?"
+      },
+      {
+        "type": "richtext",
+        "id": "description_exp",
+        "label": "Description",
+        "default": "<p>If you're looking for a tent that offers ease, comfort, beauty, and sustainability without compromise, Good inTents has you covered. Enjoy your precious time away in your home away from home.</p>"
+      },
+      {
+        "type": "image_picker",
+        "id": "tent_image_exp",
+        "label": "Tent Image"
+      },
+      {
+        "type": "text",
+        "id": "button_text_exp",
+        "label": "Button Text",
+        "default": "SHOP NOW & ELEVATE YOUR CAMPING GAME"
+      },
+    ],
+      },
+      
+      {
+        "type": "feature",
+        "name": "Feature Item",
+        "settings": [
+          { "type": "checkbox", "id": "enable", "label": "Enable", "default": true },
+          {
+        "type": "textarea",
+        "id": "feature_icons",
+        "label": "Feature Icons (comma-separated image URLs)",
+        "default": "icon-no-poles.png,icon-temperature.png,icon-windows.png"
+      },
+      {
+        "type": "textarea",
+        "id": "feature_texts",
+        "label": "Feature Texts (pipe `|` separated values)",
+        "default": "No-poles, fast setup|Temperature insulated design|Superior ventilating windows"
+      },
+        ]
+      },
+      {
+        "type": "video_block",
+        "name": "Video Pair",
+        "settings": [
+          { "type": "checkbox", "id": "enable", "label": "Enable", "default": true },
+          {
+            "type": "text",
+            "id": "video_1",
+            "label": "First Video URL (MP4)"
+          },
+          {
+            "type": "text",
+            "id": "video_2",
+            "label": "Second Video URL (MP4)"
+          }
+        ]
+      },
+      {
+        "type": "video_textarea",
+      "name": "Editorial video carousel",
+        "settings": [
+          { "type": "checkbox", "id": "enable", "label": "Enable", "default": true },
+      {
+        "type": "textarea",
+        "id": "editorial_links",
+        "label": "Video Links",
+        "info": "Enter one video link per line (YouTube or Vimeo)",
+        "default": "https://www.youtube.com/watch?v=example1\nhttps://www.youtube.com/watch?v=example2"
+      },
+      {
+        "type": "textarea",
+        "id": "poster_links",
+        "label": "Video Poster Links",
+        "info": "Enter one Poster link per line (YouTube or Vimeo)",
+        "default": "https://www.youtube.com/watch?v=example1\nhttps://www.youtube.com/watch?v=example2"
+      },
+    ]
+      }
+
+    ],
+
+    "presets": [
+      {
+        "name": "Editorial Section",
+      
+      },
+    ]
+  }
+  {% endschema %}
+              

@@ -1,0 +1,691 @@
+{%- render 'section-spacing-collapsing' -%}
+
+{%- assign visible_images_count = section.blocks | map: 'settings' | where: 'image' | size -%}
+
+{%- comment -%}
+  ------------------------------------------------------------------------------------------------------------------------
+  CSS
+  ------------------------------------------------------------------------------------------------------------------------
+{%- endcomment -%}
+
+<style>
+  /* Base screen */
+  .multi-custom-class-v2 .prev-next-buttons {
+    gap: 15px;
+  }
+  .multi-custom-class-v2 .h1-comtd-comfort p {
+    font-size: 32px;
+    line-height: 40px;
+    font-weight: 400;
+    font-family: 'Perfectly Nineties';
+    /* margin-bottom : -30px; */
+  }
+  .multi-custom-class-v2 .circle-button {
+    background-color: black;
+    color: white
+  }
+  .multi-custom-class-v2 .content-sub-heading {
+    font-family: 'Haffer';
+    font-weight: 430;
+    font-size: 20px;
+    line-height: 30px;
+    /* margin-bottom: -10px; */
+  }
+  .multi-custom-class-v2 .content-sub-content {
+    font-family: 'Haffer';
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 430;
+  }
+  .multiple-images-with-text__content-with-nav {
+    padding: 20px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 34px;
+
+  }
+  .multiple-images-with-text__content-with-nav .prev-next-buttons {
+    text-align: left;
+  }
+  .multiple-images-with-text__content-list {
+    text-align: left;
+  }
+  /* Medium Mobile: 480px - 767px */
+  @media screen and (min-width: 480px) and(max-width: 767px) {
+    .multi-custom-class-v2 .h1-comtd-comfort p {
+      font-size: 34px;
+      line-height: 44px;
+    }
+    .multi-custom-class-v2 .content-sub-heading {
+      font-size: 22px;
+      line-height: 34px;
+    }
+    .multi-custom-class-v2 .content-sub-content {
+      font-size: 18px;
+      line-height: 28px;
+    }
+  }
+
+  /* Tablet: 768px - 991px */
+  @media screen and (min-width: 768px) and(max-width: 991px) {
+    .multi-custom-class-v2 .h1-comtd-comfort p {
+      font-size: 32px;
+      line-height: 40px;
+    }
+
+
+    /*
+   .content-sub-heading {
+   font-size: 24px;
+   line-height: 36px;
+   }
+*/
+    .multi-custom-class-v2 .content-sub-content {
+      font-size: 16px;
+      line-height: 26px;
+    }
+    .button {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  /* Small Desktop: 992px - 1149px */
+  @media screen and (min-width: 992px) and(max-width: 1100px) {
+    .multi-custom-class-v2 .h1-comtd-comfort p {
+      font-size: 48px;
+      line-height: 60px;
+    }
+    .multi-custom-class-v2 .content-sub-content {
+      font-size: 20px;
+      line-height: 30px;
+    }
+  }
+
+
+  /*
+   @media screen and (min-width: 999px) {
+   .h1-comtd-comfort p {
+   font-size: 45px;
+   line-height: 54px;
+   }
+   }
+*/
+  @media screen and (min-width: 1250px) {
+    .multi-custom-class-v2 .h1-comtd-comfort p {
+      font-size: 60px;
+      line-height: 64px;
+      margin-bottom: 0;
+    }
+
+    .multi-custom-class-v2 .circle-button {
+      width: 50px;
+      height: 50px;
+    }
+    .multi-custom-class-v2 .content-sub-heading {
+      font-size: 28px;
+      line-height: 40px;
+    }
+
+    .multi-custom-class-v2 .content-sub-content {
+      font-size: 20px;
+      line-height: 30px;
+    }
+    .multi-custom-class-v2 .content-sub-content {
+      margin-top: 5px !important;
+    }
+    .multi-custom-class-v2 .content-sub-content p {
+      line-height: 28px;
+      font-size: 18px;
+    }
+  }
+  #shopify-section-{{ section.id }} {
+    --multiple-images-with-text-max-width: 580px;
+    --multiple-images-with-text-images-grid-template: {% if section.settings.images_layout != 'stacked' and visible_images_count > 1 %}repeat({% if visible_images_count == 2 %}1{% else %}2{% endif %}, auto) / minmax(0, 0.75fr) minmax(0, 1fr){% else %}none{% endif %};
+  --multiple-images-with-text-images-alignment: {% if section.settings.images_layout == 'collage' and section.settings.collage_images_alignment == 'top' or section.settings.collage_images_alignment == 'shifted' %}start{% else %}center{% endif %};
+  --multiple-images-with-text-main-image-offset: {% if section.settings.images_layout == 'collage' and section.settings.collage_images_alignment == 'shifted' and visible_images_count > 1 %}{% if visible_images_count == 2 %}40px{% else %}min(145px, 14vw){% endif %}{% else %}0px{% endif %};
+}
+
+{%- if section.settings.images_layout == 'stacked' or visible_images_count == 1 -%}
+  @media screen and (min-width: 768px) {
+    #shopify-section-{{ section.id }} {
+      --multiple-images-with-text-max-width: none;
+      --multiple-images-with-text-grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+      --multiple-images-with-text-column-gap: var(--spacing-20);
+      --multiple-images-with-text-alignment: start;
+    }
+
+
+  }
+{%- else -%}
+@media screen and (min-width: 768px) {
+  #shopify-section-{{ section.id }} {
+    --multiple-images-with-text-max-width: 690px;
+  }
+}
+{%- endif -%}
+
+@media screen and (min-width: 1150px) {
+  #shopify-section-{{ section.id }} {
+    --multiple-images-with-text-max-width: none;
+    --multiple-images-with-text-grid-template-columns: {% if section.settings.images_layout == 'stacked' %}minmax(0, 0.8fr) minmax(0, 1fr){% else %}minmax(0, {% if visible_images_count == 1 %}max-content{% else %}1fr{% endif %}) minmax(0, 0.7fr){% endif %};
+  --multiple-images-with-text-column-gap: var(--spacing-24);
+  --multiple-images-with-text-alignment: start;
+}
+.multiple-images-with-text {
+  gap: 80px;
+  min-height: 570px;
+}
+.multiple-images-with-text__content-with-nav {
+  padding: 0;
+}
+.multiple-images-with-text__image-list > img {
+  max-width: 100%;
+}
+.custom-icon.two-frnds-content .section {
+  padding: 120px 80px;
+}
+.multi-custom-class-v2 .custom-icon .section {
+  padding: 120px 80px;
+}
+}
+@media only screen and (max-width: 1000px) and(min-width: 768px) {
+  multiple-images-with-text.multiple-images-with-text {
+    gap: 50px;
+  }
+  .multiple-images-with-text__content-with-nav {
+    gap: 24px !important;
+    padding: 0 !important;
+  }
+}
+@media screen and (min-width: 1750px) {
+  .multiple-images-with-text {
+    gap: 80px;
+    max-width: 1600px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .multi-custom-class-v2 .prose {
+    padding-top: 0;
+  }
+  .multi-custom-class-v2 .h1-comtd-comfort {
+    padding-bottom: 0;
+  }
+  .multi-custom-class-v2 img {
+    margin-top: 0;
+    margin-block-start: 0 !important;
+  }
+
+
+  /*
+   .multi-custom-class-v2 .prose *+:is(p,div,ul,ol) {
+   margin-block-start: 16px !important;
+   }
+*/
+  .multiple-images-with-text__content-with-nav {
+    gap: 30px;
+  }
+  .multiple-images-with-text__content-list {
+    place-items: center;
+  }
+  .multi-custom-class-v2 .content-sub-content {
+    margin-top: 5px !important;
+  }
+  .multi-custom-class-v2 .multiple-images-with-text__image-list {
+    --multiple-images-with-text-image-max-width: 100%;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .multiple-images-with-text__content-with-nav {
+    row-gap: 32px;
+  }
+}
+@media screen and (min-width: 1000px) and(max-width : 1416px) {
+  .multiple-images-with-text__content-with-nav {
+    row-gap: 25px;
+
+  }
+  .multi-custom-class-v2 .h1-comtd-comfort p {
+    font-size: 47px;
+    line-height: 41px;
+  }
+
+  .multiple-images-with-text {
+    gap: 40px;
+  }
+}
+.multi-custom-class-v2 .circle-button[disabled] {
+  opacity: .5;
+  pointer-events: auto;
+}
+
+@media screen and (min-width: 1102px) and(max-width : 1416px) {
+  .multi-custom-class-v2 .h1-comtd-comfort p {
+    font-size: 53px;
+    line-height: 56px;
+  }
+  .multi-custom-class-v2 .content-sub-heading {
+    font-size: 26px;
+  }
+}
+
+@media screen and (min-width: 1102px) and(max-width : 1416px) {
+  .multi-custom-class-v2 .h1-comtd-comfort p {
+    font-size: 53px;
+    line-height: 56px;
+  }
+  .multi-custom-class-v2 .content-sub-heading {
+    font-size: 26px;
+  }
+}
+
+@media screen and (min-width: 1000px) and(max-width : 1041px) {
+  .multi-custom-class-v2 .multiple-images-with-text__content-list {
+    place-items: center;
+  }
+  .multi-custom-class-v2 .h1-comtd-comfort p {
+    font-size: 33px;
+  }
+  .multi-custom-class-v2 .multiple-images-with-text__content-with-nav {
+    row-gap: 15px;
+  }
+  .multi-custom-class-v2 .content-sub-content {
+    font-size: 18px;
+  }
+
+}
+
+@media screen and (min-width: 992px) and(max-width: 1000px) {
+  .multi-custom-class-v2 .h1-comtd-comfort p {
+    font-size: 33px;
+    line-height: 45px;
+  }
+  .multi-custom-class-v2 .multiple-images-with-text__content-with-nav {
+    gap: 11px;
+  }
+  .multi-custom-class-v2 .content-sub-heading {
+    font-size: 22px;
+    line-height: 25px;
+  }
+}
+@media screen and (min-width: 781px) and(max-width: 965px) {
+  .multi-custom-class-v2 .h1-comtd-comfort p {
+    font-size: 30px ! important;
+    line-height: 33px ! important;
+  }
+  .multi-custom-class-v2 .multiple-images-with-text__content-with-nav {
+    gap: 10px ! important;
+  }
+  .multi-custom-class-v2 img.icon-image {
+    width: 26px;
+  }
+  .multi-custom-class-v2 p .content-sub-heading {
+    font-size: 21px ! important;
+    line-height: 13px ! important;
+  }
+  .multi-custom-class-v2 .circle-button {
+    width: 34px;
+    height: 35px;
+    /* margin-top: 5%; */
+  }
+}
+
+@media screen and (min-width: 768px) and(max-width: 780px) {
+  .multi-custom-class-v2 .multiple-images-with-text__content-with-nav {
+    gap: 5px !important;
+  }
+  .multi-custom-class-v2 .h1-comtd-comfort p {
+    font-size: 29px;
+    line-height: 34px;
+  }
+  .multi-custom-class-v2 .icon-image {
+    width: 25px;
+  }
+  .multi-custom-class-v2 .multiple-images-with-text__content-list {
+    place-items: center;
+  }
+  .multi-custom-class-v2 .content-sub-heading {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .multi-custom-class-v2 .circle-button {
+    width: 34px;
+    height: 35px;
+    /* margin-top: 5%; */
+  }
+  .multi-custom-class-v2 .button {
+    padding: 8px 10px 14px !;
+    font-size: 14px;
+  }
+
+  .multi-custom-class-v2 .prose * + .button {
+    margin-top: 13px ! important;
+  }
+
+}</style>
+
+
+{%- comment -%}
+  ------------------------------------------------------------------------------------------------------------------------
+  LIQUID
+  ------------------------------------------------------------------------------------------------------------------------
+{%- endcomment -%}
+
+{%- assign is_narrow = false -%}
+
+{%- if section.settings.images_layout == 'stacked' -%}
+  {%- assign is_narrow = true -%}
+{%- endif -%}
+
+<div {% render 'section-properties', narrow: is_narrow %}>
+  <multiple-images-with-text class="multiple-images-with-text">
+    <multiple-images-with-text-image-list
+      reversed
+      swipeable="false"
+      layout="{{ section.settings.images_layout }}"
+      class="multiple-images-with-text__image-list">
+      {%- if visible_images_count == 0 -%}
+        {{- 'collection-1' | placeholder_svg_tag: 'placeholder' -}}
+        {%- else -%}
+        {%- comment -%}We have to reverse the images when they are stacked so that the image of the first block appears at the top of the stack{%- endcomment -%}
+        {%- if section.settings.images_layout == 'stacked' -%}
+          {%- assign section_blocks = section.blocks | reverse -%}
+        {%- else -%}
+          {%- assign section_blocks = section.blocks -%}
+        {%- endif -%}
+
+        {%- for block in section_blocks -%}
+          {%- if block.settings.image != blank -%}
+            {%- if section.settings.images_layout == 'scattered' -%}
+              {%- capture style -%}--image-rotation: {{ block.settings.image_rotation_degrees }}deg;{%- endcapture -%}
+            {%- endif -%}
+
+            {%- capture image_id -%}image-{{ block.id }}{%- endcapture -%}
+            {%- capture image_class -%}rounded-sm {% unless section.settings.images_layout == 'stacked' %}reveal{% endunless %}{%- endcapture -%}
+            {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: id: image_id, loading: 'lazy', style: style, sizes: 'min(100vw, 500px)', widths: '200,300,400,500,600,700,800,900,1000', class: image_class -}}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </multiple-images-with-text-image-list>
+
+    <div class="multiple-images-with-text__content-with-nav">
+
+      <!-- image title -->
+      {%- if section.settings.title-s != blank -%}
+        <div
+          class="h1-comtd-comfort h1"
+          {% if settings.heading_apparition != 'none' %}
+          reveal-on-scroll="true"
+          {% endif %}>
+          {{ section.settings.title-s }}
+        </div>
+      {%- endif -%}
+
+      <multiple-images-with-text-content-list swipeable="false" class="multiple-images-with-text__content-list">
+
+        {%- assign outputted_text_count = 0 -%}
+
+        {%- for block in section.blocks -%}
+          {%- if block.settings.subheading != blank or block.settings.title != blank or block.settings.content != blank -%}
+            <div
+              class="prose {% if outputted_text_count == 0 %}is-selected{% else %}reveal-invisible{% endif %}"
+              {% if block.settings.image != blank %}
+              image-id="image-{{ block.id }}"
+              {% endif %}
+              {{ block.shopify_attributes }}>
+              {%- if block.settings.subheading != blank -%}
+                <p class="bold">{{ block.settings.subheading | escape }}</p>
+              {%- endif -%}
+
+              <!-- image title -->
+              {% comment %}
+                {%- if block.settings.title != blank -%}
+                <div class="h1-comtd-comfort h1" {% if settings.heading_apparition != 'none' %}reveal-on-scroll="true"{% endif %}>
+                {{ block.settings.title }}
+                </div>
+                {%- endif -%}
+              {% endcomment %}
+
+              <!-- add icon here -->
+              <!-- <img src="https://cdn.shopify.com/s/files/1/0727/3742/3687/files/Vector_1.png?v=1745409819" /> -->
+              {% if block.settings.icon_image != blank %}
+                <img
+                  src="{{ block.settings.icon_image | image_url }}"
+                  alt="Icon"
+                  class="icon-image" />
+              {% endif %}
+
+              <!-- adding content sub heading -->
+              {% if block.settings.content_subheading != blank %}
+                <p class='content-sub-heading'>{{ block.settings.content_subheading }}</p>
+              {% endif %}
+
+              <div class='content-sub-content'>
+                {{- block.settings.content -}}
+              </div>
+
+
+              {%- if block.settings.button_text != blank -%}
+                {%- render 'button'
+                  ,  href: block.settings.button_url
+                  ,  content: block.settings.button_text
+                  ,  size: 'xl'
+                  ,  background: section.settings.button_background
+                  ,  text_color: section.settings.button_text_color
+                  , class: 'custom-padding-btn-multi' -%}
+              {%- endif -%}
+            </div>
+
+
+            {%- assign outputted_text_count = outputted_text_count | plus: 1 -%}
+
+
+          {%- endif -%}
+        {%- endfor -%}
+      </multiple-images-with-text-content-list>
+
+      {%- if outputted_text_count > 1 -%}
+        <div class="prev-next-buttons">
+          <button is="prev-button" class="circle-button ring group">
+            <span class="sr-only">{{ 'general.accessibility.previous' | t }}</span>
+            <span class="animated-arrow animated-arrow--reverse"></span>
+          </button>
+
+          <button is="next-button" class="circle-button ring group">
+            <span class="sr-only">{{ 'general.accessibility.next' | t }}</span>
+            <span class="animated-arrow"></span>
+          </button>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.button_text_s != blank -%}
+        {%- render 'button'
+          ,  href: section.settings.button_url_s
+          ,  content: section.settings.button_text_s
+          ,  size: 'xl'
+          ,  background: section.settings.button_background
+          ,  text_color: section.settings.button_text_color
+          , class: 'custom-padding-btn-multi' -%}
+      {%- endif -%}
+
+
+    </div>
+  </multiple-images-with-text>
+</div>
+
+{% schema %}
+  {
+    "name": "Multiple images with text",
+    "class": "shopify-section--multiple-images-with-text custom-icon multi-custom-class-v2 ",
+    "tag": "section",
+    "disabled_on": {
+      "templates": ["password"],
+      "groups": ["header", "custom.overlay"]
+    },
+    "max_blocks": 4,
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "full_width",
+        "label": "Full width",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "images_layout",
+        "label": "Images layout",
+        "options": [
+          {
+            "value": "stacked",
+            "label": "Stacked"
+          }, {
+            "value": "collage",
+            "label": "Collage"
+          }, {
+            "value": "scattered",
+            "label": "Scattered"
+          }
+        ],
+        "default": "stacked"
+      },
+      {
+        "type": "select",
+        "id": "collage_images_alignment",
+        "label": "Collage images alignment",
+        "options": [
+          {
+            "value": "top",
+            "label": "Top"
+          }, {
+            "value": "middle",
+            "label": "Middle"
+          }, {
+            "value": "shifted",
+            "label": "Shifted"
+          }
+        ],
+        "default": "middle"
+      },
+      {
+        "type": "richtext",
+        "id": "title-s",
+        "label": "Heading",
+        "default": "<p>Image with text</p>"
+      }, {
+        "type": "url",
+        "id": "button_url_s",
+        "label": "Button URL"
+      }, {
+        "type": "text",
+        "id": "button_text_s",
+        "label": "Button text"
+      }, {
+        "type": "header",
+        "content": "Colors",
+        "info": "Gradient replaces solid colors when set."
+      }, {
+        "type": "color",
+        "id": "background",
+        "label": "Background"
+      }, {
+        "type": "color_background",
+        "id": "background_gradient",
+        "label": "Background gradient"
+      }, {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text"
+      }, {
+        "type": "color",
+        "id": "button_background",
+        "label": "Button background"
+      }, {
+        "type": "color",
+        "id": "button_text_color",
+        "label": "Button text"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "item",
+        "name": "Item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+            "info": "1000 x 1200px .jpg recommended"
+          },
+          {
+            "type": "range",
+            "id": "image_rotation_degrees",
+            "min": -15,
+            "max": 15,
+            "step": 0.5,
+            "unit": "deg",
+            "label": "Image rotation",
+            "info": "Only applicable when images layout is set to \"Scattered\".",
+            "default": 0
+          },
+          {
+            "type": "text",
+            "id": "subheading",
+            "label": "Subheading"
+          },
+          {
+            "type": "text",
+            "id": "content_subheading",
+            "label": "Content Subheading"
+          }, {
+            "type": "richtext",
+            "id": "title",
+            "label": "Heading",
+            "default": "<p>Image with text</p>"
+          }, {
+            "type": "richtext",
+            "id": "content",
+            "label": "Content",
+            "default": "<p>Precision-Crafted Support Ergonomic design with balanced firmness to maintain posture and minimize discomfort.</p>"
+          }, {
+            "type": "url",
+            "id": "button_url",
+            "label": "Button URL"
+          }, {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button text"
+          }, {
+            "type": "image_picker",
+            "id": "icon_image",
+            "label": "Icon Image",
+            "info": "Small decorative icon next to the heading or text"
+          }
+
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Multiple images with text",
+        "blocks": [
+          {
+            "type": "item",
+            "settings": {
+              "title": "<h2>Heading 1</h2>",
+              "image_rotation_degrees": -2
+            }
+          }, {
+            "type": "item",
+            "settings": {
+              "title": "<h2>Heading 2</h2>",
+              "image_rotation_degrees": 1.5
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

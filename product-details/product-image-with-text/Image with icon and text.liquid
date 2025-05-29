@@ -1,0 +1,366 @@
+<section id="founder-{{ section.id }}" class="founder-section">
+  <h3 class="title">{{ section.settings.title }}</h3>
+  <div class="content">
+    <div class="media-container">
+      {%- if section.settings.media_type == 'video' and section.settings.video_url != blank -%}
+        {% render 'video-element', 
+          unique_class: "_founder-" | append: section.id, 
+          video_link: section.settings.video_url, 
+          video_poster: section.settings.video_poster | img_url: '800x'
+        %}
+      {%- elsif section.settings.image != blank -%}
+        <div class="image-container">
+          {{ section.settings.image | image_url: width: 800 | image_tag:
+            loading: 'lazy',
+            width: section.settings.image.width,
+            height: section.settings.image.height,
+            class: 'media-image',
+            alt: section.settings.image.alt | escape
+          }}
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="text-container">
+      <div class="text-section">
+        {% for block in section.blocks %}
+          <div class="item" {{ block.shopify_attributes }}>
+            <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20.5 10C20.5 15.5228 16.0228 20 10.5 20C4.97715 20 0.5 15.5228 0.5 10C0.5 4.47715 4.97715 0 10.5 0C16.0228 0 20.5 4.47715 20.5 10ZM15.5379 6.21209C15.1718 5.84597 14.5782 5.84597 14.2121 6.21209C14.2032 6.22093 14.1949 6.23029 14.1872 6.24013L9.84674 11.7709L7.22985 9.15403C6.86373 8.78791 6.27014 8.78791 5.90402 9.15403C5.5379 9.52015 5.5379 10.1137 5.90402 10.4799L9.21208 13.7879C9.5782 14.154 10.1718 14.154 10.5379 13.7879C10.5461 13.7798 10.5538 13.7712 10.561 13.7622L15.5512 7.52434C15.904 7.15727 15.8995 6.57371 15.5379 6.21209Z" fill="#020030"/>
+            </svg>
+            <div class="text-item">
+              <h5 class="s-title">{{ block.settings.title }}</h5>
+              <p class="s-des">{{ block.settings.description }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  
+  {% if section.settings.button_text != blank %}
+    <a class="shop-btn" href="{{ section.settings.button_link | default: '#product-page-main' }}">
+      <button class="shop-now {% unless section.settings.show_button_on_desktop %}hide-desktop{% endunless %} link-pointer">
+        {{ section.settings.button_text }}
+      </button>
+    </a>
+  {% endif %}
+</section>
+
+<style>
+  #founder-{{ section.id }}{
+    background: #fff;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 4rem;
+    color: black;
+    gap: 2rem;
+  }
+  .upper-border-svg{
+    background: #fff;
+  }
+  #founder-{{ section.id }} .title{
+    margin-top: 3rem;
+    font-size: 40px;
+  }
+  #founder-{{ section.id }} .content{
+    display: grid;
+    grid-template-columns: 50% 46%;
+    padding: 4rem 50px;
+    gap:6%;
+    max-width: 1476px;
+  }
+  .media-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .media-container #video,
+  .media-container .image-container {
+      width: 660px;
+      height: 448px;
+      border-radius: 5px;
+      overflow: hidden;
+  }
+  .media-container .media-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .text-container{
+    display: flex;
+    flex-flow: column;
+    text-align: left;
+    justify-content: center;
+  }
+  .text-section{
+    display: flex;
+    flex-flow: column;
+    gap: 16px;
+  }
+  .s-title{
+    font-size:18px;
+    text-transform:captalize;
+  }
+  .s-des{
+    font-size:16px;
+  }
+  #founder-{{ section.id }} .hide-desktop{
+    display:none;
+    background: #020030;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    border-radius: 7px;
+    margin-top: 50px;
+    max-width: 380px;
+    color: white;
+  }
+
+  #founder-{{ section.id }} .shop-btn{
+      width: 100%;
+      margin: 0 auto;
+      display: contents;
+  }
+
+  @media (max-width:1300px){
+    .s-title {
+      font-size: 16px;
+    }
+    .s-des {
+      font-size: 14px;
+    }
+  }
+  @media (max-width:1248px){
+    .s-title {
+      font-size: 14px;
+    }
+    .s-des {
+      font-size: 12px;
+    }
+    .item svg {
+      min-width: 15px;
+    }
+    .media-container #video,
+    .media-container .image-container {
+      width: 660px;
+      height: 332px;
+    }
+  }
+  @media (max-width:1048px){
+    .s-title {
+      font-size: 12px;
+    }
+    .s-des {
+      font-size: 10px;
+    }
+    .item svg {
+      min-width: 12px;
+    }
+    .media-container #video,
+    .media-container .image-container {
+      width: 381px;
+      height: 298px;
+    }
+    #founder-{{ section.id }} .title {
+      font-size: 32px;
+    }
+  }
+
+  @media (max-width:768px){
+    #founder-{{ section.id }} {
+      padding-bottom: 2rem;
+    }
+    #founder-{{ section.id }} .content {
+      grid-template-columns: 100%;
+      padding: 4rem 12rem;
+      margin-top:0;
+      gap:0;
+    }
+    .media-container #video,
+    .media-container .image-container {
+      width: 500px;
+    }
+    .media-container{
+      margin-bottom: 3rem;
+    }
+    #founder-{{ section.id }} .title{
+      margin-top: 5rem;
+      font-size: 26px;
+    }
+    .s-title {
+      font-size: 16px;
+    }
+    .s-des {
+      font-size: 14px;
+    }
+    .item svg {
+      min-width: 12px;
+    }
+    #founder-{{ section.id }} .hide-desktop {
+      margin-top: -10px;
+      margin-bottom: 10px;
+      display: block;
+    }
+  
+  }
+  @media (max-width:598px){
+    #founder-{{ section.id }} .content {
+      grid-template-columns: 100%;
+      padding: 3rem 12rem;
+      margin-top:0;
+    }
+    .media-container #video,
+    .media-container .image-container {
+      width: 400px;
+    }
+  
+  }
+  @media (max-width:475px){
+    #founder-{{ section.id }} .content {
+      grid-template-columns: 100%;
+      padding: 2rem 25px;
+      margin-top:0;
+    }
+    .media-container #video,
+    .media-container .image-container {
+      width: auto;
+      height:270px;
+    }
+    .media-container{
+      margin-bottom: 2.25rem;
+    }
+    #founder-{{ section.id }} .title{
+      margin-top: 4rem;
+      font-size: 24px;
+    }
+    .item svg {
+      width: 12px;
+    }
+    #founder-{{ section.id }} .shop-now{
+      width: 90%;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Founder Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Meet Our Founder"
+    },
+    {
+      "type": "radio",
+      "id": "media_type",
+      "label": "Media Type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "video"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Displayed when image media type is selected"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video URL",
+      "info": "Required when video media type is selected"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_poster",
+      "label": "Video Thumbnail",
+      "info": "Required when video media type is selected"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Get Your Tent Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button_on_desktop",
+      "label": "Show Button on Desktop",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "story_point",
+      "name": "Story Point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Frustration to Innovation"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Danielle Williams, a Mechanical Engineer, dreamed of pole-free, hassle-free, comfortable and beautiful camping tent that made nature and travel more accessible."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Founder Section",
+      "category": "Content",
+      "blocks": [
+        {
+          "type": "story_point",
+          "settings": {
+            "title": "Frustration to Innovation",
+            "description": "Danielle Williams, a Mechanical Engineer, dreamed of pole-free, hassle-free, comfortable and beautiful camping tent that made nature and travel more accessible."
+          }
+        },
+        {
+          "type": "story_point",
+          "settings": {
+            "title": "The Big Idea",
+            "description": "She designed Good inTents to be an exceptionally beautiful, comfortable, and sustainabuilt for a lifetime of adventures so that you can feel safe, comfortable, and at peace wherever your heart may roam."
+          }
+        },
+        {
+          "type": "story_point",
+          "settings": {
+            "title": "Building the Dream",
+            "description": "With 15+ years of new product development, engineering, and design experience and she brought together a global team of experts to she make it a reality."
+          }
+        },
+        {
+          "type": "story_point",
+          "settings": {
+            "title": "Camping, Reimagined",
+            "description": "Good inTents combines smart design, premium materials, and effortless functionality—so you can spend less time struggling with gear and more time enjoying nature."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

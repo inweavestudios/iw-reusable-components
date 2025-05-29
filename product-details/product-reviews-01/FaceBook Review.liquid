@@ -1,0 +1,288 @@
+<section class="facebook-reviews">
+  <h2 class="facebook-section-title">{{ section.settings.title }}</h2>
+
+  <!-- Top 4 Reviews -->
+  <div class="reviews-grid">
+    {% for block in section.blocks limit: 4 %}
+      <div class="review-card">
+        {% if block.settings.profile_image %}
+          <img
+            src="{{ block.settings.profile_image | img_url: 'master' }}"
+            alt="{{ block.settings.author }}"
+            class="fb-profile-image">
+        {% endif %}
+        <div class="review-header-footer">
+          <div class="review-header">
+            <strong>{{ block.settings.author }}</strong>
+            <p>{{ block.settings.review_text }}</p>
+          </div>
+          <div class="review-footer">
+            <span>Like</span>
+            <span>Reply</span>
+            <span class="font-weight:400;">{{ block.settings.review_time }}</span>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Highlighted Center Image -->
+  {% if section.settings.highlight_image %}
+    <div class="highlight-section">
+
+      <img
+        src="{{ section.settings.highlight_image | img_url: 'master' }}"
+        alt="Highlight Image"
+        class="facebook-highlight-image">
+
+    </div>
+  {% endif %}
+
+  <!-- Bottom Grid: 2 Left, 1 Right -->
+  <div class="bottom-grid">
+    <div class="bottom-left">
+      {% for block in section.blocks offset: 4 limit: 2 %}
+        <div class="review-card">
+          {% if block.settings.profile_image %}
+            <img
+              src="{{ block.settings.profile_image | img_url: 'master' }}"
+              alt="{{ block.settings.author }}"
+              class="fb-profile-image">
+          {% endif %}
+          <div class="review-header-footer">
+            <div class="review-header">
+              <strong>{{ block.settings.author }}</strong>
+              <p>{{ block.settings.review_text }}</p>
+            </div>
+            <div class="review-footer">
+              <span>Like</span>
+              <span>Reply</span>
+              <span class="font-weight:400;">{{ block.settings.review_time }}</span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="bottom-right">
+      {% for block in section.blocks offset: 6 limit: 1 %}
+        <div class="review-card">
+          {% if block.settings.profile_image %}
+            <img src="{{ block.settings.profile_image | img_url: '48x48' }}" alt="{{ block.settings.author }}">
+          {% endif %}
+          <div class="review-header-footer">
+            <div class="review-header">
+              <strong>{{ block.settings.author }}</strong>
+              <p>{{ block.settings.review_text }}</p>
+            </div>
+            <div class="review-footer">
+              <span>Like</span>
+              <span>Reply</span>
+              <span class="font-weight:400;">{{ block.settings.review_time }}</span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<style>
+  div#shopify-section-template--25062866059606__facebook_review_section_KkHTPH .facebook-reviews {
+    background-image: url('https://cdn.shopify.com/s/files/1/0485/7787/2027/files/Slice_10.png?v=1746017716');
+  }
+
+  .facebook-reviews {
+    background-image: url('https://cdn.shopify.com/s/files/1/0485/7787/2027/files/10D.png?v=1744891584');
+    background-size: cover;
+    color: {{ section.settings.text_color }};
+    padding: 68px 20px 20px;
+  }
+
+  .facebook-section-title {
+    font-family: Migra;
+    font-size: 50px !important;
+    color: black;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 20px;
+    max-width: 750px;
+    margin: auto;
+    justify-items: center;
+  }
+  .review-card {
+    display: flex;
+    gap: 14px;
+    text-align: left;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .review-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 290px;
+    background: #F0F2F5;
+    padding: 10px 15px;
+    border-radius: 15px;
+    flex-direction: column;
+  }
+  .review-header-footer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .review-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  .review-footer {
+    display: flex;
+    margin-top: 12px;
+    font-size: 12px;
+    color: #1E1E1E99;
+    gap: 20px;
+  }
+
+  .highlight-section {
+    margin: 0 auto;
+    max-width: 660px;
+  }
+
+  .highlight-section img {
+    margin: 20px 0;
+    height: auto;
+  }
+
+  .review-header p {
+    font-size: 14px;
+    font-family: 'Helvetica';
+    line-height: 133%;
+  }
+
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    gap: 20px;
+    max-width: 750px;
+    margin: 40px auto 0;
+  }
+
+  .bottom-left,
+  .bottom-right {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+  }
+
+  .bottom-left {
+    grid-template-columns: 1fr 1fr;
+  }
+  .review-footer span {
+    font-family: 'arial';
+    font-weight: 700;
+  }
+  img.facebook-highlight-image {
+    border-radius: 5px;
+  }
+
+  @media (max-width: 768px) {
+    div#shopify-section-template--25062866059606__facebook_review_section_KkHTPH .facebook-reviews {
+      background-image: url('https://cdn.shopify.com/s/files/1/0485/7787/2027/files/10P.png?v=1744893592') !important;
+    }
+
+    .facebook-reviews {
+      background-image: url('https://cdn.shopify.com/s/files/1/0485/7787/2027/files/10P.png?v=1744893592');
+      background-size: cover;
+
+    }
+    .facebook-reviews {
+      padding: 50px 20px 40px;
+    }
+    .bottom-grid {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+    .bottom-left {
+      grid-template-columns: 1fr;
+    }
+    h2.facebook-section-title {
+      font-size: 28px !important;
+      letter-spacing: 0 !important;
+      line-height: 100%;
+    }
+  }
+
+  img.fb-profile-image {
+    max-width: 48px;
+    max-height: 48px;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Facebook Reviews Section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#f8eadc"
+      }, {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#000000"
+      }, {
+        "type": "textarea",
+        "id": "title",
+        "label": "Section Title",
+        "default": "Latest Facebook Reviews"
+      }, {
+        "type": "image_picker",
+        "id": "highlight_image",
+        "label": "Highlight Image"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "review",
+        "name": "Review",
+        "settings": [
+          {
+            "type": "text",
+            "id": "author",
+            "label": "Author Name"
+          }, {
+            "type": "textarea",
+            "id": "review_text",
+            "label": "Review Text"
+          }, {
+            "type": "image_picker",
+            "id": "profile_image",
+            "label": "Profile Image"
+          }, {
+            "type": "text",
+            "id": "review_time",
+            "label": "Review Time"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Facebook Reviews",
+        "category": "Custom Sections"
+      }
+    ]
+  }
+{% endschema %}

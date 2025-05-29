@@ -1,0 +1,361 @@
+<section id="Testimonial-Section">
+  <div class="container testimonial-container">
+    <div class="testimonial-title">
+      <h1>
+        {{ section.settings.title }}
+        <p>{{ section.settings.subtitle }}</p>
+      </h1>
+    </div>
+
+    <div class="testimonial-card-container slickslider">
+      {% for block in section.blocks %}
+        <div class="testimonial-card">
+          <img src="{{ section.settings.pushpin_icon | img_url: 'small' }}" class="pushpin">
+          {% if block.settings.customer_image %}
+            <img src="{{ block.settings.customer_image | img_url: 'medium' }}" class="testimonial-img">
+          {% endif %}
+          <img src="{{ section.settings.star_icon | img_url: 'small' }}" class="stars">
+          {% if block.settings.testimonial_text %}
+            <p>{{ block.settings.testimonial_text }}</p>
+          {% endif %}
+          {% if block.settings.testimonial_text_2 %}
+            <p>{{ block.settings.testimonial_text_2 }}</p>
+          {% endif %}
+          {% if block.settings.testimonial_text_3 %}
+            <p>{{ block.settings.testimonial_text_3 }}</p>
+          {% endif %}
+          {% if block.settings.testimonial_text_4 %}
+            <p>{{ block.settings.testimonial_text_4 }}</p>
+          {% endif %}
+          <p class="customer-name">{{ block.settings.customer_name }}</p>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="testimonial-carousel-controls">
+      <button class="prev-slick-slide">
+        <img src="{{ section.settings.prev_arrow | img_url: 'small' }}" class="testimonial-arrow-btn">
+      </button>
+      <button class="next-slick-slide">
+        <img src="{{ section.settings.next_arrow | img_url: 'small' }}" class="testimonial-arrow-btn">
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonial-arrow-btn {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  button:hover .testimonial-arrow-btn {
+    transform: scale(1.2);
+  }
+  .testimonial-arrow-btn {
+    background: #030375;
+    border-radius: 50%;
+    max-width: 48px;
+  }
+  .container.testimonial-container {
+    padding: 80px 30px 40px;
+    gap: 64px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimonial-card {
+    background-color: #FFF8B7;
+    width: 417px !important;
+    text-align: center;
+    gap: 12px;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 32px;
+    margin-bottom: 25px;
+    position: relative;
+    margin-top: 30px;
+    margin-right: 64px;
+    box-shadow: 0 25px 8px rgba(0, 0, 0, 0.1);
+
+  }
+  img.testimonial-img {
+    height: 144px;
+    width: 120px;
+  }
+  img.pushpin {
+    width: 74px;
+    position: absolute;
+    left: 355px;
+    top: -25px;
+  }
+  .testimonial-card p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 40px;
+    color: black;
+    letter-spacing: 0;
+  }
+
+  .testimonial-card p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 40px;
+    color: black;
+    width: 353px;
+    border: 1px solid black;
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+    letter-spacing: 0;
+  }
+  p.customer-name {
+    font-size: 20px !important;
+    font-weight: 600;
+    text-align: center !important;
+    line-height: 40px !important;
+    font-family: 'Myriad Pro SemiBold' !important;
+  }
+  .testimonial-card p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 40px;
+    color: black;
+    width: 362px;
+    text-align: start;
+    border: 1px solid black;
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+    letter-spacing: 0;
+  }
+  .testimonial-card-container {
+    display: flex;
+    gap: 64px;
+  }
+  .slickslider {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+
+  section#Testimonial-Section span {
+    background-image: url('https://cdn.shopify.com/s/files/1/0843/4735/5383/files/Vector_13e4a30a-0161-4d9c-9a70-7eb01b4cc6ca.svg?v=1740988128');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-y: 10px;
+  }
+
+
+  .testimonial-carousel-controls {
+    gap: 40px;
+    display: flex;
+    justify-content: center;
+  }
+  button.next-slick-slide.slick-arrow {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  button.prev-slick-slide.slick-arrow {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  {% comment %} .testimonial-card-container.slickslider.slick-initialized.slick-slider .slick-list {
+    overflow: visible;
+  }
+{% endcomment %}
+.testimonial-card:last-child {
+  margin-right: 0;
+}
+.testimonial-title p {
+  font-family: 'Myriad Pro';
+  -webkit-text-stroke: 0;
+  font-size: 20px;
+  margin: 0;
+  text-transform: uppercase;
+  line-height: 32px;
+  color: black;
+}
+.testimonial-title {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  align-items: flex-end;
+}
+
+
+@media (min-width: 620px) and (max-width: 990px) {
+  .testimonial-title {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    align-items: flex-start;
+  }
+}
+@media (max-width: 620px) {
+  .testimonial-title {
+    gap: 10px;
+    align-items: baseline;
+    align-items: center !important;
+    flex-direction: row !important;
+  }
+  svg.Group_1000005337 {
+    width: 22px;
+  }
+  svg.Arrow-Hatch-Filled-Zigzag {
+    width: 22px;
+  }
+  .testimonial-title p {
+    font-size: 16px;
+    line-height: 24px;
+
+
+  }
+  .container.testimonial-container {
+    padding-top: 30px !important;
+  }
+  .testimonial-card {
+    width: 360px !important;
+    margin-top: 15px;
+    margin-bottom: 0 !important;
+    margin-right: 0;
+  }
+  .testimonial-card-container .slick-track {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 30px;
+  }
+  .testimonial-card-container .slick-track .testimonial-card:first-child {
+    margin-left: -30px;
+  }
+  img.pushpin {
+    width: 62px;
+    left: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .container.testimonial-container {
+    gap: 30px;
+  }
+  .testimonial-card p {
+    font-size: 16px;
+    line-height: 40px;
+    width: 324px;
+    margin: -5px;
+
+
+  }
+}
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+   jQuery('.slickslider').slick({
+    slidesToShow: 3,  // Adjust this based on your layout
+    slidesToScroll: 1,
+    infinite: false,  // Disables infinite scrolling
+    arrows: true,
+    prevArrow: jQuery('.prev-slick-slide'),
+    nextArrow: jQuery('.next-slick-slide'),
+    centerMode: false, // Avoids extra margin issues
+    variableWidth: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: { slidesToShow: 2 }
+      },
+      {
+        breakpoint: 768,
+        settings: { slidesToShow: 1 }
+      }
+    ]
+  });
+
+    });
+</script>
+
+{% schema %}
+  {
+    "name": "Testimonials",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Section Title",
+        "default": "WHAT <span class=\"highlight\">PARENTS</span> ARE SAYING"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Section Subtitle",
+        "default": "Real Stories from Families Who Trust OMMi for Their Kids’ Nutrition"
+      },
+      {
+        "type": "image_picker",
+        "id": "pushpin_icon",
+        "label": "Pushpin Icon"
+      },
+      {
+        "type": "image_picker",
+        "id": "star_icon",
+        "label": "Star Rating Icon"
+      }, {
+        "type": "image_picker",
+        "id": "prev_arrow",
+        "label": "Previous Arrow Icon"
+      }, {
+        "type": "image_picker",
+        "id": "next_arrow",
+        "label": "Next Arrow Icon"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "testimonial",
+        "name": "Testimonial",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "customer_image",
+            "label": "Customer Image"
+          },
+          {
+            "type": "text",
+            "id": "testimonial_text",
+            "label": "Testimonial Text"
+          },
+          {
+            "type": "text",
+            "id": "testimonial_text_2",
+            "label": "Testimonial Text 2"
+          },
+          {
+            "type": "text",
+            "id": "testimonial_text_3",
+            "label": "Testimonial Text 3"
+          }, {
+            "type": "text",
+            "id": "testimonial_text_4",
+            "label": "Testimonial Text 4"
+          }, {
+            "type": "text",
+            "id": "customer_name",
+            "label": "Customer Name",
+            "default": "Emily P."
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Testimonials",
+        "category": "Custom Sections"
+      }
+    ]
+  }
+{% endschema %}

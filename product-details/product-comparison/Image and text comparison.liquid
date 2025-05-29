@@ -1,0 +1,307 @@
+<div class="comparison-section">
+  <h2>{{ section.settings.heading }}</h2>
+  <div class="comparison-box">
+    {% if section.settings.badge_image %}
+      <img
+        src="{{ section.settings.badge_image | img_url: 'small' }}"
+        alt="Badge"
+        class="badge">
+    {% endif %}
+    <div class="comparison-left-image-section">
+      <img
+        src="{{ section.settings.left_image_badge | img_url: 'master' }}"
+        alt="Left Image"
+        class="left-image-badge">
+      <img src="{{ section.settings.left_image | img_url: 'large' }}" alt="Left Image">
+    </div>
+    <img src="{{ section.settings.right_image | img_url: 'large' }}" alt="Right Image">
+  </div>
+
+  <div class="comparison-list">
+    {% for block in section.blocks %}
+      <div class="comparison-item">
+        <div class="comparison-left">
+          {{ block.settings.left_text }}
+          {% if block.settings.left_icon %}
+            <img src="{{ block.settings.left_icon | img_url: 'small' }}" alt="Left Icon">
+          {% endif %}
+        </div>
+        <div class="comparison-right">
+          {% if block.settings.right_icon %}
+            <img src="{{ block.settings.right_icon | img_url: 'small' }}" alt="Right Icon">
+          {% endif %}
+          {{ block.settings.right_text }}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  div#shopify-section-template--25062866059606__comparison_section_MNwCGt .comparison-section {
+    background-image: url('https://cdn.shopify.com/s/files/1/0485/7787/2027/files/Slice_6.png?v=1746017714');
+  }
+
+  .comparison-section {
+    background-image: url('https://cdn.shopify.com/s/files/1/0485/7787/2027/files/6D.png?v=1744891934');
+    background-size: cover;
+    text-align: center;
+    color: {{ section.settings.text_color }};
+    padding: 50px;
+
+  }
+
+  .comparison-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* flex-wrap: wrap; */
+    gap: 40px;
+    position: relative;
+    margin-bottom: 30px;
+  }
+
+  .vs-circle {
+    font-size: 24px;
+    font-weight: bold;
+    background: {{ section.settings.primary_color }};
+    color: #fff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .comparison-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .comparison-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 700px;
+    padding: 6px 20px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+
+  .comparison-left {
+    background: {{ section.settings.primary_color }};
+    color: white;
+    font-weight: 400;
+    font-size: 11px;
+    text-transform: uppercase;
+    padding: 9px 12px;
+    font-family: 'Apercu Mono Pro';
+    border-radius: 30px 0 0 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  .comparison-right {
+    background: white;
+    color: black;
+    font-weight: 400;
+    font-size: 11px;
+    text-transform: uppercase;
+    padding: 9px 12px;
+    font-family: 'Apercu Mono Pro';
+    border-radius: 0 30px 30px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+
+  }
+  .comparison-section h2 {
+    color: black;
+    font-family: 'Migra';
+    font-size: 50px;
+    line-height: 50px;
+    max-width: 571px;
+    margin: 0 auto 30px;
+    letter-spacing: 2px;
+  }
+
+  .badge {
+    position: absolute;
+    top: 35%;
+    z-index: 1;
+    left: 46%;
+    width: 98px;
+  }
+  .comparison-box img {
+    max-width: 330px;
+  }
+  @media (max-width: 500px) {
+    .comparison-box img {
+      max-width: 150px;
+    }
+    img.left-image-badge {
+      max-width: 90px !important;
+      left: -17% !important;
+      top: -25% !important;
+    }
+    .comparison-item {
+
+      padding: 3px 20px !important;
+
+    }
+  }
+
+  @media (max-width: 768px) {
+    div#shopify-section-template--25062866059606__comparison_section_MNwCGt .comparison-section {
+      background-image: url('https://cdn.shopify.com/s/files/1/0485/7787/2027/files/6.png?v=1746096297');
+    }
+    .comparison-section {
+      background-image: url('https://cdn.shopify.com/s/files/1/0485/7787/2027/files/6P.png?v=1744893592');
+      background-size: cover;
+    }
+  }
+  @media (min-width: 500px) and (max-width: 799px) {
+    .comparison-box img {
+      max-width: 200px;
+    }
+    img.left-image-badge {
+      max-width: 100px !important;
+      left: -18% !important;
+      top: -20% !important;
+    }
+  }
+  @media (max-width: 799px) {
+
+    .comparison-section {
+      padding: 0;
+    }
+    .comparison-item {
+      width: 100%;
+    }
+    .comparison-box {
+      gap: 20px;
+    }
+
+    .comparison-section h2 {
+      font-size: 28px;
+      line-height: 34px;
+    }
+    .badge {
+      left: 44%;
+      width: 12%;
+    }
+
+    .comparison-left {
+      text-transform: inherit;
+      padding: 14px 12px;
+      max-height: 47px;
+      text-align: right;
+    }
+    .comparison-right {
+      text-transform: inherit;
+      padding: 14px 12px;
+      max-height: 47px;
+      text-align: left;
+    }
+
+  }
+  .comparison-left-image-section {
+    position: relative;
+  }
+
+  img.left-image-badge {
+    position: absolute;
+    max-width: 155px;
+    left: -12%;
+    top: -8%;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Comparison Section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Why Norse customers<br>get results faster"
+      },
+      {
+        "type": "image_picker",
+        "id": "left_image_badge",
+        "label": "Left Image Badge"
+      },
+
+      {
+        "type": "image_picker",
+        "id": "left_image",
+        "label": "Left Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "right_image",
+        "label": "Right Image"
+      }, {
+        "type": "image_picker",
+        "id": "badge_image",
+        "label": "Badge Image (Optional)"
+      }, {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#f5dcc3"
+      }, {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#000000"
+      }, {
+        "type": "color",
+        "id": "primary_color",
+        "label": "Primary Highlight Color",
+        "default": "#d87d4a"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "comparison_item",
+        "name": "Comparison Item",
+        "settings": [
+          {
+            "type": "text",
+            "id": "left_text",
+            "label": "Left Side Text"
+          }, {
+            "type": "image_picker",
+            "id": "left_icon",
+            "label": "Left Icon (Emoji or ✓/✗)"
+          }, {
+            "type": "text",
+            "id": "right_text",
+            "label": "Right Side Text"
+          }, {
+            "type": "image_picker",
+            "id": "right_icon",
+            "label": "Right Icon (Emoji or ✓/✗)"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Comparison Section",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}

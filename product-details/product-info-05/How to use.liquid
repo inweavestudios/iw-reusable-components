@@ -1,0 +1,334 @@
+<section>
+  <div class="container how-to-use-section">
+    <div class="how-to-use-title">
+      <h1>
+        {{ section.settings.main_title }}
+        <p>{{ section.settings.subtitle }}</p>
+      </h1>
+
+      {% if section.settings.underline_image != blank %}
+        <img
+          src="{{ section.settings.underline_image | img_url: 'master' }}"
+          class="how-to-use-heading-underline"
+          alt="Underline decoration">
+      {% endif %}
+    </div>
+
+    <div class="how-to-use-content">
+      {% for block in section.blocks %}
+        <div class="box">
+          {% if block.settings.image != blank %}
+            <img
+              src="{{ block.settings.image | img_url: 'master' }}"
+              class="how-to-use-img"
+              alt="Step image">
+          {% endif %}
+
+          <div class="how-to-use-img-text">
+            {% if section.settings.tick_image != blank %}
+              <img src="{{ section.settings.tick_image | img_url: 'small' }}" alt="Tick icon">
+            {% endif %}
+            <p>{{ block.settings.step_number }}</p>
+          </div>
+
+          <div class="box-{{ forloop.index }}">
+            <h5>{{ block.settings.title }}</h5>
+            <p>{{ block.settings.description }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .how-to-use-title {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    align-items: flex-end;
+    position: relative;
+  }
+  .how-to-use-title p {
+    font-family: 'Myriad Pro';
+    -webkit-text-stroke: 0;
+    font-size: 20px;
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 32px;
+    color: black;
+  }
+  .how-to-use-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5%;
+  }
+  img.how-to-use-img {
+    width: 350px;
+  }
+  .box {
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container.how-to-use-section {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    padding: 105px 80px;
+  }
+  .how-to-use-img-text {
+    display: flex;
+    font-size: 24px;
+    line-height: 32px;
+    gap: 12px;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 16px;
+    margin-top: 24px;
+    align-items: center;
+  }
+  .how-to-use-img-text p {
+    margin: 0;
+  }
+  .box p {
+    font-size: 18px;
+    line-height: 26px;
+    color: black;
+    margin: 0;
+    letter-spacing: 0;
+  }
+  .box h5 {
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 0;
+  }
+  .box-1 {
+    max-width: 259px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+  .box-2 {
+    max-width: 283px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+  .box-3 {
+    max-width: 283px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+  img.how-to-use-heading-underline {
+    position: absolute;
+    bottom: 15px;
+    left: 48%;
+  }
+  @media (max-width: 1400px) {
+    img.how-to-use-img {
+      width: 100%;
+      max-width: 300px;
+      max-height: 300px;
+    }
+  }
+  @media (max-width: 1024px) {
+    .container.how-to-use-section {
+      padding: 60px 40px;
+      gap: 40px;
+    }
+    .how-to-use-content {
+      flex-direction: row;
+      gap: 32px;
+      align-items: flex-start;
+    }
+    img.how-to-use-heading-underline {
+      position: absolute;
+      max-width: 150px;
+      left: 47%;
+    }
+    .box {
+      max-width: 100%;
+      width: 90%;
+    }
+    img.how-to-use-img {
+      width: 100%;
+      max-width: 300px;
+      max-height: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container.how-to-use-section {
+      padding: 40px 20px;
+      gap: 30px;
+    }
+    .how-to-use-content {
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+    .how-to-use-title {
+      gap: 8%;
+    }
+    .how-to-use-title p {
+      font-size: 18px;
+      line-height: 24px;
+    }
+    img.how-to-use-img {
+      width: 100%;
+      max-width: 350px;
+      max-height: 350px;
+    }
+
+    .how-to-use-img-text {
+      font-size: 20px;
+    }
+    .box h5 {
+      font-size: 18px;
+    }
+    .box p {
+      font-size: 18px;
+    }
+    img.how-to-use-heading-underline {
+      position: absolute;
+      max-width: 150px;
+      left: 47%;
+      bottom: 6px;
+    }
+  }
+
+
+  @media (max-width: 620px) {
+    .container.how-to-use-section {
+      padding: 30px 15px;
+      gap: 20px;
+    }
+    .how-to-use-title {
+      text-align: center;
+      align-items: center;
+      gap: 10%;
+    }
+    .how-to-use-title h1 {
+      font-size: 24px;
+      -webkit-text-stroke: 2px black;
+      line-height: 32px;
+    }
+    .how-to-use-title p {
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .how-to-use-content {
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+    .box {
+      width: 100%;
+      max-width: 100%;
+
+    }
+    .how-to-use-img {
+      width: 90%;
+      max-width: 250px;
+    }
+    .how-to-use-img-text {
+      font-size: 18px;
+    }
+    .box h5 {
+      font-size: 18px;
+    }
+    .box p {
+      font-size: 18px;
+      line-height: 26px;
+    }
+    svg.question-mark {
+      width: 100%;
+      max-width: 33px;
+    }
+    svg.kite {
+      width: 100%;
+      width: 43px !important;
+    }
+    img.how-to-use-heading-underline {
+      position: absolute;
+      max-width: 40px;
+      left: 49%;
+      bottom: 42%;
+    }
+  }
+</style>
+{% schema %}
+  {
+    "name": "How to Use Section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "main_title",
+        "label": "Main Title",
+        "default": "How to Use OMMi"
+      }, {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle",
+        "default": "A Simple Guide for Parents"
+      }, {
+        "type": "image_picker",
+        "id": "underline_image",
+        "label": "Underline Image"
+      }, {
+        "type": "image_picker",
+        "id": "tick_image",
+        "label": "Tick Icon Image",
+        "info": "This icon appears next to the step number"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "step",
+        "name": "Step",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Step Image"
+          }, {
+            "type": "text",
+            "id": "step_number",
+            "label": "Step Number",
+            "default": "Step 1"
+          }, {
+            "type": "text",
+            "id": "title",
+            "label": "Step Title",
+            "default": "Take 1 Scoop of OMMi"
+          }, {
+            "type": "textarea",
+            "id": "description",
+            "label": "Step Description",
+            "default": "Scoop up the real food goodness your kids need."
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "How to Use Section",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}

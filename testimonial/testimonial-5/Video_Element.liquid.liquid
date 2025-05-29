@@ -1,0 +1,57 @@
+
+<div id="video" >
+  <video class="{{ unique_class }}" src="{{ video_link }}" poster="{{ video_poster }}" webkit-playsinline  playsinline muted preload="auto"></video>
+  <button class="pause-play-btn pause-play-btn-{{ unique_class }}">
+    <img src="https://cdn.shopify.com/s/files/1/0673/6681/3924/files/material-symbols_play-circle.png?v=1740395083"/> 
+  </button>
+</div>
+
+
+<style>
+  #video{
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    width:100%;
+    height:100%;
+    position:relative;
+  }
+  #video video{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
+  #video .pause-play-btn{
+    position: absolute;
+    width: 50px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    
+  }
+  .pause-play-btn{
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  const video_{{ unique_class }} = document.querySelector("#video .{{ unique_class }}");
+  const pausePlayBtn_{{ unique_class }} = document.querySelector("#video .pause-play-btn-{{ unique_class }}");
+  
+  if (video_{{ unique_class }} && pausePlayBtn_{{ unique_class }}) {
+    pausePlayBtn_{{ unique_class }}.addEventListener("click", () => {
+      if (video_{{ unique_class }}.paused) {
+        video_{{ unique_class }}.play();
+        video_{{ unique_class }}.muted = false;
+        pausePlayBtn_{{ unique_class }}.firstElementChild.src = "https://cdn.shopify.com/s/files/1/0673/6681/3924/files/material-play.png?v=1740395442";
+      } else {
+        video_{{ unique_class }}.pause();
+        pausePlayBtn_{{ unique_class }}.firstElementChild.src = "https://cdn.shopify.com/s/files/1/0673/6681/3924/files/material-symbols_play-circle.png?v=1740395083";
+      }
+    });
+  }
+</script>
+
+
+

@@ -1,0 +1,827 @@
+<div
+  class="faq-section__wrapper"
+  style="
+    color: {{ section.settings.text_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="faq-section__container">
+    <div class="faq-section__header">
+      <h2 class="faq-section__heading">{{ section.settings.heading }}</h2>
+      <div class="faq-section__description">{{ section.settings.description }}</div>
+    </div>
+
+    {% if section.settings.show_divider %}
+      <hr class="faq-section__divider">
+    {% endif %}
+
+    <p class="faq-section__highlight">{{ section.settings.muscle_text }}</p>
+
+    {% if section.blocks.size > 0 %}
+      <div class="faq-section__blocks" id="faq-accordion-group">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'accordion' %}
+              <div
+                class="faq-section__accordion {% if forloop.last %}faq-section__accordion--last{% endif %}"
+                {{ block.shopify_attributes }}
+              >
+                <details
+                  class="faq-section__details"
+                  {% if forloop.first %}
+                    open
+                  {% endif %}
+                >
+                  <summary class="faq-section__summary" onclick="toggleAccordion(event)">
+                    <span class="faq-section__accordion-title">{{ block.settings.accordion_title }}</span>
+                    <span class="faq-section__accordion-icon">
+                      <svg
+                        class="faq-section__accordion-svg faq-section__accordion-plus"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                      </svg>
+                      <svg
+                        class="faq-section__accordion-svg faq-section__accordion-minus"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                      </svg>
+                    </span>
+                  </summary>
+                  <div class="faq-section__accordion-content">
+                    <div class="faq-section__content">
+                      {% if block.settings.herb_image %}
+                        <div class="faq-section__image-wrapper">
+                          <img
+                            src="{{ block.settings.herb_image | img_url: 'master' }}"
+                            alt="{{ block.settings.herb_title | escape }}"
+                            class="faq-section__image"
+                            loading="lazy"
+                            width="430"
+                            height="430"
+                          >
+                        </div>
+                      {% endif %}
+
+                      <div class="faq-section__text-content">
+                        <h3 class="faq-section__subheading">{{ block.settings.herb_title }}</h3>
+                        <div class="faq-section__text">{{ block.settings.herb_description }}</div>
+                        <div class="faq-section__benefits">{{ block.settings.herb_benefits }}</div>
+                        {% if block.settings.read_studies_url %}
+                          <a
+                            href="{{ block.settings.read_studies_url }}"
+                            class="faq-section__link"
+                            style="color: {{ block.settings.accent_color }};"
+                          >
+                            {{ block.settings.read_studies_text }}
+                            <svg
+                              class="faq-section__link-icon"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                          </a>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </details>
+              </div>
+
+            {% when 'benefit' %}
+              <div class="faq-section__benefit-block" {{ block.shopify_attributes }}>
+                {% if block.settings.benefit_icon %}
+                  <div class="faq-section__benefit-icon-wrapper">
+                    <img
+                      src="{{ block.settings.benefit_icon | img_url: '100x' }}"
+                      alt="{{ block.settings.benefit_title | escape }}"
+                      class="faq-section__benefit-icon"
+                      loading="lazy"
+                      width="100"
+                      height="100"
+                    >
+                  </div>
+                {% endif %}
+                <h4 class="faq-section__benefit-title">{{ block.settings.benefit_title }}</h4>
+                <div class="faq-section__benefit-description">{{ block.settings.benefit_description }}</div>
+              </div>
+            {% when 'ingredients' %}
+              {% if section.settings.cta_url %}
+                <div class="view-button-container">
+                  <button id="toggle-ingredients" class="view-button">
+                    VIEW THE FULL INGREDIENTS LIST
+                    <span class="arrow-icon">❯</span>
+                  </button>
+                </div>
+              {% endif %}
+          {% endcase %}
+        {% endfor %}
+        <div id="ingredients-section" style="display: none;">
+          <div class="s-faq__container">
+            <div class="s-info-blocks__faq-content">
+              <div>
+                <div>
+                  {% for block in section.blocks %}
+                    {% case block.type %}
+                      {% when 'heading' %}
+                        <h3 class="point-heading">{{ block.settings.title }}</h3>
+                      {% when 'ingredient_points' %}
+                        <div>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 14 14"
+                            fill="none"
+                          >
+                            <circle cx="7.47363" cy="7.33203" r="6.5" fill="{{ block.settings.ball_color }}"></circle>
+                          </svg>
+                          <span class="text-point">{{ block.settings.content }}</span>
+                        </div>
+                    {% endcase %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <a class="link-ingredients-page" target="blank" href="https://norseorganics.co/pages/ingredients">
+            Learn more about ingredient levels
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-chevron-right"
+              style="fill: none;stroke: currentColor;"
+              role="presentation"
+            >
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  function toggleAccordion(event) {
+    // Get the accordion group and all details elements
+    const accordionGroup = document.getElementById('faq-accordion-group');
+    const allDetails = accordionGroup.querySelectorAll('details');
+    const clickedSummary = event.currentTarget;
+    const clickedDetails = clickedSummary.parentElement;
+
+    // Close all other accordions
+    allDetails.forEach(details => {
+      if (details !== clickedDetails) {
+        details.removeAttribute('open');
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("toggle-ingredients");
+    const toggleBtnArrow = document.querySelector("#toggle-ingredients .arrow-icon");
+    const ingredientsSection = document.getElementById("ingredients-section");
+
+    toggleBtn.addEventListener("click", function () {
+      const isVisible = ingredientsSection.style.display === "block";
+      ingredientsSection.style.display = isVisible ? "none" : "block";
+      toggleBtnArrow.classList.toggle("rotate-arrow")
+    });
+  });
+</script>
+
+<style>
+    .link-ingredients-page{
+      cursor: pointer;
+      display: flex;
+      row-gap: 13px;
+      position: relative;
+      max-width: 100%;
+      min-width: auto;
+      align-self: stretch;
+      column-gap: 13px;
+      flex-basis: auto;
+      margin-top: 20px;
+      min-height: auto;
+      align-items: center;
+      flex-shrink: 0;
+      justify-content: center;
+      font-family: inherit;
+      letter-spacing: 0px;
+      font-size: 16px;
+      text-transform: uppercase;
+    }
+
+    .rotate-arrow{
+      transform: rotate(90deg);
+      display: inline-table;
+    }
+    div#shopify-section-template--25062866059606__accordin_section_EWaqVD .faq-section__wrapper {
+      background-image: url(https://cdn.shopify.com/s/files/1/0485/7787/2027/files/Slice_13.png?v=1746017716);
+  }
+    .faq-section__wrapper{
+    background-image: url(https://cdn.shopify.com/s/files/1/0485/7787/2027/files/11D.png?v=1744891583);
+    background-size: cover;
+  }
+    .faq-section__container {
+      max-width: 1200px;
+      width: 90%;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .faq-section__header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+  .faq-section__heading {
+      font-family: Migra;
+      font-weight: 800;
+      font-size: 50px;
+      line-height: 50px;
+      max-width: 517px;
+       margin: 0px auto;
+      color: black;
+      letter-spacing: 0;
+      text-align: center;
+      vertical-align: middle;
+  }
+
+  .faq-section__description {
+      font-family: Mulish;
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 40px;
+      letter-spacing: 0;
+      max-width: 927px;
+      margin: 0px auto;
+      text-align: center;
+      vertical-align: middle;
+  }
+
+    .faq-section__divider {
+      border: 0;
+      border-top: 1px solid currentColor;
+      opacity: 0.2;
+      margin-bottom: 32px;
+    }
+
+    .faq-section__highlight {
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      margin-bottom: 32px;
+    }
+
+    /* Content layout */
+    .faq-section__content {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+
+    }
+
+    @media (min-width: 900px) {
+    .faq-section__content {
+      flex-direction: row;
+      align-items: center;
+      gap: 60px;
+      padding: 50px 30px;
+  }
+      .faq-section__heading {
+      margin: 30px auto;
+      }
+
+     .faq-section__image-wrapper, .faq-section__text-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+      .faq-section__image {
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 430px !important;
+  }
+    }
+
+   .faq-section__subheading {
+      font-family: Migra;
+      font-weight: 800;
+      font-size: 40px;
+      line-height: 100%;
+      letter-spacing: 0;
+      color: black;
+      text-align: center;
+      margin-bottom: 16px;
+      vertical-align: middle;
+  }
+
+   .faq-section__text, .faq-section__benefits {
+      margin-bottom: 16px;
+      font-family: PP Mori;
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 40px;
+      letter-spacing: 0;
+      vertical-align: middle;
+  }
+
+    .faq-section__benefits ul {
+      list-style-type: disc;
+      padding-left: 24px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+  .faq-section__benefits li {
+      margin-bottom: 4px;
+      font-family: Mulish;
+      font-size: 22px;
+      line-height: 40px;
+      letter-spacing: 0;
+      vertical-align: middle;
+  }
+
+  .faq-section__link {
+      display: inline-flex;
+      align-items: center;
+      font-family: Apercu Mono;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 15px;
+      text-align: center;
+      vertical-align: middle;
+      text-transform: uppercase;
+      transition: opacity 0.2s ease;
+  }
+
+    .faq-section__link:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+
+    .faq-section__link-icon {
+      width: 16px;
+      height: 16px;
+      margin-left: 4px;
+    }
+
+    /* Accordion styles */
+    .faq-section__blocks {
+      max-width: 1160px;
+    }
+
+
+    .faq-section__details {
+      display: block;
+    }
+
+  .faq-section__summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      border-bottom: 1px solid currentColor;
+      padding: 30px;
+      list-style: none;
+  }
+
+    .faq-section__summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-section__accordion-title {
+      font-family: Apercu Mono;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 100%;
+      letter-spacing: 0;
+      vertical-align: middle;
+      text-transform: uppercase;
+    }
+
+    .faq-section__accordion-icon {
+      position: relative;
+      width: 20px;
+      height: 20px;
+    }
+
+    .faq-section__accordion-svg {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .faq-section__accordion-plus {
+      opacity: 1;
+    }
+
+    .faq-section__accordion-minus {
+      opacity: 0;
+    }
+
+    .faq-section__details[open] .faq-section__accordion-plus {
+      opacity: 0;
+    }
+
+    .faq-section__details[open] .faq-section__accordion-minus {
+      opacity: 1;
+    }
+
+   .faq-section__accordion-content {
+      font-size: 14px;
+  }
+
+    /* Benefit block styles */
+    .faq-section__benefit-block {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .faq-section__benefit-icon-wrapper {
+      margin-bottom: 16px;
+    }
+
+    .faq-section__benefit-icon {
+      height: 48px;
+      width: auto;
+    }
+
+    /* CTA styles */
+    .faq-section__cta-wrapper {
+      text-align: center;
+      margin-top: 48px;
+    }
+
+  .faq-section__cta-link {
+      display: inline-flex;
+      align-items: center;
+      font-family: Apercu Mono;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 100%;
+      color: black !important;
+      letter-spacing: 0;
+      text-align: center;
+      vertical-align: middle;
+      text-transform: uppercase;
+      transition: opacity 0.2s ease;
+  }
+
+    .faq-section__cta-link:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+
+    .faq-section__cta-icon {
+      width: 16px;
+      height: 16px;
+      margin-left: 8px;
+    }
+  @media (max-width: 768px) {
+    div#shopify-section-template--25062866059606__accordin_section_EWaqVD .faq-section__wrapper {
+      background-image: url(https://cdn.shopify.com/s/files/1/0485/7787/2027/files/Slice_13.png?v=1746017716);
+  }
+  .faq-section__wrapper {
+      background-image: url(https://cdn.shopify.com/s/files/1/0485/7787/2027/files/11P.png?v=1744893593);
+      background-size: cover;
+  }
+     .link-ingredients-page{
+       font-size:12px;
+     }
+     .link-ingredients-page svg{
+       width:18px;
+     }
+  }
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .faq-section__container {
+        padding:0px;
+      }
+      .faq-section__accordion-title{
+         font-size: 16px;
+  }
+      .faq-section__text p {
+      text-align: center;
+  }
+      .faq-section__subheading {
+      font-size: 26px;
+  }
+   .faq-section__heading {
+      font-size: 28px;
+      line-height: 30px;
+      margin-bottom: 20px;
+  }
+      .faq-section__text, .faq-section__benefits , .faq-section__benefits li  {
+      font-size: 18px;
+  }
+      .faq-section__text-content {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+  }
+      .faq-section__link{
+        padding-bottom: 30px;
+
+  }
+      .faq-section__image-wrapper {
+      padding-top: 30px;
+      text-align: center;
+  }
+      .faq-section__summary{
+        padding: 15px 30px;
+      }
+
+
+      .faq-section__wrapper {
+        padding-left: 0px;
+        padding-right: 0px;
+      }
+
+      .faq-section__heading {
+        font-size: 28px;
+
+      }
+
+      .faq-section__description {
+      font-family: Mulish;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 30px;
+      letter-spacing: 0;
+      text-align: center;
+      vertical-align: middle;
+  }
+    }
+
+    .s-info-blocks{display:block}@media screen and (min-width: 768px){.s-info-blocks{background-image:url("./background.png");background-repeat:no-repeat;background-size:cover;background-position:bottom}}.s-info-blocks__container{padding:0 20px;margin:0 auto;max-width:910px}.s-info-blocks__title{margin:0}.s-info-blocks__info-blocks-wrapper{margin:20px 0 0;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}@media screen and (min-width: 768px){.s-info-blocks__info-blocks-wrapper{margin:40px 0 0}}.s-info-blocks__info{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;gap:15px;padding:20px 0;border-bottom:.5px solid #1f1f1f}.s-info-blocks__info:first-child{padding-top:0}@media screen and (min-width: 768px){.s-info-blocks__info{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-align:center;-ms-flex-align:center;align-items:center}}.s-info-blocks__top{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;gap:15px}@media screen and (min-width: 768px){.s-info-blocks__top{width:100%;max-width:40%;-ms-flex-negative:0;flex-shrink:0}}.s-info-blocks__image-wrapper{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-ms-flex-negative:0;flex-shrink:0;max-width:60px}@media screen and (min-width: 768px){.s-info-blocks__image-wrapper{max-width:85px}}.s-info-blocks__image-wrapper>img{display:block;width:100%}.s-info-blocks__titles-wrapper{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}@media screen and (min-width: 768px){.s-info-blocks__titles-wrapper{row-gap:10px}}.s-info-blocks__titles-wrapper>h4{margin:0;color:#1f1f1f;font-family:var(--font-body-primary);font-size:16px;font-style:normal;font-weight:500;line-height:normal;letter-spacing:1.44px;text-transform:uppercase}@media screen and (min-width: 768px){.s-info-blocks__titles-wrapper>h4{font-size:14.982px;font-weight:500;letter-spacing:1.348px}}.s-info-blocks__titles-wrapper>h3{margin:0;color:#1f1f1f;font-family:var(--font-heading);font-size:20px;font-style:italic;font-weight:400;line-height:120%;text-transform:capitalize}@media screen and (min-width: 768px){.s-info-blocks__titles-wrapper>h3{font-size:23px}}.s-info-blocks__text p{color:#1f1f1f;font-family:var(--font-body-primary);font-size:18px;font-style:normal;font-weight:500;line-height:120%}.s-info-blocks__text-blocks-wrapper{margin:20px 0 0;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-ms-flex-align:center;align-items:center;row-gap:16px}@media screen and (min-width: 768px){.s-info-blocks__text-blocks-wrapper{margin:30px 0 0}}.s-info-blocks__faq-item.is-open .s-info-blocks__faq-content{grid-template-rows:1fr}.s-info-blocks__faq-item.is-open .s-info-blocks__faq-title>svg{-webkit-transform:rotate(-90deg);transform:rotate(-90deg)}.s-info-blocks__faq-title,.s-info-blocks__link{width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-column-gap:10px;-moz-column-gap:10px;column-gap:10px;color:#e98044;text-align:center;font-family:var(--font-body-primary);font-size:16px;font-style:normal;font-weight:500;line-height:14px;letter-spacing:1.4px;text-decoration-line:underline !important;text-decoration-thickness:.3px !important;text-underline-offset:1.5px !important;text-transform:uppercase;cursor:pointer}.s-info-blocks__faq-title{margin:0 auto}.s-info-blocks__faq-title>svg{-webkit-transition:all 250ms;transition:all 250ms;-webkit-transform:rotate(90deg);transform:rotate(90deg)}.s-info-blocks__faq-content{display:grid;grid-template-rows:1fr;-webkit-transition:250ms grid-template-rows ease;transition:250ms grid-template-rows ease;transition:250ms grid-template-rows ease, 250ms -ms-grid-rows ease}.s-info-blocks__faq-content span{color:#1f1f1f;font-family:var(--font-body-primary);font-size:16px;font-weight:600;line-height:19.2px;text-align:left}.s-info-blocks__faq-content svg{min-width:13px;height:20px;min-width:20px}.s-info-blocks__faq-content h3{margin:15px 0 5px !important;color:#1e262a;font-family:var(--font-body-primary);font-size:16px;font-weight:600;line-height:19.2px;text-align:left; padding-bottom: 10px;}.s-info-blocks__faq-content>div>div>div{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-column-gap:10px;-moz-column-gap:10px;column-gap:12px;padding-bottom: 7px;}.s-info-blocks__faq-content>div{overflow:hidden}
+    .text-point p{
+      font-size:15px;
+      text-transform: uppercase;
+      font-family: "Apercu Mono Pro", " sans-serif";
+    }
+    .point-heading{
+      font-size:18px;
+    }
+    .s-info-blocks__faq-content h3 {
+      margin: 15px 0 10px !important;
+      color: #000000;
+      font-family: 'Mulish';
+      font-size: 18px;
+      line-height: 19.2px;
+      text-align: left;
+      font-weight: bold;
+      letter-spacing: normal;
+  }
+    .view-button-container {
+      text-align: center;
+      margin: 50px 0 30px;
+      font-family: 'Apercu Mono Pro';
+      font-size: 16px;
+      font-weight: 400;
+  }
+    #toggle-ingredients{
+      font-family: "Apercu Mono Pro", " sans-serif" !important;
+    }
+    @media (max-width:786px){
+        .text-point p{
+          font-size:14px;
+        }
+    }
+</style>
+
+{% schema %}
+{
+  "name": "FAQ Section",
+  "class": "faq-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "How the Muscle & <br> Joint Builder works"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>We created a high-performance balm combining pharmaceutical-grade science and nature's purest and most potent ingredients...</p>"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#f4dccc"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#d94f2b"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 48
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show divider between sections",
+      "default": true
+    },
+        {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "View the full ingredients list"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA URL"
+    },
+  ],
+  "blocks": [
+    {
+        "type": "ingredient_points",
+        "name": "Ingredient Points",
+        "settings": [
+          {
+            "type": "text",
+            "id": "ball_color",
+            "label": "Ball Color (hex)"
+          },
+          {
+            "type": "richtext",
+            "id": "content",
+            "label": "Text Point"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "name": "Heading",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading"
+          }
+        ]
+      },
+    {
+      "type": "ingredients",
+      "name": "Ingredients",
+      "settings":[
+
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Accordion Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "accordion_title",
+          "label": "Accordion Title",
+          "default": "Accordion Title"
+        },
+      {
+      "type": "text",
+      "id": "herb_title",
+      "label": "Herb Title",
+      "default": "Peppermint"
+    },
+            {
+      "type": "image_picker",
+      "id": "herb_image",
+      "label": "Herb Image"
+    },
+    {
+      "type": "richtext",
+      "id": "herb_description",
+      "label": "Herb Description",
+      "default": "<p>Proven to increase power and strength...it showed:</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "herb_benefits",
+      "label": "Herb Benefits",
+      "default": "<ul><li>36% increase in grip strength</li><li>25% more time before exhaustion</li><li>22% increase in power</li><li>11% higher metabolism</li><li>10% increase in VO2 uptake</li></ul>"
+    },
+    {
+      "type": "text",
+      "id": "read_studies_text",
+      "label": "Read Studies Text",
+      "default": "Read Studies"
+    },
+    {
+      "type": "url",
+      "id": "read_studies_url",
+      "label": "Read Studies URL"
+    },
+    {
+      "type": "text",
+      "id": "muscle_text",
+      "label": "Muscle Highlight Text",
+      "default": "Helps Build Muscle"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "View the full ingredients list"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show divider between sections",
+      "default": true
+    }
+      ]
+    },
+    {
+      "type": "benefit",
+      "name": "Additional Benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "benefit_title",
+          "label": "Benefit Title",
+          "default": "Performance Boost"
+        },
+        {
+          "type": "richtext",
+          "id": "benefit_description",
+          "label": "Benefit Description",
+          "default": "<p>Detailed description of this benefit.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "benefit_icon",
+          "label": "Benefit Icon (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Section",
+      "category": "Custom Sections"
+    }
+  ]
+}
+{% endschema %}

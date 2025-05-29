@@ -1,0 +1,489 @@
+{% comment %}
+  live link: https://www.sumamind.com/
+{% endcomment %}
+
+<div class="bento-grid-section">
+  <div class="container">
+    <h2 class="heading">{{ section.settings.heading }}</h2>
+    <div class="bento-grid desktop-v">
+      <div class="first">
+        <div class="top1">
+          <div class="bento-block">
+            <a href="{{ section.settings.link1 }}">
+              <img src="{{ section.settings.image1 | image_url }}" alt="">
+              {% if section.settings.text1 != blank %}
+                <div class="bento-overlay">
+                  <p>{{ section.settings.text1 }}</p>
+                </div>
+              {% endif %}
+            </a>
+          </div>
+        </div>
+        <div class="bottom1">
+          <div class="bento-block">
+            <a href="{{ section.settings.link2 }}">
+              <img src="{{ section.settings.image2 | image_url }}" alt="">
+              {% if section.settings.text2 != blank %}
+                <div class="bento-overlay">
+                  <p>{{ section.settings.text2 }}</p>
+                </div>
+              {% endif %}
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="second">
+        <div class="full">
+          <div class="bento-block">
+            <a href="{{ section.settings.link3 }}">
+              <img src="{{ section.settings.image3 | image_url }}" alt="">
+              {% if section.settings.text3 != blank %}
+                <div class="bento-overlay">
+                  <p>{{ section.settings.text3 }}</p>
+                </div>
+              {% endif %}
+            </a>
+          </div>
+        </div>
+        <div class="second-bottom">
+          <div class="se-left">
+            <div class="bento-block">
+              <a href="{{ section.settings.link4 }}">
+                <img src="{{ section.settings.image4 | image_url }}" alt="">
+                {% if section.settings.text4 != blank %}
+                  <div class="bento-overlay">
+                    <p>{{ section.settings.text4 }}</p>
+                  </div>
+                {% endif %}
+              </a>
+            </div>
+          </div>
+          <div class="se-right">
+            <div class="se-five">
+              <div class="bento-block">
+                <a href="{{ section.settings.link5 }}">
+                  <img src="{{ section.settings.image5 | image_url }}" alt="">
+                  {% if section.settings.text5 != blank %}
+                    <div class="bento-overlay">
+                      <p>{{ section.settings.text5 }}</p>
+                    </div>
+                  {% endif %}
+                </a>
+              </div>
+            </div>
+            <div class="se-six">
+              <div class="bento-block">
+                <a href="{{ section.settings.link6 }}">
+                  <img src="{{ section.settings.image6 | image_url }}" alt="">
+                  {% if section.settings.text6 != blank %}
+                    <div class="bento-overlay">
+                      <p>{{ section.settings.text6 }}</p>
+                    </div>
+                  {% endif %}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="third">
+        <div class="last-seven">
+          <div class="bento-block">
+            <a href="{{ section.settings.link7 }}">
+              <img src="{{ section.settings.image7 | image_url }}" alt="">
+              {% if section.settings.text7 != blank %}
+                <div class="bento-overlay">
+                  <p>{{ section.settings.text7 }}</p>
+                </div>
+              {% endif %}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bento-grid tablet-v">
+      <a href="/collections/all-products"
+        ><img src="https://cdn.shopify.com/s/files/1/0727/3742/3687/files/Group_10.png?v=1745600322"
+      ></a>
+    </div>
+    <div class="bento-grid mobile-v">
+      <a href="/collections/all-products"
+        ><img src="https://cdn.shopify.com/s/files/1/0727/3742/3687/files/mobile-ins.png?v=1745941746"
+      ></a>
+    </div>
+  </div>
+</div>
+
+<style>
+  div#shopify-section-template--24973454049607__meditation_grid_zz7nKY .bento-grid-section {
+    background: rgba(246, 245, 244, 1);
+  }
+
+  .bento-grid-section {
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: #f6f5f4;
+  }
+
+  .bento-grid-section .heading {
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 74px;
+    margin-bottom: 40px;
+    font-family: 'Perfectly Nineties';
+    color: black;
+  }
+
+  .bento-block {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    display: block;
+    text-decoration: none;
+    height: 100%;
+  }
+
+  .bento-block img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    /* transition: transform 0.3s ease; */
+    display: block;
+  }
+
+  .bento-overlay {
+    position: absolute;
+    inset: 0;
+    /* background: rgba(0, 0, 0, 0.4); */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 24px;
+  }
+
+  .bento-overlay p {
+    color: white;
+    font-family: 'Perfectly Nineties';
+    font-weight: normal;
+    font-size: 28px;
+    margin: 0;
+    text-align: left;
+    max-width: 215px;
+  }
+
+  .bento-grid {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+  }
+
+  .first {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .second {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .third {
+    display: flex;
+  }
+
+  .se-right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .second-bottom {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .bottom1 img {
+    max
+    ht: 400px;
+  }
+
+  .bento-grid-section .container {
+    max-width: 1280px;
+  }
+
+  @media screen and (min-width: 1750px) {
+    .bento-grid-section .container {
+      max-width: 1600px;
+    }
+    .top1 img {
+      max-height: 506px;
+    }
+  }
+
+  @media only screen and (max-width: 1422px) and (min-width: 768px) {
+    .bento-overlay p {
+      font-size: 18px;
+    }
+
+    .first,
+    .second,
+    .third,
+    .se-right {
+      gap: 15px;
+    }
+    .bento-grid.desktop-v {
+      gap: 15px;
+      display: none;
+    }
+
+    .bento-grid.tablet-v {
+      display: block;
+    }
+  }
+
+  @media screen and (min-width: 1423px) {
+    .bento-grid.tablet-v {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .bento-grid.mobile-v {
+      display: none;
+    }
+    .bento-grid-section {
+      padding: 60px 20px 120px;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .bento-grid.tablet-v {
+      display: none;
+    }
+    .bento-grid.desktop-v {
+      display: none;
+    }
+    .bento-overlay p {
+      color: white;
+      font-family: 'Perfectly Nineties';
+      font-weight: normal;
+      font-size: 20px;
+      max-width: 165px;
+    }
+    .bento-grid-section .heading {
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 34px;
+      margin-bottom: 40px;
+      font-family: 'Perfectly Nineties';
+      color: black;
+    }
+    .mob-top {
+      display: flex;
+      gap: 10px;
+    }
+    .bento-grid-section .container {
+      margin: 0;
+    }
+    .bento-grid {
+      flex-direction: column;
+    }
+    .mob-bottom {
+      display: flex;
+      gap: 10px;
+    }
+    .mob-left {
+      display: flex;
+      gap: 10px;
+      flex-direction: column;
+      width: 50%;
+    }
+    .mob-right {
+      display: flex;
+      gap: 10px;
+      flex-direction: column;
+      width: 50%;
+    }
+    .mob-top2 img {
+      max-height: 232px;
+    }
+    .bento-block {
+      height: auto;
+    }
+    .mob-top1 {
+      width: 50%;
+    }
+    .mob-top2 {
+      width: 50%;
+    }
+    .mob-top1 img {
+      max-height: 232px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Bento Grid IW",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Make Meditation Happen</p>"
+    },
+    {
+      "type": "header",
+      "content": "First image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image1",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "text1",
+      "label": "Overlay Text",
+      "default": "fadasd"
+    },
+    {
+      "type": "url",
+      "id": "link1",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Second image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image2",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "text2",
+      "label": "Overlay Text",
+      "default": "fadasd"
+    },
+    {
+      "type": "url",
+      "id": "link2",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Third image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image3",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "text3",
+      "label": "Overlay Text",
+      "default": "fadasd"
+    },
+    {
+      "type": "url",
+      "id": "link3",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Fourth image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image4",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "text4",
+      "label": "Overlay Text",
+      "default": "fadasd"
+    },
+    {
+      "type": "url",
+      "id": "link4",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Fifth image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image5",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "text5",
+      "label": "Overlay Text",
+      "default": "fadasd"
+    },
+    {
+      "type": "url",
+      "id": "link5",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Sixth image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image6",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "text6",
+      "label": "Overlay Text",
+      "default": "fadasd"
+    },
+    {
+      "type": "url",
+      "id": "link6",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Seventh image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image7",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "text7",
+      "label": "Overlay Text",
+      "default": "fadasd"
+    },
+    {
+      "type": "url",
+      "id": "link7",
+      "label": "Link URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bento Grid IW",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,317 @@
+<section id="guarantee-{{ section.id }}">
+  {%- if section.settings.show_top_border -%}
+    <img class="upper-border-svg" src="{{ section.settings.top_border_image | img_url: 'master' }}" alt="{{ section.settings.top_border_image.alt }}" loading="lazy">
+  {%- endif -%}
+
+  <h3 class="title">{{ section.settings.title | replace: ',', '<br class="break-mobile"/>' }}</h3>
+
+  <div class="text-icons">
+    {%- for block in section.blocks -%}
+      <div class="tile" {{ block.shopify_attributes }}>
+        {%- if block.settings.icon != blank -%}
+          <img src="{{ block.settings.icon | img_url: 'master' }}" class="icon" alt="{{ block.settings.title | escape }}" loading="lazy">
+        {%- endif -%}
+        <h5 class="s-title">{{ block.settings.title }}</h5>
+        <p class="s-text">{{ block.settings.text }}</p>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
+    <a href="{{ section.settings.button_link }}" class="shop-now link-pointer btn-height">
+      {{ section.settings.button_text }}
+    </a>
+  {%- endif -%}
+</section>
+
+{%- style -%}
+  #guarantee-{{ section.id }} {
+    background: #020030;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+  
+  #guarantee-{{ section.id }} .title {
+    margin-top: 4rem;
+    font-size: 40px;
+    text-align: center;
+    text-transform: none;
+    color: #ffffff;
+  }
+  
+  .text-icons {
+    display: flex;
+    gap: 6rem;
+    margin-top: 5rem;
+  }
+  
+  .text-icons .tile {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
+    max-width: 363px;
+    width: 363px;
+  }
+  
+  #guarantee-{{ section.id }} .tile .s-title {
+    font-size: 20px;
+    text-transform: capitalize;
+    letter-spacing: 0;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  
+  .tile .icon {
+    width: 60px;
+  }
+  
+  #guarantee-{{ section.id }} .tile .s-text {
+    font-size: 18px;
+    letter-spacing: 0;
+    color: #ffffff;
+  }
+  
+  #guarantee-{{ section.id }} .shop-now {
+    background: #00B192;
+    color: #ffffff;
+    width: 410px;
+    text-align: center;
+    padding: 14px;
+    border-radius: 7px;
+    margin-top: 78px;
+    margin-bottom: 5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .break-mobile {
+    display: none;
+  }
+
+  @media (max-width: 1310px) {
+    .tile .s-title {
+      font-size: 18px;
+    }
+    .tile .s-text {
+      font-size: 14px;
+    }
+    .text-icons {
+      gap: 2rem;
+    }
+    .tile .icon {
+      width: 44px;
+    }
+    .text-icons .tile {
+      max-width: 334px;
+    }
+    #guarantee-{{ section.id }} .shop-now {
+      width: 372px;
+      padding: 10px;
+    }
+  }
+  
+  @media (max-width: 1110px) {
+    #guarantee-{{ section.id }} .title {
+      font-size: 28px;
+    }
+    .tile .s-title {
+      font-size: 16px;
+    }
+    .tile .s-text {
+      font-size: 12px;
+    }
+    #guarantee-{{ section.id }} .shop-now {
+      font-size: 16px;
+      padding: 8px;
+      width: 346px;
+    }
+    .text-icons .tile {
+      max-width: 295px;
+    }
+  }
+  
+  @media (max-width: 932px) {
+    #guarantee-{{ section.id }} .title {
+      font-size: 20px;
+    }
+    .tile .s-text {
+      font-size: 12px;
+    }
+    .text-icons {
+      gap: 2rem;
+    }
+    .tile .icon {
+      width: 42px;
+    }
+    .text-icons .tile {
+      max-width: 250px;
+    }
+    #guarantee-{{ section.id }} .shop-now {
+      width: 330px;
+    }
+  }
+  
+  @media (max-width: 880px) {
+    .text-icons .tile {
+      max-width: 210px;
+    }
+    #guarantee-{{ section.id }} .shop-now {
+      margin-top: 46px;
+      margin-bottom: 4rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .text-icons {
+      flex-flow: column;
+      margin-top: 2rem;
+    }
+    .text-icons .tile {
+      max-width: 400px;
+    }
+    .text-icons {
+      margin-bottom: 3rem;
+    }
+    #guarantee-{{ section.id }} .shop-now {
+      display: none;
+    }
+    #guarantee-{{ section.id }} .title {
+      padding: 0 25px;
+    }
+    .tile .icon {
+      width: 40px;
+    }
+    .tile .s-title {
+      font-size: 18px;
+    }
+    .tile .s-text {
+      font-size: 16px;
+    }
+    .break-mobile {
+      display: block;
+    }
+  }
+  
+  @media (max-width: 390px) {
+    .text-icons .tile {
+      max-width: 250px;
+    }
+  }
+{%- endstyle -%}
+
+
+
+{% schema %}
+{
+  "name": "Features Grid",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Top Border"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_top_border",
+      "label": "Show Top Border",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "top_border_image",
+      "label": "Top Border Image"
+    },
+    {
+      "type": "header",
+      "content": "Title Settings"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "EXPERIENCE, Good InTents TENTS",
+      "info": "Use commas to indicate line breaks"
+    },
+    {
+      "type": "header",
+      "content": "Button Settings"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_button_mobile",
+      "label": "Hide Button on Mobile",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Feature description goes here."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Features Grid",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Lifetime Airframe Warranty",
+            "text": "High-quality material for long-term durability and sustainable circular economy"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "45-day Return Policy",
+            "text": "Returns must be unused, undamaged, and in original packaging"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Fast & Secure Shipping",
+            "text": "Fast & secure tent delivery"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
