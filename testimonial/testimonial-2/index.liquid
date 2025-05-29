@@ -1,0 +1,227 @@
+{% comment %}
+  live link: https://norseorganics.co/products/6-in-1-daily-glow-moisturize
+{% endcomment %}
+
+<section class="testimonials-section">
+  {% if section.settings.section_title %}
+    <h2 class="testimonials-heading">{{ section.settings.section_title }}</h2>
+  {% endif %}
+
+  <div class="testimonials-grid">
+    {% for block in section.blocks %}
+      <div class="testimonial-card" data-index="{{ forloop.index }}">
+        {% if block.settings.image %}
+          <img
+            src="{{ block.settings.image | img_url: '100x100' }}"
+            alt="{{ block.settings.author }}"
+            class="testimonial-image"
+          >
+        {% endif %}
+        <div class="testimonial-text">
+          <h3 class="testimonial-title">{{ block.settings.title }}</h3>
+          <p class="testimonial-content">{{ block.settings.content }}</p>
+          <p class="testimonial-author">
+            ★★★★★ <em>{{ block.settings.author }}</em>
+          </p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+  .testimonials-section {
+    background-image: url(https://cdn.shopify.com/s/files/1/0485/7787/2027/files/4D.png?v=1744891933);
+    background-size: cover;
+    padding: 68px 20px 28px;
+    text-align: center;
+  }
+  .testimonials-heading {
+    font-family: 'Migra';
+    color: black;
+    font-size: 50px;
+    margin-bottom: 50px;
+  }
+  h3.testimonial-title {
+    font-family: 'Migra';
+    color: black;
+    line-height: 20px;
+    font-size: 20px;
+  }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 1160px;
+    margin: 0 auto;
+  }
+  .testimonial-content {
+    font-family: 'Mulish';
+    font-size: 16px;
+    margin-top: 5px;
+  }
+
+  .testimonial-card {
+    padding: 20px;
+    border: 1.02px solid #a3a3a3;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+  .testimonial-image {
+    width: 100px;
+    border-radius: 50%;
+    margin-right: 15px;
+    flex-shrink: 0; /* Prevent image from shrinking */
+  }
+  .testimonial-text {
+    text-align: left;
+    flex-grow: 1; /* Allow text to fill remaining space */
+  }
+  .testimonial-title {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  .testimonial-content {
+    font-size: 16px;
+    margin-top: 5px;
+  }
+  .testimonial-author {
+    margin-top: 10px;
+    font-weight: bold;
+    /* font-style: italic; */
+  }
+
+  /* New grid layout for desktop */
+  @media (min-width: 768px) {
+    .testimonials-grid {
+      grid-template-columns: 2fr 2fr;
+      grid-auto-rows: 1fr;
+    }
+
+    /* Create a subgrid for the left side */
+    .testimonials-grid::before {
+      content: '';
+      display: grid;
+      grid-column: 1;
+      grid-row: 1 / span 3;
+      grid-template-rows: repeat(3, 1fr);
+    }
+
+    /* Position the first 3 items in left column */
+    .testimonial-card:nth-child(1) {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .testimonial-card:nth-child(2) {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .testimonial-card:nth-child(3) {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .testimonial-card:nth-child(4) {
+      grid-column: 2;
+      grid-row: 2 / span 2;
+    }
+    .testimonial-card:nth-child(5) {
+      grid-column: 1;
+      grid-row: 3;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .testimonials-section {
+      background-image: url(https://cdn.shopify.com/s/files/1/0485/7787/2027/files/4P.png?v=1744893591);
+      background-size: cover;
+      padding-top: 0px;
+    }
+    h2.testimonials-heading {
+      font-size: 37px;
+      margin-bottom: 24px;
+      line-height: 44px;
+      letter-spacing: 1.25px;
+    }
+    .testimonials-section {
+      padding: 0px 20px 50px 20px;
+    }
+  }
+</style>
+
+<script>
+  function updateTestimonialContent() {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const fourthCard = document.querySelector('.testimonial-card[data-index="4"] .testimonial-content');
+
+    if (fourthCard) {
+      // Store original content if not already stored
+      if (!fourthCard.dataset.original) {
+        fourthCard.dataset.original = fourthCard.innerText;
+      }
+
+      // Update text based on screen size
+      if (isMobile) {
+        fourthCard.innerText =
+          'This product, to my father and myself, has been a Godsend. He has struggled with back pain, mostly struggles as he’s gotten older. He has been asking for more ever since I bought it.';
+      } else {
+        fourthCard.innerText = fourthCard.dataset.original;
+      }
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', updateTestimonialContent);
+  window.addEventListener('resize', updateTestimonialContent);
+</script>
+
+{% schema %}
+{
+  "name": "Testimonials Section IW",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Customer Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Testimonial Title"
+        },
+        {
+          "type": "textarea",
+          "id": "content",
+          "label": "Testimonial Content"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Customer Name"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials Section IW",
+      "blocks": [
+        {
+          "type": "testimonial"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
